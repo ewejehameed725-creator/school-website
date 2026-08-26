@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Lagos State Model College Meiran</title>
+
+    <link rel="icon" type="image/jpg" href="images/school.jpg">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <section class="login-page">
+
+        <div class="login-box">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+                class="login-logo"
+            >
+
+            <p class="section-label">ADMIN PORTAL</p>
+
+            <h1>Administrator Login</h1>
+
+            <p class="login-description">
+                Authorized school staff can access the administration portal.
+            </p>
+
+            <form id="adminLoginForm">
+
+                <label for="admin-username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="admin-username"
+                    placeholder="Enter username"
+                    required
+                >
+                <label for="admin-password">Password</label>
+
+                 <div class="password-wrapper">
+
+                   <input
+                      type="password"
+                      id="admin-password"
+                     placeholder="Enter password"
+                      required
+                      >
+
+                    <button
+                     type="button"
+                     id="togglePassword"
+                     class="password-toggle"
+                      >
+                      👁️
+                     </button>
+
+                 </div>
+
+                <button type="submit" class="btn">
+                    Login
+                </button>
+
+            </form>
+
+            <a href="index.html" class="back-home">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

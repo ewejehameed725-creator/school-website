@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Result | Lagos State Model College Meiran</title>
+
+    <link rel="icon" type="image/jpg" href="images/school.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="result-header">
+
+        <div class="result-brand">
+
+            <img src="images/school.jpg" alt="School Logo">
+
+            <div>
+                <h2>Lagos State Model College Meiran</h2>
+                <p>Student Result Portal</p>
+            </div>
+
+        </div>
+
+        <a href="student-login.html" class="result-logout">
+            Logout
+        </a>
+
+    </header>
+
+
+    <!-- Main Result Area -->
+    <main class="result-page">
+
+        <div class="result-intro">
+
+            <p class="result-label">STUDENT RESULT PORTAL</p>
+
+            <h1>Official Student Result</h1>
+
+            <p>
+                Your official result uploaded by the school
+                administration is available below.
+            </p>
+
+        </div>
+
+
+        <!-- Student Information -->
+        <section class="student-information">
+
+            <div>
+                <span>Student Name</span>
+                <strong id="studentName">
+                    Student Name
+                </strong>
+            </div>
+
+            <div>
+                <span>Admission Number</span>
+                <strong id="admissionNumber">
+                    Admission Number
+                </strong>
+            </div>
+
+            <div>
+                <span>Class</span>
+                <strong id="studentClass">
+                    SS2
+                </strong>
+            </div>
+
+            <div>
+                <span>Term</span>
+                <strong id="studentTerm">
+                    First Term
+                </strong>
+            </div>
+
+        </section>
+
+
+        <!-- Official Result -->
+        <section class="official-result">
+
+            <div class="result-icon">
+                📄
+            </div>
+
+            <h2>Official Result</h2>
+
+            <p>
+                This is the official result uploaded by
+                the school administration.
+            </p>
+
+
+            <div class="result-actions">
+
+                <a href="#" class="result-btn primary">
+                    👁 View Result
+                </a>
+
+                <a href="#" class="result-btn">
+                    ⬇ Download
+                </a>
+
+                <button
+                    onclick="window.print()"
+                    class="result-btn"
+                >
+                    🖨 Print
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <div class="result-notice">
+
+            <strong>Important:</strong>
+
+            <p>
+                If you notice any problem with your result,
+                please contact the school administration.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="result-footer">
+
+        <p>
+            © 2026 Lagos State Model College Meiran.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+    <script>
+        // ===============================
+        // LOAD STUDENT RESULT
+        // ===============================
+    
+        const savedResults =
+            JSON.parse(
+                localStorage.getItem("schoolResults")
+            ) || [];
+    
+        // Get the student's admission number
+        // from the login system
+        const loggedInStudent =
+            JSON.parse(
+                localStorage.getItem("loggedInStudent")
+            );
+    
+    
+        if (loggedInStudent) {
+    
+            const studentResult = savedResults.find(
+                result =>
+                    result.admissionNumber.toLowerCase() ===
+                    loggedInStudent.admissionNumber.toLowerCase()
+            );
+    
+    
+            if (studentResult) {
+    
+                document.getElementById("studentName").textContent =
+                    studentResult.studentName;
+    
+                document.getElementById("admissionNumber").textContent =
+                    studentResult.admissionNumber;
+    
+                document.getElementById("studentClass").textContent =
+                    studentResult.studentClass;
+    
+                document.getElementById("studentTerm").textContent =
+                    studentResult.term;
+    
+    
+                // View Result
+                const viewButton =
+                    document.querySelector(".result-btn.primary");
+    
+                viewButton.href =
+                    studentResult.fileData;
+    
+                viewButton.target = "_blank";
+    
+    
+                // Download Result
+                const buttons =
+                    document.querySelectorAll(".result-btn");
+    
+                const downloadButton = buttons[1];
+    
+                downloadButton.href =
+                    studentResult.fileData;
+    
+                downloadButton.download =
+                    studentResult.fileName;
+    
+    
+            } else {
+    
+                alert(
+                    "Your result has not been uploaded yet. Please contact the school administration."
+                );
+    
+            }
+    
+        } else {
+    
+            alert(
+                "Student login information was not found."
+            );
+    
+            window.location.href =
+                "student-login.html";
+        }
+    </script>
+    
+    <script src="script.js"></script>
+
+</body>
+
+</html>

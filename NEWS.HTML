@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        News & Announcements | Lagos State Model College Meiran
+    </title>
+
+    <link
+        rel="icon"
+        type="image/jpg"
+        href="images/school.jpg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ==============================
+         PAGE LOADER
+    =============================== -->
+
+    <div id="pageLoader">
+
+        <div class="loader-content">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+                class="loader-logo"
+            >
+
+            <h2>
+                Lagos State Model College Meiran
+            </h2>
+
+            <p>
+                Loading school portal...
+            </p>
+
+            <div class="loader-spinner"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <header class="site-header">
+
+        <div class="header-container">
+
+
+            <!-- SCHOOL BRAND -->
+
+            <a
+                href="index.html"
+                class="school-brand"
+            >
+
+                <img
+                    src="images/school.jpg"
+                    alt="School Logo"
+                    class="school-logo"
+                >
+
+                <div class="school-name">
+
+                    <h2>
+                        Lagos State Model College Meiran
+                    </h2>
+
+                    <span>
+                        School Portal
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- DESKTOP NAVIGATION -->
+
+            <nav class="desktop-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="about.html">
+                    About
+                </a>
+
+                <a
+                    href="news.html"
+                    class="active"
+                >
+                    News & Announcements
+                </a>
+
+                <a href="gallery.html">
+                    Gallery
+                </a>
+
+                <a href="student-login.html">
+                    Student Portal
+                </a>
+
+                <a href="admin-login.html">
+                    Admin Portal
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                type="button"
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open navigation menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==============================
+         MOBILE OVERLAY
+    =============================== -->
+
+    <div
+        class="mobile-overlay"
+        id="mobileOverlay"
+    ></div>
+
+
+    <!-- ==============================
+         MOBILE SIDEBAR
+    =============================== -->
+
+    <aside
+        class="mobile-sidebar"
+        id="mobileSidebar"
+    >
+
+        <div class="sidebar-header">
+
+            <h3>
+                School Menu
+            </h3>
+
+            <button
+                type="button"
+                id="closeMenu"
+                class="close-menu"
+                aria-label="Close navigation menu"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <nav class="mobile-nav">
+
+            <a href="index.html">
+                🏠 Home
+            </a>
+
+            <a href="about.html">
+                ℹ️ About
+            </a>
+
+            <a href="news.html">
+                📰 News & Announcements
+            </a>
+
+            <a href="gallery.html">
+                🖼️ Gallery
+            </a>
+
+            <a href="student-login.html">
+                🎓 Student Portal
+            </a>
+
+            <a href="admin-login.html">
+                👨‍💼 Admin Portal
+            </a>
+
+            <a href="contact.html">
+                📞 Contact
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ==============================
+         NEWS SECTION
+    =============================== -->
+
+    <main>
+
+        <section
+            id="news"
+            class="news"
+        >
+
+            <div class="news-header">
+
+                <p class="section-label">
+                    LATEST UPDATES
+                </p>
+
+                <h1>
+                    News & Announcements
+                </h1>
+
+                <p class="section-intro">
+                    Stay informed about important school
+                    activities, events and announcements.
+                </p>
+
+            </div>
+
+
+            <!-- DYNAMIC NEWS CONTAINER -->
+
+            <div
+                class="news-container"
+                id="newsContainer"
+            >
+
+                <div class="news-loading">
+
+                    <div class="loader-spinner"></div>
+
+                    <p>
+                        Loading latest announcements...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==============================
+         SCRIPTS
+    =============================== -->
+
+    <script src="loading.js"></script>
+
+    <script src="news.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage News | Lagos State Model College Meiran</title>
+
+    <link rel="icon" type="image/jpg" href="images/school.jpg">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- PAGE LOADER -->
+
+    <div id="pageLoader">
+
+        <div class="loader-content">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+                class="loader-logo"
+            >
+
+            <h2>Lagos State Model College Meiran</h2>
+
+            <p>Loading school portal...</p>
+
+            <div class="loader-spinner"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HEADER -->
+
+    <header class="admin-header">
+
+        <div class="admin-brand">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+            >
+
+            <div>
+
+                <h2>School Administration</h2>
+
+                <p>News & Announcements</p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="admindashboard.html"
+            class="logout-btn"
+        >
+            ← Dashboard
+        </a>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="admin-dashboard">
+
+        <div class="dashboard-heading">
+
+            <p class="section-label">
+                ADMIN PORTAL
+            </p>
+
+            <h1>
+                News & Announcements
+            </h1>
+
+            <p>
+                Create and publish important school
+                news and announcements.
+            </p>
+
+        </div>
+
+
+        <!-- CREATE ANNOUNCEMENT -->
+
+        <section class="dashboard-card announcement-form-card">
+
+            <h2>
+                Create New Announcement
+            </h2>
+
+
+            <form id="announcementForm">
+
+
+                <!-- TITLE -->
+
+                <label for="announcement-title">
+                    Announcement Title
+                </label>
+
+                <input
+                    type="text"
+                    id="announcement-title"
+                    placeholder="Enter announcement title"
+                    required
+                >
+
+
+                <!-- CONTENT -->
+
+                <label for="announcement-content">
+                    Announcement Content
+                </label>
+
+                <textarea
+                    id="announcement-content"
+                    rows="8"
+                    placeholder="Write your announcement here..."
+                    required
+                ></textarea>
+
+
+                <!-- IMAGE -->
+
+                <label for="announcement-image">
+                    Image (Optional)
+                </label>
+
+                <input
+                    type="file"
+                    id="announcement-image"
+                    accept="image/*"
+                >
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn"
+                    id="publishAnnouncementBtn"
+                >
+                    Publish Announcement
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- EXISTING ANNOUNCEMENTS -->
+
+        <section class="announcement-list-section">
+
+            <div class="dashboard-heading">
+
+                <p class="section-label">
+                    PUBLISHED NEWS
+                </p>
+
+                <h2>
+                    Existing Announcements
+                </h2>
+
+            </div>
+
+
+            <div id="announcementList">
+
+                <p>
+                    Loading announcements...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="loading.js"></script>
+
+    <script src="announcements.js"></script>
+
+</body>
+
+</html>

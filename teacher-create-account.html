@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Teacher Account | Lagos State Model College Meiran</title>
+
+    <link rel="icon" type="image/jpg" href="images/school.jpg">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- PAGE LOADER -->
+
+    <div id="pageLoader">
+
+        <div class="loader-content">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+                class="loader-logo"
+            >
+
+            <h2>Lagos State Model College Meiran</h2>
+
+            <p>Loading teacher portal...</p>
+
+            <div class="loader-spinner"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HEADER -->
+
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a href="index.html" class="school-brand">
+
+                <img
+                    src="images/school.jpg"
+                    alt="School Logo"
+                    class="school-logo"
+                >
+
+                <div class="school-name">
+
+                    <h2>
+                        Lagos State Model College Meiran
+                    </h2>
+
+                    <span>
+                        School Portal
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- CREATE ACCOUNT -->
+
+    <section class="login-page">
+
+        <div class="login-box">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+                class="login-logo"
+            >
+
+            <p class="section-label">
+                TEACHER PORTAL
+            </p>
+
+            <h1>
+                Create Teacher Account
+            </h1>
+
+            <p class="login-description">
+                Create an account to access your class teacher dashboard.
+            </p>
+
+
+            <form id="teacherCreateAccountForm">
+
+
+                <!-- TEACHER NAME -->
+
+                <label for="teacher-name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="teacher-name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+
+                <!-- USERNAME -->
+
+                <label for="teacher-username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="teacher-username"
+                    placeholder="Create a username"
+                    required
+                >
+
+
+                <!-- CLASS -->
+
+                <label for="teacher-class">
+                    Class
+                </label>
+
+                <input
+                    type="text"
+                    id="teacher-class"
+                    placeholder="e.g. SS1A"
+                    required
+                >
+
+
+                <!-- PHONE -->
+
+                <label for="teacher-phone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="teacher-phone"
+                    placeholder="Enter phone number"
+                >
+
+
+                <!-- PASSWORD -->
+
+                <label for="teacher-password">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="teacher-password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        id="teacherPasswordToggle"
+                        class="password-toggle"
+                    >
+                        👁️
+                    </button>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <label for="teacher-confirm-password">
+                    Confirm Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="teacher-confirm-password"
+                        placeholder="Confirm your password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        id="teacherConfirmPasswordToggle"
+                        class="password-toggle"
+                    >
+                        👁️
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <a
+                href="admin-login.html"
+                class="back-home"
+            >
+                ← Back to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
+    <script src="loading.js"></script>
+
+</body>
+
+</html>

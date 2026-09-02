@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Dashboard | Lagos State Model College Meiran</title>
+
+    <link rel="icon" type="image/jpg" href="images/school.jpg">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- PAGE LOADER -->
+
+    <div id="pageLoader">
+
+        <div class="loader-content">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+                class="loader-logo"
+            >
+
+            <h2>Lagos State Model College Meiran</h2>
+
+            <p>Loading teacher portal...</p>
+
+            <div class="loader-spinner"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE OVERLAY -->
+
+    <div
+        class="teacher-overlay"
+        id="teacherOverlay">
+    </div>
+
+
+    <!-- SIDEBAR -->
+
+    <aside
+        class="teacher-sidebar"
+        id="teacherSidebar">
+
+        <div class="teacher-sidebar-header">
+
+            <img
+                src="images/school.jpg"
+                alt="School Logo">
+
+            <div>
+
+                <h3>Teacher Portal</h3>
+
+                <span>Class Teacher</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="teacher-nav">
+
+            <a
+                href="#"
+                class="teacher-nav-link active"
+                data-section="teacherDashboard">
+
+                🏠
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="teacher-nav-link"
+                data-section="studentManagement">
+
+                👨‍🎓
+                <span>Student Management</span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="teacher-nav-link"
+                data-section="attendance">
+
+                📅
+                <span>Attendance</span>
+
+            </a>
+
+
+            <a
+                href="manage result.html"
+                class="teacher-nav-link">
+
+                📊
+                <span>Upload Results</span>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="teacher-nav-link"
+                data-section="teacherProfile">
+
+                👤
+                <span>My Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="teacher-sidebar-bottom">
+
+            <a
+                href="index.html"
+                class="teacher-logout">
+
+                🚪
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="teacher-main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="teacher-topbar">
+
+            <button
+                type="button"
+                id="teacherMenuButton"
+                class="teacher-menu-button">
+
+                ☰
+
+            </button>
+
+
+            <div class="teacher-topbar-title">
+
+                <h2>Teacher Dashboard</h2>
+
+                <p>Lagos State Model College Meiran</p>
+
+            </div>
+
+
+            <div class="teacher-user">
+
+                <div class="teacher-user-icon">
+
+                    👨‍🏫
+
+                </div>
+
+                <div>
+
+                    <strong id="teacherDisplayName">
+                        Class Teacher
+                    </strong>
+
+                    <small id="teacherDisplayClass">
+                        Class
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section
+            id="teacherDashboard"
+            class="teacher-section active">
+
+            <div class="teacher-welcome">
+
+                <p class="section-label">
+                    TEACHER PORTAL
+                </p>
+
+                <h1>
+                    Welcome, Class Teacher
+                </h1>
+
+                <p>
+                    Manage your class, students, attendance
+                    and student results from your teacher portal.
+                </p>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="teacher-stat-grid">
+
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Students
+                        </span>
+
+                        <strong id="totalStudents">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        📅
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Today's Attendance
+                        </span>
+
+                        <strong id="todayAttendance">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Results Uploaded
+                        </span>
+
+                        <strong id="teacherResults">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        🏫
+                    </div>
+
+                    <div>
+
+                        <span>
+                            My Class
+                        </span>
+
+                        <strong id="teacherClass">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="teacher-dashboard-panel">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <div class="teacher-quick-actions">
+
+                    <button
+                        type="button"
+                        data-section="studentManagement">
+
+                        👨‍🎓
+                        <span>
+                            Manage Students
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        data-section="attendance">
+
+                        📅
+                        <span>
+                            Take Attendance
+                        </span>
+
+                    </button>
+
+
+                    <a href="manage result.html">
+
+                        📊
+                        <span>
+                            Upload Result
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- STUDENT MANAGEMENT -->
+
+<section
+id="studentManagement"
+class="teacher-section">
+
+<div class="teacher-section-heading">
+
+    <p class="section-label">
+        STUDENT MANAGEMENT
+    </p>
+
+    <h1>
+        My Class Students
+    </h1>
+
+    <p>
+        Add and manage students belonging to your class.
+    </p>
+
+</div>
+
+
+<div class="teacher-management-toolbar">
+
+    <button
+        type="button"
+        class="btn"
+        id="addStudentButton">
+
+        + Add Student
+
+    </button>
+
+</div>
+
+
+<!-- ADD STUDENT FORM -->
+
+<div
+    id="studentFormContainer"
+    style="display:none;">
+
+    <form id="studentForm">
+
+        <input
+            type="hidden"
+            id="studentId">
+
+
+        <div class="form-group">
+
+            <label for="studentName">
+                Student Name
+            </label>
+
+            <input
+                type="text"
+                id="studentName"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="registrationNumber">
+                Registration Number
+            </label>
+
+            <input
+                type="text"
+                id="registrationNumber"
+                required>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="serialNumber">
+                Serial Number
+            </label>
+
+            <input
+                type="number"
+                id="serialNumber">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="studentSex">
+                Sex
+            </label>
+
+            <select id="studentSex">
+
+                <option value="">
+                    Select Sex
+                </option>
+
+                <option value="Male">
+                    Male
+                </option>
+
+                <option value="Female">
+                    Female
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="studentDob">
+                Date of Birth
+            </label>
+
+            <input
+                type="date"
+                id="studentDob">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="studentAddress">
+                Home Address
+            </label>
+
+            <textarea
+                id="studentAddress"
+                rows="3">
+            </textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="guardianName">
+                Parent / Guardian Name
+            </label>
+
+            <input
+                type="text"
+                id="guardianName">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="parentPhone">
+                Parent / Guardian Phone
+            </label>
+
+            <input
+                type="tel"
+                id="parentPhone">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Class
+            </label>
+
+            <input
+                type="text"
+                id="studentClass"
+                readonly>
+
+        </div>
+
+
+        <div style="display:flex; gap:10px;">
+
+            <button
+                type="submit"
+                class="btn"
+                id="saveStudentButton">
+
+                Save Student
+
+            </button>
+
+            <button
+                type="button"
+                class="btn"
+                id="cancelStudentButton">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- STUDENT TABLE -->
+
+<div class="teacher-table-container">
+
+    <table class="teacher-table">
+
+        <thead>
+
+            <tr>
+
+                <th>S/N</th>
+
+                <th>
+                    Student Name
+                </th>
+
+                <th>
+                    Registration Number
+                </th>
+
+                <th>
+                    Sex
+                </th>
+
+                <th>
+                    Date of Birth
+                </th>
+
+                <th>
+                    Actions
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="studentTableBody">
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="text-align:center;">
+
+                    Loading students...
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</section>
+
+
+        <!-- ATTENDANCE -->
+
+        <section
+            id="attendance"
+            class="teacher-section">
+
+            <div class="teacher-section-heading">
+
+                <p class="section-label">
+                    ATTENDANCE
+                </p>
+
+                <h1>
+                    Class Attendance
+                </h1>
+
+                <p>
+                    Record daily attendance for your students.
+                </p>
+
+            </div>
+
+
+            <div class="attendance-controls">
+
+                <label for="attendanceDate">
+                    Attendance Date
+                </label>
+
+                <input
+                    type="date"
+                    id="attendanceDate">
+
+                <button
+                    type="button"
+                    class="btn"
+                    id="loadAttendanceButton">
+
+                    Load Students
+
+                </button>
+
+            </div>
+
+
+            <div class="teacher-table-container">
+
+                <table class="teacher-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                S/N
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                            <th>
+                                Registration Number
+                            </th>
+
+                            <th>
+                                Attendance
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="attendanceTableBody">
+
+                        <tr>
+
+                            <td colspan="4">
+
+                                Select a date to take attendance.
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn attendance-save-btn"
+                id="saveAttendanceButton">
+
+                Save Attendance
+
+            </button>
+
+        </section>
+
+
+        <!-- PROFILE -->
+
+        <section
+            id="teacherProfile"
+            class="teacher-section">
+
+            <div class="teacher-section-heading">
+
+                <p class="section-label">
+                    TEACHER PROFILE
+                </p>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    View your teacher account information.
+                </p>
+
+            </div>
+
+
+            <div class="teacher-profile-card">
+
+                <div class="profile-avatar">
+
+                    👨‍🏫
+
+                </div>
+
+
+                <div class="profile-details">
+
+                    <div>
+
+                        <span>
+                            Teacher Name
+                        </span>
+
+                        <strong id="profileTeacherName">
+                            Class Teacher
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Role
+                        </span>
+
+                        <strong>
+                            Class Teacher
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Assigned Class
+                        </span>
+
+                        <strong id="profileTeacherClass">
+                            Class
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="teacher-dashboard.js"></script>
+
+    <script src="loading.js"></script>
+
+</body>
+
+</html>

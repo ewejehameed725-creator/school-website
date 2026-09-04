@@ -710,7 +710,453 @@ app.post(
 
     }
 );
+// ==================================================
+// STUDENTS
+// ==================================================
 
+
+// ==============================
+// CREATE STUDENTS TABLE
+// ==============================
+
+async function ensureStudentsTable() {
+
+    try {
+
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS students (
+                id BIGSERIAL PRIMARY KEY,
+
+                student_name TEXT NOT NULL,
+
+                registration_number TEXT NOT NULL,
+
+                serial_number TEXT,
+
+                student_class TEXT NOT NULL,
+
+                address TEXT,
+
+                guardian TEXT,
+
+                phone TEXT,
+
+                sex TEXT,
+
+                date_of_birth DATE,
+
+                teacher_name TEXT,
+
+                created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+                updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+            )
+        `);
+
+        console.log("Students table is ready.");
+
+    } catch (error) {
+
+        console.error(
+            "Students table error:",
+            error.message
+        );
+
+    }
+
+}
+
+
+// ==============================
+// GET STUDENTS
+// ==============================
+
+app.get(
+    "/api/students",
+    async (req, res) => {
+
+        try {
+
+            const {
+                studentClass
+            } = req.query;
+
+
+            let result;
+
+
+            if (studentClass) {
+
+                result =
+                    await pool.query(
+                        `SELECT *
+                         FROM students
+                         WHERE LOWER(student_class)
+                         = LOWER($1)
+                         ORDER BY
+                         CASE
+                             WHEN serial_number ~ '^[0-9]+$'
+                             THEN serial_number::INTEGER
+                             ELSE 999999
+                         END,
+                         student_name ASC`,
+                        [studentClass]
+                    );
+
+            } else {
+
+                result =
+                    await pool.query(
+                        `SELECT *
+                         FROM students
+                         ORDER BY student_name ASC`
+                    );
+
+            }
+
+
+            // The teacher dashboard expects
+            // the response itself to be an array.
+
+            res.json(result.rows);
+
+
+        } catch (error) {
+
+            console.error(
+                "Get students error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                error:
+                    "Unable to load students."
+            });
+
+        }
+
+    }
+);
+
+
+// ==============================
+// ADD STUDENT
+// ==============================
+
+app.post(
+    "/api/students",
+    async (req, res) => {
+
+        try {
+
+            const {
+                studentName,
+                registrationNumber,
+                serialNumber,
+                studentClass,
+                address,
+                guardian,
+                phone,
+                sex,
+                dob,
+                teacherName
+            } = req.body;
+
+
+            if (
+                !studentName ||
+                !registrationNumber ||
+                !studentClass
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    error:
+                        "Student name, registration number and class are required."
+                });
+
+            }
+
+
+            // Check for an existing registration number
+
+            const existing =
+                await pool.query(
+                    `SELECT id
+                     FROM students
+                     WHERE LOWER(registration_number)
+                     = LOWER($1)
+                     LIMIT 1`,
+                    [
+                        registrationNumber.trim()
+                    ]
+                );
+
+
+            if (existing.rows.length > 0) {
+
+                return res.status(409).json({
+                    success: false,
+                    error:
+                        "A student with this registration number already exists."
+                });
+
+            }
+
+
+            const result =
+                await pool.query(
+                    `INSERT INTO students
+                    (
+                        student_name,
+                        registration_number,
+                        serial_number,
+                        student_class,
+                        address,
+                        guardian,
+                        phone,
+                        sex,
+                        date_of_birth,
+                        teacher_name
+                    )
+                    VALUES
+                    (
+                        $1,
+                        $2,
+                        $3,
+                        $4,
+                        $5,
+                        $6,
+                        $7,
+                        $8,
+                        $9,
+                        $10
+                    )
+                    RETURNING *`,
+                    [
+                        studentName.trim(),
+                        registrationNumber.trim(),
+                        serialNumber || null,
+                        studentClass.trim(),
+                        address || null,
+                        guardian || null,
+                        phone || null,
+                        sex || null,
+                        dob || null,
+                        teacherName || null
+                    ]
+                );
+
+
+            res.status(201).json({
+                success: true,
+                message:
+                    "Student added successfully!",
+                student:
+                    result.rows[0]
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Add student error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                error:
+                    "Unable to add student."
+            });
+
+        }
+
+    }
+);
+
+
+// ==============================
+// UPDATE STUDENT
+// ==============================
+
+app.put(
+    "/api/students/:id",
+    async (req, res) => {
+
+        try {
+
+            const {
+                id
+            } = req.params;
+
+
+            const {
+                studentName,
+                registrationNumber,
+                serialNumber,
+                studentClass,
+                address,
+                guardian,
+                phone,
+                sex,
+                dob,
+                teacherName
+            } = req.body;
+
+
+            if (
+                !studentName ||
+                !registrationNumber ||
+                !studentClass
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    error:
+                        "Student name, registration number and class are required."
+                });
+
+            }
+
+
+            const result =
+                await pool.query(
+                    `UPDATE students
+                     SET
+                         student_name = $1,
+                         registration_number = $2,
+                         serial_number = $3,
+                         student_class = $4,
+                         address = $5,
+                         guardian = $6,
+                         phone = $7,
+                         sex = $8,
+                         date_of_birth = $9,
+                         teacher_name = $10,
+                         updated_at = NOW()
+                     WHERE id = $11
+                     RETURNING *`,
+                    [
+                        studentName.trim(),
+                        registrationNumber.trim(),
+                        serialNumber || null,
+                        studentClass.trim(),
+                        address || null,
+                        guardian || null,
+                        phone || null,
+                        sex || null,
+                        dob || null,
+                        teacherName || null,
+                        id
+                    ]
+                );
+
+
+            if (result.rows.length === 0) {
+
+                return res.status(404).json({
+                    success: false,
+                    error:
+                        "Student not found."
+                });
+
+            }
+
+
+            res.json({
+                success: true,
+                message:
+                    "Student updated successfully!",
+                student:
+                    result.rows[0]
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Update student error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                error:
+                    "Unable to update student."
+            });
+
+        }
+
+    }
+);
+
+
+// ==============================
+// DELETE STUDENT
+// ==============================
+
+app.delete(
+    "/api/students/:id",
+    async (req, res) => {
+
+        try {
+
+            const {
+                id
+            } = req.params;
+
+
+            const result =
+                await pool.query(
+                    `DELETE FROM students
+                     WHERE id = $1
+                     RETURNING id`,
+                    [id]
+                );
+
+
+            if (result.rows.length === 0) {
+
+                return res.status(404).json({
+                    success: false,
+                    error:
+                        "Student not found."
+                });
+
+            }
+
+
+            res.json({
+                success: true,
+                message:
+                    "Student deleted successfully."
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Delete student error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                error:
+                    "Unable to delete student."
+            });
+
+        }
+
+    }
+);
+
+
+// Make sure the students table exists
+
+ensureStudentsTable();
 
 // ==================================================
 // NEWS & ANNOUNCEMENTS

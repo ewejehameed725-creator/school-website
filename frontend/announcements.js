@@ -1,367 +1,358 @@
-const API_URL = "http://localhost:5000";
+// ==================================================
+// ANNOUNCEMENTS SYSTEM
+// Lagos State Model College Meiran
+// ==================================================
+
+const API_URL =
+    "https://lagos-state-model-college-backend.onrender.com";
+
+
+// ==================================================
+// GET ELEMENTS
+// ==================================================
 
 const announcementForm =
     document.getElementById("announcementForm");
 
-const announcementList =
-    document.getElementById("announcementList");
+const announcementsContainer =
+    document.getElementById("announcementsContainer");
 
 
-// ========================================
+// ==================================================
 // LOAD ANNOUNCEMENTS
-// ========================================
+// ==================================================
 
 async function loadAnnouncements() {
 
+    if (!announcementsContainer) {
+        return;
+    }
+
+    announcementsContainer.innerHTML = `
+        <p>Loading announcements...</p>
+    `;
+
     try {
 
-        const response =
-            await fetch(
-                `${API_URL}/api/admin/announcements`
-            );
+        const response = await fetch(
+            `${API_URL}/api/admin/announcements`
+        );
 
-        const data =
-            await response.json();
-
+        const data = await response.json();
 
         if (!response.ok || !data.success) {
 
-            announcementList.innerHTML =
-                "<p>Unable to load announcements.</p>";
+            announcementsContainer.innerHTML = `
+                <p>
+                    Unable to load announcements.
+                </p>
+            `;
 
             return;
         }
 
-
-        if (
-            !data.announcements ||
-            data.announcements.length === 0
-        ) {
-
-            announcementList.innerHTML =
-                "<p>No announcements have been published yet.</p>";
-
-            return;
-        }
-
-
-        announcementList.innerHTML = "";
-
-
-        data.announcements.forEach(
-            announcement => {
-
-                const article =
-                    document.createElement("article");
-
-                article.className =
-                    "dashboard-card";
-
-
-                let imageHTML = "";
-
-
-                if (announcement.image_url) {
-
-                    imageHTML = `
-
-                        <img
-                            src="${announcement.image_url}"
-                            alt="${escapeHTML(
-                                announcement.title
-                            )}"
-                            style="
-                                width:100%;
-                                max-width:600px;
-                                height:auto;
-                                border-radius:10px;
-                                margin-bottom:15px;
-                                display:block;
-                            "
-                        >
-
-                    `;
-
-                }
-
-
-                article.innerHTML = `
-
-                    ${imageHTML}
-
-                    <h3>
-                        ${escapeHTML(
-                            announcement.title
-                        )}
-                    </h3>
-
-                    <p>
-                        ${escapeHTML(
-                            announcement.content
-                        )}
-                    </p>
-
-                    <small>
-                        Published:
-                        ${new Date(
-                            announcement.created_at
-                        ).toLocaleString()}
-                    </small>
-
-                    <br><br>
-
-                    <button
-                        class="btn"
-                        onclick="deleteAnnouncement(
-                            ${announcement.id}
-                        )"
-                    >
-                        Delete
-                    </button>
-
-                `;
-
-
-                announcementList.appendChild(
-                    article
-                );
-
-            }
+        displayAnnouncements(
+            data.announcements || []
         );
-
 
     } catch (error) {
 
         console.error(
-            "Loading announcements error:",
+            "Load announcements error:",
             error
         );
 
-        announcementList.innerHTML =
-            "<p>Could not connect to the backend.</p>";
-
+        announcementsContainer.innerHTML = `
+            <p>
+                Unable to connect to the school server.
+            </p>
+        `;
     }
-
 }
 
 
-// ========================================
-// CREATE ANNOUNCEMENT
-// ========================================
+// ==================================================
+// DISPLAY ANNOUNCEMENTS
+// ==================================================
 
-announcementForm.addEventListener(
-    "submit",
-    async function (event) {
+function displayAnnouncements(
+    announcements
+) {
 
-        event.preventDefault();
-
-
-        const title =
-            document
-                .getElementById(
-                    "announcement-title"
-                )
-                .value
-                .trim();
-
-
-        const content =
-            document
-                .getElementById(
-                    "announcement-content"
-                )
-                .value
-                .trim();
-
-
-        const imageInput =
-            document.getElementById(
-                "announcement-image"
-            );
-
-
-        if (!title || !content) {
-
-            alert(
-                "Please enter the announcement title and content."
-            );
-
-            return;
-        }
-
-
-        // ====================================
-        // READ IMAGE
-        // ====================================
-
-        let imageUrl = null;
-
-
-        if (
-            imageInput.files &&
-            imageInput.files.length > 0
-        ) {
-
-            const imageFile =
-                imageInput.files[0];
-
-
-            // Limit image size to 5MB
-
-            if (
-                imageFile.size >
-                5 * 1024 * 1024
-            ) {
-
-                alert(
-                    "Please choose an image smaller than 5MB."
-                );
-
-                return;
-            }
-
-
-            imageUrl =
-                await readFileAsDataURL(
-                    imageFile
-                );
-
-        }
-
-
-        const button =
-            document.getElementById(
-                "publishAnnouncementBtn"
-            );
-
-
-        button.disabled = true;
-
-        button.textContent =
-            "Publishing...";
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/announcements`,
-                    {
-
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body: JSON.stringify({
-
-                            title: title,
-
-                            content: content,
-
-                            imageUrl: imageUrl
-
-                        })
-
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !data.success
-            ) {
-
-                alert(
-                    data.message ||
-                    "Unable to publish announcement."
-                );
-
-                return;
-            }
-
-
-            alert(
-                "Announcement published successfully!"
-            );
-
-
-            announcementForm.reset();
-
-
-            await loadAnnouncements();
-
-
-        } catch (error) {
-
-            console.error(
-                "Publishing error:",
-                error
-            );
-
-            alert(
-                "Could not connect to the backend."
-            );
-
-        } finally {
-
-            button.disabled = false;
-
-            button.textContent =
-                "Publish Announcement";
-
-        }
-
+    if (!announcementsContainer) {
+        return;
     }
-);
+
+    if (!announcements.length) {
+
+        announcementsContainer.innerHTML = `
+            <p>
+                No announcements available.
+            </p>
+        `;
+
+        return;
+    }
 
 
-// ========================================
-// READ FILE
-// ========================================
+    announcementsContainer.innerHTML =
+        announcements.map(
+            announcement => {
 
-function readFileAsDataURL(file) {
+                const image =
+                    announcement.image_url ||
+                    announcement.imageUrl;
 
-    return new Promise(
-        (resolve, reject) => {
+                const date =
+                    announcement.created_at
+                        ? new Date(
+                            announcement.created_at
+                        ).toLocaleDateString()
+                        : "";
 
-            const reader =
-                new FileReader();
+
+                return `
+                    <div
+                        class="announcement-card"
+                        data-id="${announcement.id}"
+                    >
+
+                        ${
+                            image
+                                ? `
+                                    <img
+                                        src="${escapeHTML(image)}"
+                                        alt="${escapeHTML(
+                                            announcement.title
+                                        )}"
+                                        class="announcement-image"
+                                    >
+                                `
+                                : ""
+                        }
+
+                        <div class="announcement-content">
+
+                            <h3>
+                                ${escapeHTML(
+                                    announcement.title
+                                )}
+                            </h3>
+
+                            <p>
+                                ${escapeHTML(
+                                    announcement.content
+                                )}
+                            </p>
+
+                            ${
+                                date
+                                    ? `
+                                        <small>
+                                            Published:
+                                            ${date}
+                                        </small>
+                                    `
+                                    : ""
+                            }
+
+                            <div
+                                class="announcement-actions"
+                            >
+
+                                <button
+                                    type="button"
+                                    onclick="deleteAnnouncement('${announcement.id}')"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+            }
+        ).join("");
+}
 
 
-            reader.onload =
-                () => resolve(
-                    reader.result
+// ==================================================
+// CREATE ANNOUNCEMENT
+// ==================================================
+
+if (announcementForm) {
+
+    announcementForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const titleInput =
+                document.getElementById(
+                    "announcement-title"
+                );
+
+            const contentInput =
+                document.getElementById(
+                    "announcement-content"
+                );
+
+            const imageInput =
+                document.getElementById(
+                    "announcement-image"
                 );
 
 
-            reader.onerror =
-                () => reject(
-                    new Error(
-                        "Unable to read image."
-                    )
+            const title =
+                titleInput
+                    ? titleInput.value.trim()
+                    : "";
+
+            const content =
+                contentInput
+                    ? contentInput.value.trim()
+                    : "";
+
+            const imageUrl =
+                imageInput
+                    ? imageInput.value.trim()
+                    : "";
+
+
+            // ==============================
+            // VALIDATION
+            // ==============================
+
+            if (!title || !content) {
+
+                alert(
+                    "Please enter the announcement title and content."
+                );
+
+                return;
+            }
+
+
+            const submitButton =
+                announcementForm.querySelector(
+                    "button[type='submit']"
                 );
 
 
-            reader.readAsDataURL(file);
+            if (submitButton) {
 
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Publishing...";
+            }
+
+
+            try {
+
+                // ==============================
+                // SEND TO RENDER BACKEND
+                // ==============================
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/announcements`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                title: title,
+                                content: content,
+                                imageUrl:
+                                    imageUrl || null
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                // ==============================
+                // ERROR
+                // ==============================
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    alert(
+                        data.message ||
+                        "Unable to publish announcement."
+                    );
+
+                    return;
+                }
+
+
+                // ==============================
+                // SUCCESS
+                // ==============================
+
+                alert(
+                    "Announcement published successfully!"
+                );
+
+
+                announcementForm.reset();
+
+
+                // Reload announcements
+
+                await loadAnnouncements();
+
+            } catch (error) {
+
+                console.error(
+                    "Create announcement error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to the school server."
+                );
+
+            } finally {
+
+                if (submitButton) {
+
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        "Publish Announcement";
+                }
+            }
         }
     );
-
 }
 
 
-// ========================================
+// ==================================================
 // DELETE ANNOUNCEMENT
-// ========================================
+// ==================================================
 
 async function deleteAnnouncement(id) {
+
+    if (!id) {
+        return;
+    }
+
 
     const confirmDelete =
         confirm(
@@ -404,48 +395,57 @@ async function deleteAnnouncement(id) {
 
 
         alert(
-            "Announcement deleted successfully."
+            "Announcement deleted successfully!"
         );
 
 
-        loadAnnouncements();
-
+        await loadAnnouncements();
 
     } catch (error) {
 
         console.error(
-            "Delete error:",
+            "Delete announcement error:",
             error
         );
 
         alert(
-            "Could not connect to the backend."
+            "Unable to connect to the school server."
         );
-
     }
-
 }
 
 
-// ========================================
-// SECURITY
-// ========================================
+// ==================================================
+// ESCAPE HTML
+// ==================================================
 
 function escapeHTML(value) {
 
-    const div =
-        document.createElement("div");
+    if (value === null ||
+        value === undefined) {
 
-    div.textContent =
-        value || "";
+        return "";
+    }
 
-    return div.innerHTML;
 
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-// ========================================
-// INITIAL LOAD
-// ========================================
+// ==================================================
+// LOAD WHEN PAGE OPENS
+// ==================================================
 
-loadAnnouncements();
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadAnnouncements();
+
+    }
+);

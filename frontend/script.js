@@ -95,6 +95,7 @@ if (
 
 }
 
+
 // ========================================
 // STAFF LOGIN
 // ========================================
@@ -141,8 +142,8 @@ if (adminLoginForm) {
             try {
 
                 /*
-                 * Staff authentication will be connected
-                 * to the backend/Supabase.
+                 * Staff authentication is handled
+                 * by the backend/Supabase.
                  *
                  * DO NOT put the principal password
                  * or teacher passwords here.
@@ -150,7 +151,7 @@ if (adminLoginForm) {
 
                 const response =
                     await fetch(
-                        "https://YOUR-RENDER-BACKEND-URL/api/staff/login",
+                        "https://lagos-state-model-college-backend.onrender.com/api/staff/login",
                         {
                             method: "POST",
 
@@ -181,7 +182,6 @@ if (adminLoginForm) {
 
 
                 // Save logged-in staff information
-
                 localStorage.setItem(
                     "staffUser",
                     JSON.stringify(data.user)
@@ -254,6 +254,8 @@ if (adminLoginForm) {
     );
 
 }
+
+
 // ========================================
 // SHOW / HIDE ADMIN PASSWORD
 // ========================================
@@ -445,12 +447,12 @@ if (uploadResultForm) {
                 try {
 
                     // ==============================
-                    // SEND TO BACKEND
+                    // SEND TO LIVE RENDER BACKEND
                     // ==============================
 
                     const response =
                         await fetch(
-                            "http://localhost:5000/api/results",
+                            "https://lagos-state-model-college-backend.onrender.com/api/results",
                             {
 
                                 method: "POST",
@@ -546,6 +548,8 @@ if (uploadResultForm) {
     );
 
 }
+
+
 // ========================================
 // CREATE TEACHER ACCOUNT
 // ========================================
@@ -641,7 +645,7 @@ if (teacherCreateAccountForm) {
             try {
 
                 // ==============================
-                // SEND TO RENDER BACKEND
+                // SEND TO LIVE RENDER BACKEND
                 // ==============================
 
                 const response =

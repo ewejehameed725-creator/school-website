@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000";
+const API_URL =
+    "https://lagos-state-model-college-backend.onrender.com";
 
 const newsContainer =
     document.getElementById("newsContainer");
@@ -9,6 +10,10 @@ const newsContainer =
 // ========================================
 
 async function loadNews() {
+
+    if (!newsContainer) {
+        return;
+    }
 
     try {
 
@@ -102,7 +107,9 @@ async function loadNews() {
                         <div class="news-image">
 
                             <img
-                                src="${announcement.image_url}"
+                                src="${escapeHTML(
+                                    announcement.image_url
+                                )}"
                                 alt="${escapeHTML(
                                     announcement.title
                                 )}"
@@ -112,7 +119,6 @@ async function loadNews() {
                         </div>
 
                     `;
-
                 }
 
 
@@ -190,6 +196,11 @@ async function loadNews() {
 
 function showNewsMessage(message) {
 
+    if (!newsContainer) {
+        return;
+    }
+
+
     newsContainer.innerHTML = `
 
         <div class="news-empty">
@@ -214,8 +225,10 @@ function escapeHTML(value) {
     const div =
         document.createElement("div");
 
+
     div.textContent =
         value || "";
+
 
     return div.innerHTML;
 

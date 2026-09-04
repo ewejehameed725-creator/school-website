@@ -9,15 +9,25 @@
 
     <title>Manage News | Lagos State Model College Meiran</title>
 
-    <link rel="icon" type="image/jpg" href="images/school.jpg">
+    <link
+        rel="icon"
+        type="image/jpg"
+        href="images/school.jpg"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
 <body>
 
+
+    <!-- ============================= -->
     <!-- PAGE LOADER -->
+    <!-- ============================= -->
 
     <div id="pageLoader">
 
@@ -29,9 +39,13 @@
                 class="loader-logo"
             >
 
-            <h2>Lagos State Model College Meiran</h2>
+            <h2>
+                Lagos State Model College Meiran
+            </h2>
 
-            <p>Loading school portal...</p>
+            <p>
+                Loading school portal...
+            </p>
 
             <div class="loader-spinner"></div>
 
@@ -40,7 +54,9 @@
     </div>
 
 
-    <!-- HEADER -->
+    <!-- ============================= -->
+    <!-- ADMIN HEADER -->
+    <!-- ============================= -->
 
     <header class="admin-header">
 
@@ -53,9 +69,13 @@
 
             <div>
 
-                <h2>School Administration</h2>
+                <h2>
+                    School Administration
+                </h2>
 
-                <p>News & Announcements</p>
+                <p>
+                    News & Announcements
+                </p>
 
             </div>
 
@@ -72,9 +92,14 @@
     </header>
 
 
+    <!-- ============================= -->
     <!-- MAIN CONTENT -->
+    <!-- ============================= -->
 
     <main class="admin-dashboard">
+
+
+        <!-- PAGE HEADING -->
 
         <div class="dashboard-heading">
 
@@ -94,9 +119,13 @@
         </div>
 
 
+        <!-- ============================= -->
         <!-- CREATE ANNOUNCEMENT -->
+        <!-- ============================= -->
 
-        <section class="dashboard-card announcement-form-card">
+        <section
+            class="dashboard-card announcement-form-card"
+        >
 
             <h2>
                 Create New Announcement
@@ -147,7 +176,12 @@
                 >
 
 
-                <!-- BUTTON -->
+                <p class="upload-note">
+                    You can select an image to accompany the announcement.
+                </p>
+
+
+                <!-- PUBLISH BUTTON -->
 
                 <button
                     type="submit"
@@ -162,9 +196,12 @@
         </section>
 
 
+        <!-- ============================= -->
         <!-- EXISTING ANNOUNCEMENTS -->
+        <!-- ============================= -->
 
         <section class="announcement-list-section">
+
 
             <div class="dashboard-heading">
 
@@ -179,7 +216,10 @@
             </div>
 
 
-            <div id="announcementList">
+            <!-- IMPORTANT:
+                 This ID matches announcements.js -->
+
+            <div id="announcementsContainer">
 
                 <p>
                     Loading announcements...
@@ -189,12 +229,18 @@
 
         </section>
 
+
     </main>
 
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================= -->
 
     <script src="loading.js"></script>
 
     <script src="announcements.js"></script>
+
 
 </body>
 

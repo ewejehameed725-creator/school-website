@@ -9,57 +9,103 @@
 
     <title>Upload Result | Admin Portal</title>
 
-    <link rel="icon" type="image/jpg" href="images/school.jpg">
+    <link
+        rel="icon"
+        type="image/jpg"
+        href="images/school.jpg"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
 <body>
+
+    <!-- ============================= -->
+    <!-- PAGE LOADER -->
+    <!-- ============================= -->
+
     <div id="pageLoader">
+
         <div class="loader-content">
-    
+
             <img
                 src="images/school.jpg"
                 alt="School Logo"
                 class="loader-logo"
             >
-    
-            <h2>Lagos State Model College Meiran</h2>
-    
-            <p>Loading school portal...</p>
-    
+
+            <h2>
+                Lagos State Model College Meiran
+            </h2>
+
+            <p>
+                Loading school portal...
+            </p>
+
             <div class="loader-spinner"></div>
-    
+
         </div>
+
     </div>
+
+
+    <!-- ============================= -->
+    <!-- ADMIN HEADER -->
+    <!-- ============================= -->
+
     <header class="admin-header">
 
         <div class="admin-brand">
 
-            <img src="images/school.jpg" alt="School Logo">
+            <img
+                src="images/school.jpg"
+                alt="School Logo"
+            >
 
             <div>
-                <h2>School Administration</h2>
-                <p>Upload Student Results</p>
+
+                <h2>
+                    School Administration
+                </h2>
+
+                <p>
+                    Upload Student Results
+                </p>
+
             </div>
 
         </div>
 
-        <a href="admindashboard.html" class="logout-btn">
+
+        <a
+            href="admindashboard.html"
+            class="logout-btn"
+        >
             Dashboard
         </a>
 
     </header>
 
 
+    <!-- ============================= -->
+    <!-- RESULT MANAGEMENT -->
+    <!-- ============================= -->
+
     <main class="result-management">
 
         <div class="management-heading">
 
-            <p class="section-label">RESULT MANAGEMENT</p>
+            <p class="section-label">
+                RESULT MANAGEMENT
+            </p>
 
-            <h1>Upload Student Result</h1>
+            <h1>
+                Upload Student Result
+            </h1>
 
             <p>
                 Upload an official result generated from the school's
@@ -69,12 +115,23 @@
         </div>
 
 
-        <form id="uploadResultForm" class="result-form">
+        <!-- ============================= -->
+        <!-- RESULT UPLOAD FORM -->
+        <!-- ============================= -->
 
+        <form
+            id="uploadResultForm"
+            class="result-form"
+        >
+
+
+            <!-- STUDENT INFORMATION -->
 
             <div class="form-section">
 
-                <h2>Student Information</h2>
+                <h2>
+                    Student Information
+                </h2>
 
 
                 <label for="student-name">
@@ -117,7 +174,10 @@
                     Term
                 </label>
 
-                <select id="term" required>
+                <select
+                    id="term"
+                    required
+                >
 
                     <option value="">
                         Select Term
@@ -140,9 +200,16 @@
             </div>
 
 
+            <!-- ============================= -->
+            <!-- RESULT FILE -->
+            <!-- ============================= -->
+
             <div class="form-section">
 
-                <h2>Upload Official Result</h2>
+                <h2>
+                    Upload Official Result
+                </h2>
+
 
                 <label for="result-file">
                     Select Result File
@@ -155,6 +222,7 @@
                     required
                 >
 
+
                 <p class="upload-note">
                     Accepted formats: PDF, JPG, JPEG and PNG.
                 </p>
@@ -162,7 +230,14 @@
             </div>
 
 
-            <button type="submit" class="btn">
+            <!-- ============================= -->
+            <!-- SUBMIT -->
+            <!-- ============================= -->
+
+            <button
+                type="submit"
+                class="btn"
+            >
                 Upload & Publish Result
             </button>
 
@@ -172,7 +247,12 @@
     </main>
 
 
+    <!-- ============================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================= -->
+
     <script src="script.js"></script>
+
     <script src="loading.js"></script>
 
 </body>

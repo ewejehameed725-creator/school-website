@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { Pool } = require("pg");
+const crypto = require("crypto");
 
 dotenv.config();
 
@@ -381,6 +382,328 @@ app.delete(
                 success: false,
                 message:
                     "Unable to delete result."
+            });
+
+        }
+
+    }
+);
+// ==================================================
+// STAFF / TEACHER ACCOUNTS
+// ==================================================
+
+
+// ==============================
+// PASSWORD HASHING
+// ==============================
+
+function hashPassword(password) {
+
+    return new Promise((resolve, reject) => {
+
+        const salt = crypto.randomBytes(16).toString("hex");
+
+        crypto.scrypt(
+            password,
+            salt,
+            64,
+            (error, derivedKey) => {
+
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                resolve(
+                    `${salt}:${derivedKey.toString("hex")}`
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+function verifyPassword(password, storedHash) {
+
+    return new Promise((resolve, reject) => {
+
+        try {
+
+            const parts =
+                storedHash.split(":");
+
+            if (parts.length !== 2) {
+                resolve(false);
+                return;
+            }
+
+            const salt = parts[0];
+            const storedKey =
+                Buffer.from(parts[1], "hex");
+
+            crypto.scrypt(
+                password,
+                salt,
+                64,
+                (error, derivedKey) => {
+
+                    if (error) {
+                        reject(error);
+                        return;
+                    }
+
+                    resolve(
+                        crypto.timingSafeEqual(
+                            storedKey,
+                            derivedKey
+                        )
+                    );
+
+                }
+            );
+
+        } catch (error) {
+
+            reject(error);
+
+        }
+
+    });
+
+}
+
+
+// ==============================
+// CREATE TEACHER ACCOUNT
+// ==============================
+
+app.post(
+    "/api/teachers/create",
+    async (req, res) => {
+
+        try {
+
+            const {
+                fullName,
+                username,
+                assignedClass,
+                phone,
+                password
+            } = req.body;
+
+
+            if (
+                !fullName ||
+                !username ||
+                !assignedClass ||
+                !phone ||
+                !password
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Please provide all teacher information."
+                });
+
+            }
+
+
+            const existing =
+                await pool.query(
+                    `SELECT id
+                     FROM staff
+                     WHERE LOWER(username)
+                     = LOWER($1)
+                     LIMIT 1`,
+                    [username.trim()]
+                );
+
+
+            if (existing.rows.length > 0) {
+
+                return res.status(409).json({
+                    success: false,
+                    message:
+                        "This username already exists."
+                });
+
+            }
+
+
+            const passwordHash =
+                await hashPassword(password);
+
+
+            const result =
+                await pool.query(
+                    `INSERT INTO staff
+                     (
+                         full_name,
+                         username,
+                         assigned_class,
+                         phone,
+                         password_hash,
+                         role
+                     )
+                     VALUES
+                     ($1, $2, $3, $4, $5, 'teacher')
+                     RETURNING
+                         id,
+                         full_name,
+                         username,
+                         assigned_class,
+                         phone,
+                         role,
+                         created_at`,
+                    [
+                        fullName.trim(),
+                        username.trim(),
+                        assignedClass.trim(),
+                        phone.trim(),
+                        passwordHash
+                    ]
+                );
+
+
+            res.status(201).json({
+                success: true,
+                message:
+                    "Teacher account created successfully!",
+                teacher:
+                    result.rows[0]
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Create teacher error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "Unable to create teacher account."
+            });
+
+        }
+
+    }
+);
+
+
+// ==============================
+// STAFF LOGIN
+// ==============================
+
+app.post(
+    "/api/staff/login",
+    async (req, res) => {
+
+        try {
+
+            const {
+                username,
+                password
+            } = req.body;
+
+
+            if (!username || !password) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Username and password are required."
+                });
+
+            }
+
+
+            const result =
+                await pool.query(
+                    `SELECT *
+                     FROM staff
+                     WHERE LOWER(username)
+                     = LOWER($1)
+                     LIMIT 1`,
+                    [username.trim()]
+                );
+
+
+            if (result.rows.length === 0) {
+
+                return res.status(401).json({
+                    success: false,
+                    message:
+                        "Invalid username or password."
+                });
+
+            }
+
+
+            const staff =
+                result.rows[0];
+
+
+            const passwordCorrect =
+                await verifyPassword(
+                    password,
+                    staff.password_hash
+                );
+
+
+            if (!passwordCorrect) {
+
+                return res.status(401).json({
+                    success: false,
+                    message:
+                        "Invalid username or password."
+                });
+
+            }
+
+
+            // Update last login time
+
+            await pool.query(
+                `UPDATE staff
+                 SET last_login_at = NOW()
+                 WHERE id = $1`,
+                [staff.id]
+            );
+
+
+            res.json({
+                success: true,
+                message:
+                    "Login successful!",
+                user: {
+                    id: staff.id,
+                    name: staff.full_name,
+                    username: staff.username,
+                    role: staff.role,
+                    class: staff.assigned_class,
+                    phone: staff.phone
+                }
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Staff login error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "Unable to process staff login."
             });
 
         }

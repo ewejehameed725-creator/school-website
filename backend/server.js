@@ -1473,7 +1473,142 @@ app.delete(
 // ==============================
 // START SERVER
 // ==============================
+// =====================================================
+// ATTENDANCE
+// =====================================================
 
+app.get("/api/attendance", async (req, res) => {
+    try {
+        const { studentClass, date } = req.query;
+
+        let query = `
+            SELECT *
+            FROM attendance
+        `;
+
+        const values = [];
+        const conditions = [];
+
+        if (studentClass) {
+            values.push(studentClass);
+            conditions.push(`student_class = $${values.length}`);
+        }
+
+        if (date) {
+            values.push(date);
+            conditions.push(`attendance_date = $${values.length}`);
+        }
+
+        if (conditions.length > 0) {
+            query += ` WHERE ${conditions.join(" AND ")}`;
+        }
+
+        query += ` ORDER BY student_name ASC`;
+
+        const result = await pool.query(query, values);
+
+        res.json(result.rows);
+
+    } catch (error) {
+        console.error("Load attendance error:", error);
+
+        res.status(500).json({
+            error: "Unable to load attendance."
+        });
+    }
+});
+
+
+app.post("/api/attendance", async (req, res) => {
+    try {
+        const {
+            studentId,
+            studentName,
+            registrationNumber,
+            studentClass,
+            teacherId,
+            teacherName,
+            attendanceDate,
+            status
+        } = req.body;
+
+        if (
+            !studentId ||
+            !studentName ||
+            !registrationNumber ||
+            !studentClass ||
+            !teacherName ||
+            !attendanceDate ||
+            !status
+        ) {
+            return res.status(400).json({
+                error: "All attendance information is required."
+            });
+        }
+
+        const validStatuses = [
+            "Present",
+            "Absent",
+            "Late",
+            "Excused"
+        ];
+
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({
+                error: "Invalid attendance status."
+            });
+        }
+
+        const result = await pool.query(
+            `
+            INSERT INTO attendance (
+                student_id,
+                student_name,
+                registration_number,
+                student_class,
+                teacher_id,
+                teacher_name,
+                attendance_date,
+                status
+            )
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+            ON CONFLICT (student_id, attendance_date)
+            DO UPDATE SET
+                student_name = EXCLUDED.student_name,
+                registration_number = EXCLUDED.registration_number,
+                student_class = EXCLUDED.student_class,
+                teacher_id = EXCLUDED.teacher_id,
+                teacher_name = EXCLUDED.teacher_name,
+                status = EXCLUDED.status,
+                updated_at = NOW()
+            RETURNING *;
+            `,
+            [
+                studentId,
+                studentName,
+                registrationNumber,
+                studentClass,
+                teacherId || null,
+                teacherName,
+                attendanceDate,
+                status
+            ]
+        );
+
+        res.json({
+            success: true,
+            message: "Attendance saved successfully.",
+            attendance: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error("Save attendance error:", error);
+
+        res.status(500).json({
+            error: "Unable to save attendance."
+        });
+    }
+});
 app.listen(PORT, () => {
 
     console.log(

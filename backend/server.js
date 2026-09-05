@@ -1554,76 +1554,41 @@ async function ensureActivityTable() {
 // =====================================================
 
 async function ensureLoginHistoryTable() {
-    try {
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS staff_login_history (
-                id BIGSERIAL PRIMARY KEY,
-                staff_id BIGINT,
-                teacher_name TEXT NOT NULL,
-                username TEXT NOT NULL,
-                role TEXT NOT NULL,
-                assigned_class TEXT,
-                login_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-            )
-        `);
+   // Save login history.
+// If this fails, do NOT prevent the user from logging in.
+try {
 
-        console.log("Teacher login history table ready.");
+    await pool.query(
+        `INSERT INTO staff_login_history
+        (
+            staff_id,
+            teacher_name,
+            username,
+            role,
+            assigned_class,
+            login_at
+        )
+        VALUES ($1, $2, $3, $4, $5, NOW())`,
+        [
+            staff.id,
+            staff.full_name,
+            staff.username,
+            staff.role,
+            staff.assigned_class || null
+        ]
+    );
 
-    } catch (error) {
-        console.error(
-            "Login history table error:",
-            error.message
-        );
-    }
-}
+} catch (historyError) {
 
-    try {
-
-        await pool.query(`
-
-            CREATE TABLE IF NOT EXISTS teacher_activities (
-
-                id BIGSERIAL PRIMARY KEY,
-
-                teacher_id BIGINT,
-
-                teacher_name TEXT NOT NULL,
-
-                teacher_class TEXT,
-
-                activity_type TEXT NOT NULL,
-
-                description TEXT NOT NULL,
-
-                student_name TEXT,
-
-                student_admission_number TEXT,
-
-                created_at TIMESTAMPTZ
-                    NOT NULL DEFAULT NOW()
-
-            );
-
-        `);
-
-
-        console.log(
-            "Teacher activity table checked successfully."
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Activity table error:",
-            error.message
-        );
-
-    }
+    console.error(
+        "Login history could not be saved:",
+        historyError.message
+    );
 
 }
 
+}
+}
 
 // =====================================================
 // LOG ACTIVITY

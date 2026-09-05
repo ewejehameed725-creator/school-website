@@ -9,9 +9,16 @@
 
     <title>Teacher Dashboard | Lagos State Model College Meiran</title>
 
-    <link rel="icon" type="image/jpg" href="images/school.jpg">
+    <link
+        rel="icon"
+        type="image/jpg"
+        href="images/school.jpg"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
@@ -29,9 +36,13 @@
                 class="loader-logo"
             >
 
-            <h2>Lagos State Model College Meiran</h2>
+            <h2>
+                Lagos State Model College Meiran
+            </h2>
 
-            <p>Loading teacher portal...</p>
+            <p>
+                Loading teacher portal...
+            </p>
 
             <div class="loader-spinner"></div>
 
@@ -58,13 +69,18 @@
 
             <img
                 src="images/school.jpg"
-                alt="School Logo">
+                alt="School Logo"
+            >
 
             <div>
 
-                <h3>Teacher Portal</h3>
+                <h3>
+                    Teacher Portal
+                </h3>
 
-                <span>Class Teacher</span>
+                <span>
+                    Class Teacher
+                </span>
 
             </div>
 
@@ -76,10 +92,14 @@
             <a
                 href="#"
                 class="teacher-nav-link active"
-                data-section="teacherDashboard">
+                data-section="teacherDashboard"
+            >
 
                 🏠
-                <span>Dashboard</span>
+
+                <span>
+                    Dashboard
+                </span>
 
             </a>
 
@@ -87,10 +107,14 @@
             <a
                 href="#"
                 class="teacher-nav-link"
-                data-section="studentManagement">
+                data-section="studentManagement"
+            >
 
                 👨‍🎓
-                <span>Student Management</span>
+
+                <span>
+                    Student Management
+                </span>
 
             </a>
 
@@ -98,20 +122,28 @@
             <a
                 href="#"
                 class="teacher-nav-link"
-                data-section="attendance">
+                data-section="attendance"
+            >
 
                 📅
-                <span>Attendance</span>
+
+                <span>
+                    Attendance
+                </span>
 
             </a>
 
 
             <a
                 href="manage result.html"
-                class="teacher-nav-link">
+                class="teacher-nav-link"
+            >
 
                 📊
-                <span>Upload Results</span>
+
+                <span>
+                    Upload Results
+                </span>
 
             </a>
 
@@ -119,10 +151,14 @@
             <a
                 href="#"
                 class="teacher-nav-link"
-                data-section="teacherProfile">
+                data-section="teacherProfile"
+            >
 
                 👤
-                <span>My Profile</span>
+
+                <span>
+                    My Profile
+                </span>
 
             </a>
 
@@ -133,10 +169,14 @@
 
             <a
                 href="index.html"
-                class="teacher-logout">
+                class="teacher-logout"
+            >
 
                 🚪
-                <span>Logout</span>
+
+                <span>
+                    Logout
+                </span>
 
             </a>
 
@@ -157,7 +197,8 @@
             <button
                 type="button"
                 id="teacherMenuButton"
-                class="teacher-menu-button">
+                class="teacher-menu-button"
+            >
 
                 ☰
 
@@ -166,9 +207,13 @@
 
             <div class="teacher-topbar-title">
 
-                <h2>Teacher Dashboard</h2>
+                <h2>
+                    Teacher Dashboard
+                </h2>
 
-                <p>Lagos State Model College Meiran</p>
+                <p>
+                    Lagos State Model College Meiran
+                </p>
 
             </div>
 
@@ -176,9 +221,7 @@
             <div class="teacher-user">
 
                 <div class="teacher-user-icon">
-
                     👨‍🏫
-
                 </div>
 
                 <div>
@@ -198,11 +241,14 @@
         </header>
 
 
+        <!-- ========================= -->
         <!-- DASHBOARD -->
+        <!-- ========================= -->
 
         <section
             id="teacherDashboard"
-            class="teacher-section active">
+            class="teacher-section active"
+        >
 
             <div class="teacher-welcome">
 
@@ -323,11 +369,14 @@
 
                 <div class="teacher-quick-actions">
 
+
                     <button
                         type="button"
-                        data-section="studentManagement">
+                        data-section="studentManagement"
+                    >
 
                         👨‍🎓
+
                         <span>
                             Manage Students
                         </span>
@@ -337,9 +386,11 @@
 
                     <button
                         type="button"
-                        data-section="attendance">
+                        data-section="attendance"
+                    >
 
                         📅
+
                         <span>
                             Take Attendance
                         </span>
@@ -350,6 +401,7 @@
                     <a href="manage result.html">
 
                         📊
+
                         <span>
                             Upload Result
                         </span>
@@ -361,320 +413,235 @@
             </div>
 
         </section>
+
+
+        <!-- ========================= -->
         <!-- STUDENT MANAGEMENT -->
-
-<section
-id="studentManagement"
-class="teacher-section">
-
-<div class="teacher-section-heading">
-
-    <p class="section-label">
-        STUDENT MANAGEMENT
-    </p>
-
-    <h1>
-        My Class Students
-    </h1>
-
-    <p>
-        Add and manage students belonging to your class.
-    </p>
-
-</div>
-
-
-<div class="teacher-management-toolbar">
-
-    <button
-        type="button"
-        class="btn"
-        id="addStudentButton">
-
-        + Add Student
-
-    </button>
-
-</div>
-
-
-<!-- ADD STUDENT FORM -->
-
-<div
-    id="studentFormContainer"
-    style="display:none;">
-
-    <form id="studentForm">
-
-        <input
-            type="hidden"
-            id="studentId">
-
-
-        <div class="form-group">
-
-            <label for="studentName">
-                Student Name
-            </label>
-
-            <input
-                type="text"
-                id="studentName"
-                required>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="registrationNumber">
-                Registration Number
-            </label>
-
-            <input
-                type="text"
-                id="registrationNumber"
-                required>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="serialNumber">
-                Serial Number
-            </label>
-
-            <input
-                type="number"
-                id="serialNumber">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="studentSex">
-                Sex
-            </label>
-
-            <select id="studentSex">
-
-                <option value="">
-                    Select Sex
-                </option>
-
-                <option value="Male">
-                    Male
-                </option>
-
-                <option value="Female">
-                    Female
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="studentDob">
-                Date of Birth
-            </label>
-
-            <input
-                type="date"
-                id="studentDob">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="studentAddress">
-                Home Address
-            </label>
-
-            <textarea
-                id="studentAddress"
-                rows="3">
-            </textarea>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="guardianName">
-                Parent / Guardian Name
-            </label>
-
-            <input
-                type="text"
-                id="guardianName">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label for="parentPhone">
-                Parent / Guardian Phone
-            </label>
-
-            <input
-                type="tel"
-                id="parentPhone">
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>
-                Class
-            </label>
-
-            <input
-                type="text"
-                id="studentClass"
-                readonly>
-
-        </div>
-
-
-        <div style="display:flex; gap:10px;">
-
-            <button
-                type="submit"
-                class="btn"
-                id="saveStudentButton">
-
-                Save Student
-
-            </button>
-
-            <button
-                type="button"
-                class="btn"
-                id="cancelStudentButton">
-
-                Cancel
-
-            </button>
-
-        </div>
-
-    </form>
-
-</div>
-
-
-<!-- STUDENT TABLE -->
-
-<div class="teacher-table-container">
-
-    <table class="teacher-table">
-
-        <thead>
-
-            <tr>
-
-                <th>S/N</th>
-
-                <th>
-                    Student Name
-                </th>
-
-                <th>
-                    Registration Number
-                </th>
-
-                <th>
-                    Sex
-                </th>
-
-                <th>
-                    Date of Birth
-                </th>
-
-                <th>
-                    Actions
-                </th>
-
-            </tr>
-
-        </thead>
-
-
-        <tbody id="studentTableBody">
-
-            <tr>
-
-                <td
-                    colspan="6"
-                    style="text-align:center;">
-
-                    Loading students...
-
-                </td>
-
-            </tr>
-
-        </tbody>
-
-    </table>
-
-</div>
-
-</section>
-
-
-        <!-- ATTENDANCE -->
+        <!-- ========================= -->
 
         <section
-            id="attendance"
-            class="teacher-section">
+            id="studentManagement"
+            class="teacher-section"
+        >
 
             <div class="teacher-section-heading">
 
                 <p class="section-label">
-                    ATTENDANCE
+                    STUDENT MANAGEMENT
                 </p>
 
                 <h1>
-                    Class Attendance
+                    My Class Students
                 </h1>
 
                 <p>
-                    Record daily attendance for your students.
+                    Add and manage students belonging to your class.
                 </p>
 
             </div>
 
 
-            <div class="attendance-controls">
-
-                <label for="attendanceDate">
-                    Attendance Date
-                </label>
-
-                <input
-                    type="date"
-                    id="attendanceDate">
+            <div class="teacher-management-toolbar">
 
                 <button
                     type="button"
                     class="btn"
-                    id="loadAttendanceButton">
+                    id="addStudentButton"
+                >
 
-                    Load Students
+                    + Add Student
 
                 </button>
 
             </div>
 
+
+            <!-- ADD STUDENT FORM -->
+
+            <div
+                id="studentFormContainer"
+                style="display:none;"
+            >
+
+                <form id="studentForm">
+
+                    <input
+                        type="hidden"
+                        id="studentId"
+                    >
+
+
+                    <div class="form-group">
+
+                        <label for="studentName">
+                            Student Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="studentName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registrationNumber">
+                            Registration Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="registrationNumber"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="serialNumber">
+                            Serial Number
+                        </label>
+
+                        <input
+                            type="number"
+                            id="serialNumber"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="studentSex">
+                            Sex
+                        </label>
+
+                        <select id="studentSex">
+
+                            <option value="">
+                                Select Sex
+                            </option>
+
+                            <option value="Male">
+                                Male
+                            </option>
+
+                            <option value="Female">
+                                Female
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="studentDob">
+                            Date of Birth
+                        </label>
+
+                        <input
+                            type="date"
+                            id="studentDob"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="studentAddress">
+                            Home Address
+                        </label>
+
+                        <textarea
+                            id="studentAddress"
+                            rows="3"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="guardianName">
+                            Parent / Guardian Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="guardianName"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="parentPhone">
+                            Parent / Guardian Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="parentPhone"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Class
+                        </label>
+
+                        <input
+                            type="text"
+                            id="studentClass"
+                            readonly
+                        >
+
+                    </div>
+
+
+                    <div style="display:flex; gap:10px;">
+
+                        <button
+                            type="submit"
+                            class="btn"
+                            id="saveStudentButton"
+                        >
+
+                            Save Student
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn"
+                            id="cancelStudentButton"
+                        >
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- STUDENT TABLE -->
 
             <div class="teacher-table-container">
 
@@ -697,7 +664,237 @@ class="teacher-section">
                             </th>
 
                             <th>
-                                Attendance
+                                Sex
+                            </th>
+
+                            <th>
+                                Date of Birth
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="studentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                style="text-align:center;"
+                            >
+
+                                Loading students...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- WEEKLY ATTENDANCE -->
+        <!-- ========================= -->
+
+        <section
+            id="attendance"
+            class="teacher-section"
+        >
+
+            <div class="teacher-section-heading">
+
+                <p class="section-label">
+                    ATTENDANCE
+                </p>
+
+                <h1>
+                    Weekly Class Attendance
+                </h1>
+
+                <p>
+                    Record attendance for your students from Monday to Friday.
+                </p>
+
+            </div>
+
+
+            <!-- ATTENDANCE INFORMATION -->
+
+            <div class="teacher-dashboard-panel">
+
+                <div style="margin-bottom:20px;">
+
+                    <h2>
+                        Attendance Week
+                    </h2>
+
+                    <p>
+                        Select the Monday of the school week you want to record.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="attendance-controls"
+                    style="
+                        display:flex;
+                        flex-wrap:wrap;
+                        gap:15px;
+                        align-items:end;
+                    "
+                >
+
+                    <div>
+
+                        <label
+                            for="attendanceWeek"
+                            style="display:block; margin-bottom:6px;"
+                        >
+                            Week Starting
+                        </label>
+
+                        <input
+                            type="date"
+                            id="attendanceWeek"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="btn"
+                        id="loadAttendanceButton"
+                    >
+
+                        Load Attendance
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- WEEK SUMMARY -->
+
+            <div
+                class="teacher-stat-grid"
+                style="margin-top:20px;"
+            >
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        📅
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Week
+                        </span>
+
+                        <strong id="attendanceWeekLabel">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Students
+                        </span>
+
+                        <strong id="attendanceStudentCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDANCE TABLE -->
+
+            <div
+                class="teacher-table-container"
+                style="margin-top:20px;"
+            >
+
+                <table
+                    class="teacher-table"
+                    id="weeklyAttendanceTable"
+                >
+
+                    <thead>
+
+                        <tr>
+
+                            <th rowspan="2">
+                                S/N
+                            </th>
+
+                            <th rowspan="2">
+                                Student Name
+                            </th>
+
+                            <th rowspan="2">
+                                Registration Number
+                            </th>
+
+                            <th colspan="5">
+                                School Week
+                            </th>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Monday
+                            </th>
+
+                            <th>
+                                Tuesday
+                            </th>
+
+                            <th>
+                                Wednesday
+                            </th>
+
+                            <th>
+                                Thursday
+                            </th>
+
+                            <th>
+                                Friday
                             </th>
 
                         </tr>
@@ -709,9 +906,12 @@ class="teacher-section">
 
                         <tr>
 
-                            <td colspan="4">
+                            <td
+                                colspan="8"
+                                style="text-align:center;"
+                            >
 
-                                Select a date to take attendance.
+                                Select a week to load students.
 
                             </td>
 
@@ -724,23 +924,70 @@ class="teacher-section">
             </div>
 
 
-            <button
-                type="button"
-                class="btn attendance-save-btn"
-                id="saveAttendanceButton">
+            <!-- SAVE ATTENDANCE -->
 
-                Save Attendance
+            <div
+                style="
+                    margin-top:20px;
+                    display:flex;
+                    gap:10px;
+                    flex-wrap:wrap;
+                "
+            >
 
-            </button>
+                <button
+                    type="button"
+                    class="btn attendance-save-btn"
+                    id="saveAttendanceButton"
+                >
+
+                    💾 Save Weekly Attendance
+
+                </button>
+
+            </div>
+
+
+            <!-- ATTENDANCE NOTE -->
+
+            <div
+                class="teacher-dashboard-panel"
+                style="margin-top:20px;"
+            >
+
+                <h3>
+                    Attendance Status
+                </h3>
+
+                <p>
+                    <strong>Present</strong> — Student attended school.
+                </p>
+
+                <p>
+                    <strong>Absent</strong> — Student was not present.
+                </p>
+
+                <p>
+                    <strong>Late</strong> — Student arrived late.
+                </p>
+
+                <p>
+                    <strong>Excused</strong> — Absence was officially excused.
+                </p>
+
+            </div>
 
         </section>
 
 
+        <!-- ========================= -->
         <!-- PROFILE -->
+        <!-- ========================= -->
 
         <section
             id="teacherProfile"
-            class="teacher-section">
+            class="teacher-section"
+        >
 
             <div class="teacher-section-heading">
 

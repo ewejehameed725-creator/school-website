@@ -508,6 +508,24 @@ app.post(
                     staff.id
                 ]
             );
+            await pool.query(
+                `INSERT INTO staff_login_history
+                (
+                    staff_id,
+                    teacher_name,
+                    username,
+                    role,
+                    assigned_class
+                )
+                VALUES ($1, $2, $3, $4, $5)`,
+                [
+                    staff.id,
+                    staff.full_name,
+                    staff.username,
+                    staff.role,
+                    staff.assigned_class
+                ]
+            );
 
 
             res.json({
@@ -1531,6 +1549,33 @@ app.post(
 // =====================================================
 
 async function ensureActivityTable() {
+    // =====================================================
+// TEACHER LOGIN HISTORY TABLE
+// =====================================================
+
+async function ensureLoginHistoryTable() {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS staff_login_history (
+                id BIGSERIAL PRIMARY KEY,
+                staff_id BIGINT,
+                teacher_name TEXT NOT NULL,
+                username TEXT NOT NULL,
+                role TEXT NOT NULL,
+                assigned_class TEXT,
+                login_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+            )
+        `);
+
+        console.log("Teacher login history table ready.");
+
+    } catch (error) {
+        console.error(
+            "Login history table error:",
+            error.message
+        );
+    }
+}
 
     try {
 
@@ -1635,6 +1680,51 @@ async function logTeacherActivity(data) {
     }
 
 }
+// =====================================================
+// TEACHER LOGIN HISTORY
+// =====================================================
+
+app.get(
+    "/api/teacher-login-history",
+    async function (req, res) {
+
+        try {
+
+            const result = await pool.query(`
+                SELECT
+                    id,
+                    staff_id,
+                    teacher_name,
+                    username,
+                    role,
+                    assigned_class,
+                    login_at
+                FROM staff_login_history
+                WHERE role = 'teacher'
+                ORDER BY login_at DESC
+                LIMIT 200
+            `);
+
+            res.json({
+                success: true,
+                history: result.rows
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Teacher login history error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "Unable to load teacher login history."
+            });
+        }
+    }
+);
 
 
 // =====================================================
@@ -2484,6 +2574,8 @@ async function initializeDatabase() {
     await ensureAttendanceTable();
 
     await ensureActivityTable();
+
+    await ensureLoginHistoryTable();
 
 }
 

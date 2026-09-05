@@ -412,176 +412,238 @@ app.post(
 
     }
 );
-
-
 // =====================================================
 // STAFF LOGIN
+// PRINCIPAL + TEACHER
 // =====================================================
 
-app.post(
-    "/api/staff/login",
-    async function (req, res) {
+app.post("/api/staff/login", async (req, res) => {
+
+    try {
+
+        const {
+            username,
+            password
+        } = req.body;
+
+
+        // ---------------------------------------------
+        // VALIDATE INPUT
+        // ---------------------------------------------
+
+        if (!username || !password) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Username and password are required."
+            });
+
+        }
+
+
+        // ---------------------------------------------
+        // FIND STAFF ACCOUNT
+        // ---------------------------------------------
+
+        const result = await pool.query(
+            `
+            SELECT *
+            FROM staff
+            WHERE LOWER(username) = LOWER($1)
+            LIMIT 1
+            `,
+            [username.trim()]
+        );
+
+
+        // ---------------------------------------------
+        // ACCOUNT NOT FOUND
+        // ---------------------------------------------
+
+        if (result.rows.length === 0) {
+
+            return res.status(401).json({
+                success: false,
+                message: "Invalid username or password."
+            });
+
+        }
+
+
+        const staff = result.rows[0];
+
+
+        // ---------------------------------------------
+        // VERIFY PASSWORD
+        // ---------------------------------------------
+
+        const passwordCorrect =
+            await verifyPassword(
+                password,
+                staff.password_hash
+            );
+
+
+        if (!passwordCorrect) {
+
+            return res.status(401).json({
+                success: false,
+                message: "Invalid username or password."
+            });
+
+        }
+
+
+        // ---------------------------------------------
+        // UPDATE LAST LOGIN
+        // ---------------------------------------------
 
         try {
 
-            const {
-                username,
-                password
-            } = req.body;
-
-
-            if (
-                !username ||
-                !password
-            ) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    message:
-                        "Username and password are required."
-
-                });
-
-            }
-
-
-            const result =
-                await pool.query(
-                    `SELECT *
-                     FROM staff
-                     WHERE LOWER(username) = LOWER($1)
-                     LIMIT 1`,
-                    [
-                        username.trim()
-                    ]
-                );
-
-
-            if (
-                result.rows.length === 0
-            ) {
-
-                return res.status(401).json({
-
-                    success: false,
-
-                    message:
-                        "Invalid username or password."
-
-                });
-
-            }
-
-
-            const staff =
-                result.rows[0];
-
-
-            const passwordCorrect =
-                await verifyPassword(
-                    password,
-                    staff.password_hash
-                );
-
-
-            if (!passwordCorrect) {
-
-                return res.status(401).json({
-
-                    success: false,
-
-                    message:
-                        "Invalid username or password."
-
-                });
-
-            }
-
-
             await pool.query(
-                `UPDATE staff
-                 SET last_login_at = NOW()
-                 WHERE id = $1`,
-                [
-                    staff.id
-                ]
+                `
+                UPDATE staff
+                SET last_login_at = NOW()
+                WHERE id = $1
+                `,
+                [staff.id]
             );
+
+        } catch (loginUpdateError) {
+
+            console.error(
+                "Could not update last login:",
+                loginUpdateError.message
+            );
+
+            // Do NOT stop login.
+        }
+
+
+        // ---------------------------------------------
+        // SAVE LOGIN HISTORY
+        // ---------------------------------------------
+
+        try {
+
             await pool.query(
-                `INSERT INTO staff_login_history
+                `
+                INSERT INTO staff_login_history
                 (
                     staff_id,
                     teacher_name,
                     username,
                     role,
-                    assigned_class
+                    assigned_class,
+                    login_at
                 )
-                VALUES ($1, $2, $3, $4, $5)`,
+                VALUES ($1, $2, $3, $4, $5, NOW())
+                `,
                 [
-                    staff.id,
+                    String(staff.id),
                     staff.full_name,
                     staff.username,
                     staff.role,
-                    staff.assigned_class
+                    staff.assigned_class || null
                 ]
             );
 
-
-            res.json({
-
-                success: true,
-
-                message:
-                    "Login successful.",
-
-                user: {
-
-                    id:
-                        staff.id,
-
-                    fullName:
-                        staff.full_name,
-
-                    username:
-                        staff.username,
-
-                    role:
-                        staff.role,
-
-                    assignedClass:
-                        staff.assigned_class,
-
-                    phone:
-                        staff.phone
-
-                }
-
-            });
-
-        }
-
-        catch (error) {
+        } catch (historyError) {
 
             console.error(
-                "Staff login error:",
-                error.message
+                "Login history could not be saved:",
+                historyError.message
             );
 
+            // IMPORTANT:
+            // A history error must NOT
+            // prevent the user from logging in.
+        }
 
-            res.status(500).json({
 
-                success: false,
+        // ---------------------------------------------
+        // LOG ACTIVITY
+        // ---------------------------------------------
 
-                message:
-                    "Unable to login."
+        try {
 
+            await logTeacherActivity({
+                teacherId: staff.id,
+                teacherName: staff.full_name,
+                username: staff.username,
+                activityType: "LOGIN",
+                description:
+                    `${staff.full_name} logged into the staff portal.`
             });
+
+        } catch (activityError) {
+
+            console.error(
+                "Activity log error:",
+                activityError.message
+            );
 
         }
 
+
+        // ---------------------------------------------
+        // SUCCESS
+        // ---------------------------------------------
+
+        return res.status(200).json({
+
+            success: true,
+
+            message: "Login successful.",
+
+            user: {
+                id: staff.id,
+
+                fullName:
+                    staff.full_name,
+
+                username:
+                    staff.username,
+
+                role:
+                    staff.role,
+
+                assignedClass:
+                    staff.assigned_class,
+
+                phone:
+                    staff.phone
+            }
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "================================="
+        );
+
+        console.error(
+            "STAFF LOGIN ERROR"
+        );
+
+        console.error(
+            error
+        );
+
+        console.error(
+            "================================="
+        );
+
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to login."
+        });
+
     }
-);
+
+});
 
 
 // =====================================================
@@ -1542,56 +1604,83 @@ app.post(
 
     }
 );
-
-
 // =====================================================
 // ACTIVITY TABLE
 // =====================================================
 
 async function ensureActivityTable() {
-    // =====================================================
-// TEACHER LOGIN HISTORY TABLE
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS teacher_activities (
+                id BIGSERIAL PRIMARY KEY,
+                teacher_id TEXT,
+                teacher_name TEXT,
+                username TEXT,
+                activity_type TEXT,
+                description TEXT,
+                created_at TIMESTAMPTZ DEFAULT NOW()
+            )
+        `);
+
+        console.log("Teacher activities table ready.");
+    } catch (error) {
+        console.error(
+            "Teacher activities table error:",
+            error.message
+        );
+    }
+}
+
+
+// =====================================================
+// STAFF LOGIN HISTORY TABLE
 // =====================================================
 
 async function ensureLoginHistoryTable() {
-   // Save login history.
-// If this fails, do NOT prevent the user from logging in.
-try {
+    try {
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS staff_login_history (
+                id BIGSERIAL PRIMARY KEY,
+                staff_id TEXT,
+                teacher_name TEXT,
+                username TEXT,
+                role TEXT,
+                assigned_class TEXT,
+                login_at TIMESTAMPTZ DEFAULT NOW()
+            )
+        `);
 
-    await pool.query(
-        `INSERT INTO staff_login_history
-        (
-            staff_id,
-            teacher_name,
-            username,
-            role,
-            assigned_class,
-            login_at
-        )
-        VALUES ($1, $2, $3, $4, $5, NOW())`,
-        [
-            staff.id,
-            staff.full_name,
-            staff.username,
-            staff.role,
-            staff.assigned_class || null
-        ]
-    );
-
-} catch (historyError) {
-
-    console.error(
-        "Login history could not be saved:",
-        historyError.message
-    );
-
+        console.log("Staff login history table ready.");
+    } catch (error) {
+        console.error(
+            "Staff login history table error:",
+            error.message
+        );
+    }
 }
 
-}
-}
 
 // =====================================================
-// LOG ACTIVITY
+// STAFF LAST LOGIN COLUMN
+// =====================================================
+
+async function ensureStaffLoginColumn() {
+    try {
+        await pool.query(`
+            ALTER TABLE staff
+            ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ
+        `);
+
+        console.log("Staff last_login_at column ready.");
+    } catch (error) {
+        console.error(
+            "Staff last_login_at column error:",
+            error.message
+        );
+    }
+}
+// =====================================================
+// LOG TEACHER ACTIVITY
 // =====================================================
 
 async function logTeacherActivity(data) {
@@ -1599,52 +1688,44 @@ async function logTeacherActivity(data) {
     try {
 
         await pool.query(
-            `INSERT INTO teacher_activities
+            `
+            INSERT INTO teacher_activities
             (
                 teacher_id,
                 teacher_name,
-                teacher_class,
+                username,
                 activity_type,
-                description,
-                student_name,
-                student_admission_number,
-                created_at
+                description
             )
-            VALUES
-            ($1, $2, $3, $4, $5, $6, $7, NOW())`,
+            VALUES ($1, $2, $3, $4, $5)
+            `,
             [
-                data.teacherId || null,
+                data.teacherId
+                    ? String(data.teacherId)
+                    : null,
 
-                data.teacherName ||
-                    "Teacher",
+                data.teacherName || null,
 
-                data.teacherClass ||
-                    null,
+                data.username || null,
 
-                data.activityType,
+                data.activityType || null,
 
-                data.description,
-
-                data.studentName ||
-                    null,
-
-                data.studentAdmissionNumber ||
-                    null
+                data.description || null
             ]
         );
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
-            "Activity logging error:",
+            "Activity logging failed:",
             error.message
         );
 
+        // Activity logging must NEVER stop
+        // the main operation.
     }
-
 }
+
 // =====================================================
 // TEACHER LOGIN HISTORY
 // =====================================================
@@ -2526,35 +2607,54 @@ app.delete(
 
     }
 );
-
-
 // =====================================================
-// STARTUP DATABASE SETUP
+// DATABASE INITIALIZATION
 // =====================================================
 
 async function initializeDatabase() {
 
-    await ensureStudentColumns();
+    try {
 
-    await ensureAttendanceTable();
-
-    await ensureActivityTable();
-
-    await ensureLoginHistoryTable();
-
-}
-
-
-initializeDatabase()
-    .catch(function (error) {
-
-        console.error(
-            "Database initialization error:",
-            error.message
+        console.log(
+            "Starting database initialization..."
         );
 
-    });
 
+        // ---------------------------------------------
+        // EXISTING TABLE SETUP
+        // ---------------------------------------------
+
+        await ensureStudentColumns();
+
+        await ensureAttendanceTable();
+
+
+        // ---------------------------------------------
+        // STAFF LOGIN SETUP
+        // ---------------------------------------------
+
+        await ensureStaffLoginColumn();
+
+        await ensureActivityTable();
+
+        await ensureLoginHistoryTable();
+
+
+        console.log(
+            "Database initialization completed."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Database initialization error:"
+        );
+
+        console.error(error);
+
+    }
+
+}
 
 // =====================================================
 // START SERVER

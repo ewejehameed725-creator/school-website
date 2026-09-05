@@ -25,14 +25,293 @@
         href="style.css"
     >
 
+    <style>
+
+        /* =================================
+           ADMIN DASHBOARD
+        ================================= */
+
+        .admin-dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        .dashboard-heading {
+            margin-bottom: 35px;
+        }
+
+        .dashboard-heading .section-label {
+            color: #168a45;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+
+        .dashboard-heading h1 {
+            margin: 8px 0;
+        }
+
+        .dashboard-heading p {
+            color: #666;
+        }
+
+
+        /* =================================
+           DASHBOARD CARDS
+        ================================= */
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 28px;
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.08);
+
+            border: 1px solid #eeeeee;
+        }
+
+        .dashboard-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .dashboard-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+
+        /* =================================
+           DASHBOARD LINKS
+        ================================= */
+
+        .dashboard-link {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #168a45;
+        }
+
+        .dashboard-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =================================
+           FULL WIDTH SECTIONS
+        ================================= */
+
+        .dashboard-wide {
+            grid-column: 1 / -1;
+        }
+
+
+        /* =================================
+           SECTION HEADER
+        ================================= */
+
+        .admin-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .admin-section-header h2 {
+            margin: 0;
+        }
+
+        .admin-section-header p {
+            margin: 5px 0 0;
+            color: #777;
+        }
+
+
+        /* =================================
+           REFRESH BUTTON
+        ================================= */
+
+        .refresh-btn {
+            border: none;
+            background: #168a45;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .refresh-btn:hover {
+            opacity: 0.9;
+        }
+
+
+        /* =================================
+           TABLE
+        ================================= */
+
+        .admin-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #eeeeee;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .admin-table th {
+            background: #f5f8f6;
+            font-weight: 700;
+        }
+
+        .admin-table tr:hover {
+            background: #fafafa;
+        }
+
+
+        /* =================================
+           STATUS
+        ================================= */
+
+        .activity-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #e8f6ed;
+            color: #168a45;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* =================================
+           ATTENDANCE
+        ================================= */
+
+        .attendance-table {
+            min-width: 900px;
+        }
+
+        .attendance-present {
+            color: #168a45;
+            font-weight: 700;
+        }
+
+        .attendance-absent {
+            color: #c62828;
+            font-weight: 700;
+        }
+
+        .attendance-late {
+            color: #ef8c00;
+            font-weight: 700;
+        }
+
+        .attendance-excused {
+            color: #555;
+            font-weight: 700;
+        }
+
+
+        /* =================================
+           CLASS FILTER
+        ================================= */
+
+        .class-filter {
+            padding: 10px 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            min-width: 180px;
+        }
+
+
+        /* =================================
+           EMPTY MESSAGE
+        ================================= */
+
+        .empty-message {
+            padding: 25px;
+            text-align: center;
+            color: #777;
+            background: #fafafa;
+            border-radius: 10px;
+        }
+
+
+        /* =================================
+           LOADING
+        ================================= */
+
+        .table-loading {
+            padding: 25px;
+            text-align: center;
+            color: #777;
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-wide {
+                grid-column: auto;
+            }
+
+            .admin-section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .class-filter {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
 
-    <!-- ==============================
+    <!-- =================================
          PAGE LOADER
-    =============================== -->
+    ================================= -->
 
     <div id="pageLoader">
 
@@ -59,9 +338,10 @@
     </div>
 
 
-    <!-- ==============================
+
+    <!-- =================================
          ADMIN HEADER
-    =============================== -->
+    ================================= -->
 
     <header class="admin-header">
 
@@ -79,7 +359,7 @@
                 </h2>
 
                 <p>
-                    Admin Dashboard
+                    Principal Dashboard
                 </p>
 
             </div>
@@ -90,6 +370,7 @@
         <a
             href="index.html"
             class="logout-btn"
+            onclick="logoutAdmin()"
         >
             Logout
         </a>
@@ -97,19 +378,22 @@
     </header>
 
 
-    <!-- ==============================
-         DASHBOARD
-    =============================== -->
+
+    <!-- =================================
+         MAIN DASHBOARD
+    ================================= -->
 
     <main class="admin-dashboard">
 
 
-        <!-- DASHBOARD HEADING -->
+        <!-- =================================
+             HEADING
+        ================================= -->
 
         <div class="dashboard-heading">
 
             <p class="section-label">
-                ADMIN PORTAL
+                PRINCIPAL PORTAL
             </p>
 
             <h1>
@@ -117,118 +401,229 @@
             </h1>
 
             <p>
-                Manage school information, students,
-                results and announcements from this dashboard.
+                Monitor teachers, students, attendance
+                and school announcements from one place.
             </p>
 
         </div>
 
 
-        <!-- ==============================
+
+        <!-- =================================
              DASHBOARD CARDS
-        =============================== -->
+        ================================= -->
 
         <div class="dashboard-cards">
 
 
-            <!-- ==============================
-                 STUDENTS
-            =============================== -->
+            <!-- =================================
+                 TEACHER ACTIVITY
+            ================================= -->
 
-            <div class="dashboard-card">
+            <div class="dashboard-card dashboard-wide">
 
-                <div class="dashboard-icon">
-                    👨‍🎓
+                <div class="admin-section-header">
+
+                    <div>
+
+                        <div class="dashboard-icon">
+                            👨‍🏫
+                        </div>
+
+                        <h2>
+                            Teacher Activity
+                        </h2>
+
+                        <p>
+                            Monitor activities performed by
+                            teachers on the school portal.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="refresh-btn"
+                        onclick="loadTeacherActivities()"
+                    >
+                        Refresh
+                    </button>
+
                 </div>
 
-                <h3>
-                    Students
-                </h3>
 
-                <p>
-                    View and manage student information.
-                </p>
+                <div
+                    id="teacherActivityContainer"
+                    class="admin-table-wrapper"
+                >
 
-                <a href="#">
-                    Manage Students →
-                </a>
+                    <div class="table-loading">
+                        Loading teacher activities...
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <!-- ==============================
-                 RESULTS
-            =============================== -->
 
-            <div class="dashboard-card">
+            <!-- =================================
+                 TEACHER LOGIN HISTORY
+            ================================= -->
 
-                <div class="dashboard-icon">
-                    📊
+            <div class="dashboard-card dashboard-wide">
+
+                <div class="admin-section-header">
+
+                    <div>
+
+                        <div class="dashboard-icon">
+                            🔐
+                        </div>
+
+                        <h2>
+                            Teacher Login History
+                        </h2>
+
+                        <p>
+                            View teachers who have logged
+                            into the school portal.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="refresh-btn"
+                        onclick="loadTeacherLoginHistory()"
+                    >
+                        Refresh
+                    </button>
+
                 </div>
 
-                <h3>
-                    Results
-                </h3>
 
-                <p>
-                    Upload official student results
-                    generated from the school's existing
-                    result system.
-                </p>
+                <div
+                    id="teacherLoginContainer"
+                    class="admin-table-wrapper"
+                >
 
-                <a href="manage result.html">
-                    Upload Result →
-                </a>
+                    <div class="table-loading">
+                        Loading login history...
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <!-- ==============================
+
+            <!-- =================================
+                 STUDENTS & ATTENDANCE
+            ================================= -->
+
+            <div class="dashboard-card dashboard-wide">
+
+                <div class="admin-section-header">
+
+                    <div>
+
+                        <div class="dashboard-icon">
+                            👨‍🎓
+                        </div>
+
+                        <h2>
+                            Students & Attendance
+                        </h2>
+
+                        <p>
+                            View students entered by class
+                            teachers and monitor their
+                            weekly attendance.
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <select
+                            id="classFilter"
+                            class="class-filter"
+                            onchange="loadStudentsAndAttendance()"
+                        >
+
+                            <option value="all">
+                                All Classes
+                            </option>
+
+                            <option value="SS1">
+                                SS1
+                            </option>
+
+                            <option value="SS2">
+                                SS2
+                            </option>
+
+                            <option value="SS3">
+                                SS3
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="studentsAttendanceContainer"
+                    class="admin-table-wrapper"
+                >
+
+                    <div class="table-loading">
+                        Loading students and attendance...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
                  NEWS & ANNOUNCEMENTS
-            =============================== -->
+            ================================= -->
 
-            <div class="dashboard-card">
+            <div class="dashboard-card dashboard-wide">
 
-                <div class="dashboard-icon">
-                    📰
+                <div class="admin-section-header">
+
+                    <div>
+
+                        <div class="dashboard-icon">
+                            📰
+                        </div>
+
+                        <h2>
+                            News & Announcements
+                        </h2>
+
+                        <p>
+                            Create, publish, edit and delete
+                            school news and announcements.
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <h3>
-                    News & Announcements
-                </h3>
 
-                <p>
-                    Create, publish, edit and delete
-                    school news and announcements.
-                </p>
-
-                <a href="manage-announcements.html">
-                    Manage News →
-                </a>
-
-            </div>
-
-
-            <!-- ==============================
-                 BOARDING
-            =============================== -->
-
-            <div class="dashboard-card">
-
-                <div class="dashboard-icon">
-                    🏠
-                </div>
-
-                <h3>
-                    Boarding
-                </h3>
-
-                <p>
-                    Manage boarding and hostel information.
-                </p>
-
-                <a href="#">
-                    Manage Boarding →
+                <a
+                    href="manage-announcements.html"
+                    class="dashboard-link"
+                >
+                    Manage News & Announcements →
                 </a>
 
             </div>
@@ -239,11 +634,757 @@
     </main>
 
 
-    <!-- ==============================
+
+    <!-- =================================
+         DASHBOARD SCRIPT
+    ================================= -->
+
+    <script>
+
+        const API_URL =
+            "https://lagos-state-model-college-backend.onrender.com";
+
+
+        /* =================================
+           LOGOUT
+        ================================= */
+
+        function logoutAdmin() {
+
+            localStorage.removeItem("staffUser");
+
+        }
+
+
+
+        /* =================================
+           TEACHER ACTIVITY
+        ================================= */
+
+        async function loadTeacherActivities() {
+
+            const container =
+                document.getElementById(
+                    "teacherActivityContainer"
+                );
+
+            container.innerHTML =
+                `<div class="table-loading">
+                    Loading teacher activities...
+                </div>`;
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/teacher-activities`
+                    );
+
+                const data =
+                    await response.json();
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        "Unable to load activities"
+                    );
+
+                }
+
+
+                const activities =
+                    data.activities || [];
+
+
+                if (
+                    activities.length === 0
+                ) {
+
+                    container.innerHTML =
+                        `<div class="empty-message">
+                            No teacher activities have been recorded yet.
+                        </div>`;
+
+                    return;
+
+                }
+
+
+                let html = `
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Teacher
+                                </th>
+
+                                <th>
+                                    Activity
+                                </th>
+
+                                <th>
+                                    Student
+                                </th>
+
+                                <th>
+                                    Class
+                                </th>
+
+                                <th>
+                                    Date & Time
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                `;
+
+
+                activities.forEach(activity => {
+
+                    const date =
+                        formatDateTime(
+                            activity.created_at
+                        );
+
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${escapeHTML(
+                                    activity.teacher_name ||
+                                    "Unknown"
+                                )}
+                            </td>
+
+                            <td>
+
+                                <span class="activity-status">
+
+                                    ${escapeHTML(
+                                        activity.activity_type ||
+                                        activity.activity ||
+                                        "Activity"
+                                    )}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    activity.student_name ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    activity.student_class ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${date}
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                });
+
+
+                html += `
+
+                        </tbody>
+
+                    </table>
+
+                `;
+
+
+                container.innerHTML = html;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Teacher activity error:",
+                    error
+                );
+
+                container.innerHTML =
+                    `<div class="empty-message">
+                        Unable to load teacher activities.
+                    </div>`;
+
+            }
+
+        }
+
+
+
+        /* =================================
+           TEACHER LOGIN HISTORY
+        ================================= */
+
+        async function loadTeacherLoginHistory() {
+
+            const container =
+                document.getElementById(
+                    "teacherLoginContainer"
+                );
+
+            container.innerHTML =
+                `<div class="table-loading">
+                    Loading login history...
+                </div>`;
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/teacher-login-history`
+                    );
+
+                const data =
+                    await response.json();
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        "Unable to load login history"
+                    );
+
+                }
+
+
+                const teachers =
+                    data.teachers || [];
+
+
+                if (
+                    teachers.length === 0
+                ) {
+
+                    container.innerHTML =
+                        `<div class="empty-message">
+                            No teacher login history is available yet.
+                        </div>`;
+
+                    return;
+
+                }
+
+
+                let html = `
+
+                    <table class="admin-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Teacher Name
+                                </th>
+
+                                <th>
+                                    Username
+                                </th>
+
+                                <th>
+                                    Assigned Class
+                                </th>
+
+                                <th>
+                                    Last Login
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                `;
+
+
+                teachers.forEach(teacher => {
+
+                    html += `
+
+                        <tr>
+
+                            <td>
+                                ${escapeHTML(
+                                    teacher.full_name ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    teacher.username ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    teacher.assigned_class ||
+                                    "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${
+                                    teacher.last_login_at
+                                    ? formatDateTime(
+                                        teacher.last_login_at
+                                    )
+                                    : "Never logged in"
+                                }
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                });
+
+
+                html += `
+
+                        </tbody>
+
+                    </table>
+
+                `;
+
+
+                container.innerHTML = html;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Teacher login history error:",
+                    error
+                );
+
+                container.innerHTML =
+                    `<div class="empty-message">
+                        Unable to load teacher login history.
+                    </div>`;
+
+            }
+
+        }
+
+
+
+        /* =================================
+           STUDENTS & ATTENDANCE
+        ================================= */
+
+        async function loadStudentsAndAttendance() {
+
+            const container =
+                document.getElementById(
+                    "studentsAttendanceContainer"
+                );
+
+            const filter =
+                document.getElementById(
+                    "classFilter"
+                ).value;
+
+
+            container.innerHTML =
+                `<div class="table-loading">
+                    Loading students and attendance...
+                </div>`;
+
+
+            try {
+
+                const studentsResponse =
+                    await fetch(
+                        `${API_URL}/api/students`
+                    );
+
+
+                const studentsData =
+                    await studentsResponse.json();
+
+
+                if (
+                    !studentsResponse.ok ||
+                    !studentsData.success
+                ) {
+
+                    throw new Error(
+                        "Unable to load students"
+                    );
+
+                }
+
+
+                let students =
+                    studentsData.students || [];
+
+
+                if (
+                    filter !== "all"
+                ) {
+
+                    students =
+                        students.filter(student =>
+                            String(
+                                student.student_class ||
+                                student.class_name ||
+                                ""
+                            )
+                            .toUpperCase()
+                            .startsWith(
+                                filter.toUpperCase()
+                            )
+                        );
+
+                }
+
+
+                if (
+                    students.length === 0
+                ) {
+
+                    container.innerHTML =
+                        `<div class="empty-message">
+                            No students have been added for this class yet.
+                        </div>`;
+
+                    return;
+
+                }
+
+
+                /*
+                 * Group students by class.
+                 */
+
+                const groupedStudents = {};
+
+
+                students.forEach(student => {
+
+                    const className =
+                        student.student_class ||
+                        student.class_name ||
+                        "Unassigned";
+
+
+                    if (
+                        !groupedStudents[className]
+                    ) {
+
+                        groupedStudents[className] =
+                            [];
+
+                    }
+
+
+                    groupedStudents[className]
+                        .push(student);
+
+                });
+
+
+                let finalHTML = "";
+
+
+                for (
+                    const className
+                    of Object.keys(groupedStudents)
+                ) {
+
+                    const classStudents =
+                        groupedStudents[className];
+
+
+                    finalHTML += `
+
+                        <div style="
+                            margin-bottom:35px;
+                        ">
+
+                            <h3 style="
+                                margin-bottom:15px;
+                            ">
+                                ${escapeHTML(
+                                    className
+                                )}
+                            </h3>
+
+
+                            <table
+                                class="admin-table attendance-table"
+                            >
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            #
+                                        </th>
+
+                                        <th>
+                                            Student Name
+                                        </th>
+
+                                        <th>
+                                            Registration Number
+                                        </th>
+
+                                        <th>
+                                            Class Teacher
+                                        </th>
+
+                                        <th>
+                                            Monday
+                                        </th>
+
+                                        <th>
+                                            Tuesday
+                                        </th>
+
+                                        <th>
+                                            Wednesday
+                                        </th>
+
+                                        <th>
+                                            Thursday
+                                        </th>
+
+                                        <th>
+                                            Friday
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+                    `;
+
+
+                    classStudents.forEach(
+                        (student, index) => {
+
+                            finalHTML += `
+
+                                <tr>
+
+                                    <td>
+                                        ${index + 1}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            student.full_name ||
+                                            student.student_name ||
+                                            "-"
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            student.registration_number ||
+                                            student.admission_number ||
+                                            "-"
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(
+                                            student.teacher_name ||
+                                            student.class_teacher ||
+                                            "-"
+                                        )}
+                                    </td>
+
+                                    <td>
+                                        -
+                                    </td>
+
+                                    <td>
+                                        -
+                                    </td>
+
+                                    <td>
+                                        -
+                                    </td>
+
+                                    <td>
+                                        -
+                                    </td>
+
+                                    <td>
+                                        -
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        }
+                    );
+
+
+                    finalHTML += `
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                container.innerHTML =
+                    finalHTML;
+
+
+                /*
+                 * Attendance data will be connected
+                 * to the weekly attendance endpoint
+                 * after the dashboard backend route
+                 * is connected.
+                 */
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Students error:",
+                    error
+                );
+
+                container.innerHTML =
+                    `<div class="empty-message">
+                        Unable to load students from the school server.
+                    </div>`;
+
+            }
+
+        }
+
+
+
+        /* =================================
+           DATE FORMAT
+        ================================= */
+
+        function formatDateTime(value) {
+
+            if (!value) {
+                return "-";
+            }
+
+
+            const date =
+                new Date(value);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "-";
+
+            }
+
+
+            return date.toLocaleString(
+                "en-NG",
+                {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                }
+            );
+
+        }
+
+
+
+        /* =================================
+           SECURITY
+        ================================= */
+
+        function escapeHTML(value) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                value ?? "";
+
+            return div.innerHTML;
+
+        }
+
+
+
+        /* =================================
+           LOAD DASHBOARD
+        ================================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                loadTeacherActivities();
+
+                loadTeacherLoginHistory();
+
+                loadStudentsAndAttendance();
+
+            }
+        );
+
+    </script>
+
+
+    <!-- =================================
          LOADING SCRIPT
-    =============================== -->
+    ================================= -->
 
     <script src="loading.js"></script>
+
 
 </body>
 

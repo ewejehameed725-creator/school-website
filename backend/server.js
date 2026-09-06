@@ -1707,9 +1707,12 @@ app.get(
             if (!weekStart) {
 
                 return res.status(400).json({
+
                     success: false,
+
                     message:
                         "Week start date is required."
+
                 });
 
             }
@@ -1717,18 +1720,18 @@ app.get(
 
             let query = `
                 SELECT
-                    a.student_id,
-                    a.student_name,
-                    a.registration_number,
-                    a.student_class,
-                    a.teacher_id,
-                    a.teacher_name,
-                    a.attendance_date,
-                    a.status
-                FROM attendance a
+                    student_id,
+                    student_name,
+                    registration_number,
+                    student_class,
+                    teacher_id,
+                    teacher_name,
+                    attendance_date,
+                    status
+                FROM attendance
                 WHERE
-                    a.attendance_date >= $1::DATE
-                    AND a.attendance_date < (
+                    attendance_date >= $1::DATE
+                    AND attendance_date < (
                         $1::DATE + INTERVAL '5 days'
                     )
             `;
@@ -1745,22 +1748,20 @@ app.get(
             ) {
 
                 query += `
-                    AND LOWER(a.student_class)
+                    AND LOWER(student_class)
                     = LOWER($2)
                 `;
 
-                values.push(
-                    studentClass
-                );
+                values.push(studentClass);
 
             }
 
 
             query += `
                 ORDER BY
-                    a.student_class ASC,
-                    a.student_name ASC,
-                    a.attendance_date ASC
+                    student_class ASC,
+                    student_name ASC,
+                    attendance_date ASC
             `;
 
 
@@ -1789,7 +1790,7 @@ app.get(
 
             console.error(
                 "Principal attendance report error:",
-                error.message
+                error
             );
 
 
@@ -1798,7 +1799,10 @@ app.get(
                 success: false,
 
                 message:
-                    "Unable to load principal attendance report."
+                    "Unable to load principal attendance report.",
+
+                error:
+                    error.message
 
             });
 
@@ -1938,6 +1942,10 @@ app.get(
 
         try {
 
+            // Make sure the table exists
+            await ensureLoginHistoryTable();
+
+
             const result = await pool.query(`
                 SELECT
                     id,
@@ -1948,32 +1956,46 @@ app.get(
                     assigned_class,
                     login_at
                 FROM staff_login_history
-                WHERE role = 'teacher'
+                WHERE LOWER(role) = 'teacher'
                 ORDER BY login_at DESC
                 LIMIT 200
             `);
 
+
             res.json({
+
                 success: true,
+
                 history: result.rows
+
             });
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.error(
                 "Teacher login history error:",
-                error.message
+                error
             );
 
+
             res.status(500).json({
+
                 success: false,
+
                 message:
-                    "Unable to load teacher login history."
+                    "Unable to load teacher login history.",
+
+                error:
+                    error.message
+
             });
+
         }
+
     }
 );
-
 
 // =====================================================
 // GET TEACHER ACTIVITIES

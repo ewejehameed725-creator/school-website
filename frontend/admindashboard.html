@@ -434,6 +434,282 @@
             }
         }
     </style>
+    <style>
+        /* =========================================
+           MOBILE RESPONSIVE DESIGN
+           PRINCIPAL / ADMIN DASHBOARD
+        ========================================= */
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        button,
+        a,
+        input,
+        select {
+            max-width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+        
+            body {
+                font-size: 14px;
+            }
+        
+            /* HEADER */
+        
+            header,
+            .topbar,
+            .header {
+                width: 100%;
+                padding: 12px 15px !important;
+            }
+        
+            .header-content,
+            .topbar-content {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        
+            .school-logo,
+            header img {
+                width: 42px !important;
+                height: 42px !important;
+                object-fit: contain;
+            }
+        
+            /* MAIN CONTENT */
+        
+            main,
+            .main-content,
+            .content,
+            .dashboard-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 15px !important;
+            }
+        
+            /* SIDEBAR */
+        
+            .sidebar {
+                width: 280px;
+                max-width: 85vw;
+            }
+        
+            /* PAGE TITLES */
+        
+            h1 {
+                font-size: 22px !important;
+                line-height: 1.25;
+            }
+        
+            h2 {
+                font-size: 19px !important;
+            }
+        
+            h3 {
+                font-size: 17px !important;
+            }
+        
+            .section-header {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 12px;
+            }
+        
+            .section-header .primary-btn,
+            .section-header a,
+            .section-header button {
+                width: 100%;
+                text-align: center;
+            }
+        
+            /* SUMMARY CARDS */
+        
+            .stats-grid,
+            .summary-grid,
+            .dashboard-cards,
+            .stat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+            }
+        
+            .stat-card,
+            .summary-card,
+            .dashboard-card {
+                min-width: 0 !important;
+                width: 100% !important;
+                padding: 15px !important;
+            }
+        
+            .stat-card h3,
+            .summary-card h3 {
+                font-size: 13px !important;
+            }
+        
+            .stat-card strong,
+            .summary-card strong,
+            .stat-number {
+                font-size: 24px !important;
+            }
+        
+            /* FILTERS */
+        
+            .filters,
+            .filter-row,
+            .attendance-controls,
+            .control-row {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 10px !important;
+            }
+        
+            .filters > *,
+            .filter-row > *,
+            .attendance-controls > *,
+            .control-row > * {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+        
+            input,
+            select,
+            textarea {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: 44px;
+                font-size: 16px !important;
+            }
+        
+            textarea {
+                min-height: 120px;
+            }
+        
+            /* BUTTONS */
+        
+            button,
+            .btn,
+            .primary-btn,
+            .secondary-btn {
+                min-height: 44px;
+            }
+        
+            /* TABLES */
+        
+            .table-container,
+            .table-wrapper,
+            .attendance-table-container {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        
+            table {
+                min-width: 700px;
+            }
+        
+            th,
+            td {
+                white-space: nowrap;
+                padding: 9px 10px !important;
+                font-size: 12px !important;
+            }
+        
+            /* ATTENDANCE */
+        
+            .attendance-section,
+            .attendance-card {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden;
+            }
+        
+            /* TEACHER TABLES */
+        
+            .teacher-activities,
+            .login-history,
+            .students-section {
+                width: 100%;
+                max-width: 100%;
+                overflow: hidden;
+            }
+        
+            /* NEWS & ANNOUNCEMENTS */
+        
+            .announcement-grid,
+            .news-grid,
+            .announcements-grid {
+                grid-template-columns: 1fr !important;
+            }
+        
+            .announcement-card,
+            .news-card {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        
+            /* CARDS */
+        
+            .card {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 15px !important;
+            }
+        
+        }
+        
+        /* SMALL PHONES */
+        
+        @media (max-width: 480px) {
+        
+            main,
+            .main-content,
+            .content,
+            .dashboard-content {
+                padding: 10px !important;
+            }
+        
+            .stats-grid,
+            .summary-grid,
+            .dashboard-cards,
+            .stat-grid {
+                grid-template-columns: 1fr !important;
+            }
+        
+            h1 {
+                font-size: 20px !important;
+            }
+        
+            h2 {
+                font-size: 18px !important;
+            }
+        
+            .stat-card,
+            .summary-card {
+                padding: 13px !important;
+            }
+        
+            table {
+                min-width: 650px;
+            }
+        
+        }
+        </style>
 </head>
 
 <body>

@@ -1605,6 +1605,124 @@ app.post(
     }
 );
 // =====================================================
+// PRINCIPAL ATTENDANCE REPORT
+// =====================================================
+
+app.get(
+    "/api/principal/attendance",
+    async function (req, res) {
+
+        try {
+
+            const {
+                studentClass,
+                weekStart
+            } = req.query;
+
+
+            if (!weekStart) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Week start date is required."
+                });
+
+            }
+
+
+            let query = `
+                SELECT
+                    a.student_id,
+                    a.student_name,
+                    a.registration_number,
+                    a.student_class,
+                    a.teacher_id,
+                    a.teacher_name,
+                    a.attendance_date,
+                    a.status
+                FROM attendance a
+                WHERE
+                    a.attendance_date >= $1::DATE
+                    AND a.attendance_date < (
+                        $1::DATE + INTERVAL '5 days'
+                    )
+            `;
+
+
+            const values = [
+                weekStart
+            ];
+
+
+            if (
+                studentClass &&
+                studentClass !== "ALL"
+            ) {
+
+                query += `
+                    AND LOWER(a.student_class)
+                    = LOWER($2)
+                `;
+
+                values.push(
+                    studentClass
+                );
+
+            }
+
+
+            query += `
+                ORDER BY
+                    a.student_class ASC,
+                    a.student_name ASC,
+                    a.attendance_date ASC
+            `;
+
+
+            const result =
+                await pool.query(
+                    query,
+                    values
+                );
+
+
+            res.json({
+
+                success: true,
+
+                weekStart:
+                    weekStart,
+
+                attendance:
+                    result.rows
+
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Principal attendance report error:",
+                error.message
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load principal attendance report."
+
+            });
+
+        }
+
+    }
+);
+// =====================================================
 // ACTIVITY TABLE
 // =====================================================
 

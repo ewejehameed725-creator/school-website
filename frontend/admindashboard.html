@@ -1,48 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        Principal Dashboard | Lagos State Model College Meiran
-    </title>
-
-    <link
-        rel="icon"
-        type="image/jpg"
-        href="images/school.jpg"
-    >
+    <title>Principal Dashboard | Lagos State Model College Meiran</title>
 
     <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            background: #f5f8f6;
-
-            color: #17231c;
-
-            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7f6;
+            color: #17231d;
         }
 
         button,
@@ -51,2094 +25,1293 @@
             font-family: inherit;
         }
 
-        button,
-        a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-
-        /* =====================================================
+        /* ================================
            SIDEBAR
-        ===================================================== */
+        ================================= */
 
         .sidebar {
             position: fixed;
-
             left: 0;
             top: 0;
-
             width: 260px;
             height: 100vh;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #08783f,
-                    #045d30
-                );
-
+            background: linear-gradient(180deg, #087443, #075b36);
             color: white;
-
-            z-index: 2000;
-
-            display: flex;
-
-            flex-direction: column;
-
-            box-shadow:
-                5px 0 25px
-                rgba(0,0,0,0.12);
-
-            transition:
-                transform .3s ease;
+            z-index: 1000;
+            padding: 22px 16px;
+            overflow-y: auto;
+            transition: 0.3s ease;
         }
 
-
-        /* =====================================================
-           SIDEBAR BRAND
-        ===================================================== */
-
-        .sidebar-brand {
-            padding: 22px 18px;
-
+        .sidebar-header {
             display: flex;
-
             align-items: center;
-
             gap: 12px;
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,.15);
+            padding: 8px 10px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 20px;
         }
 
-        .sidebar-logo {
+        .school-logo {
             width: 48px;
             height: 48px;
-
+            border-radius: 12px;
             object-fit: cover;
-
-            border-radius: 50%;
-
             background: white;
-
-            padding: 3px;
-
-            flex-shrink: 0;
         }
 
-        .brand-text {
-            min-width: 0;
-        }
-
-        .brand-text h2 {
-            font-size: 14px;
-
-            line-height: 1.35;
-        }
-
-        .brand-text p {
-            font-size: 10px;
-
-            opacity: .7;
-
-            margin-top: 3px;
-        }
-
-
-        /* =====================================================
-           SIDEBAR NAV
-        ===================================================== */
-
-        .sidebar-nav {
-            flex: 1;
-
-            overflow-y: auto;
-
-            padding: 18px 12px;
-        }
-
-        .nav-label {
-            font-size: 9px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 1px;
-
-            opacity: .55;
-
-            padding:
-                0 12px 9px;
-        }
-
-        .nav-link {
-            width: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-            padding: 12px 13px;
-
-            margin-bottom: 5px;
-
-            border-radius: 10px;
-
-            color:
-                rgba(255,255,255,.86);
-
-            text-decoration: none;
-
+        .school-name {
             font-size: 13px;
-
-            cursor: pointer;
-
-            transition:
-                .2s ease;
-        }
-
-        .nav-link:hover {
-            background:
-                rgba(255,255,255,.12);
-
-            color: white;
-
-            transform:
-                translateX(2px);
-        }
-
-        .nav-link.active {
-            background: white;
-
-            color: #08783f;
-
             font-weight: bold;
+            line-height: 1.4;
+        }
 
-            box-shadow:
-                0 5px 15px
-                rgba(0,0,0,.12);
+        .school-name span {
+            display: block;
+            opacity: 0.75;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .nav-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            opacity: 0.6;
+            padding: 0 12px 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 5px;
+        }
+
+        .nav-menu button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.82);
+            padding: 12px 14px;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s ease;
+        }
+
+        .nav-menu button:hover,
+        .nav-menu button.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
         }
 
         .nav-icon {
-            width: 30px;
-            height: 30px;
-
-            border-radius: 8px;
-
-            background:
-                rgba(255,255,255,.10);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 15px;
-
-            flex-shrink: 0;
+            width: 22px;
+            text-align: center;
+            font-size: 17px;
         }
-
-        .nav-link.active .nav-icon {
-            background: #e4f5ea;
-        }
-
-
-        /* =====================================================
-           SIDEBAR FOOTER
-        ===================================================== */
 
         .sidebar-footer {
-            padding: 14px;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,.14);
+            margin-top: 30px;
+            padding: 15px 12px;
+            border-top: 1px solid rgba(255,255,255,0.15);
         }
 
         .principal-mini {
             display: flex;
-
             align-items: center;
-
             gap: 10px;
-
-            padding: 10px;
-
-            border-radius: 10px;
-
-            background:
-                rgba(255,255,255,.08);
         }
 
         .principal-avatar {
             width: 38px;
             height: 38px;
-
             border-radius: 50%;
-
             background: white;
-
-            color: #08783f;
-
+            color: #087443;
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             font-weight: bold;
         }
 
         .principal-mini strong {
             display: block;
-
             font-size: 12px;
         }
 
         .principal-mini span {
             display: block;
-
             font-size: 10px;
-
-            opacity: .7;
-
-            margin-top: 2px;
+            opacity: 0.7;
+            margin-top: 3px;
         }
 
-
-        /* =====================================================
+        /* ================================
            MAIN
-        ===================================================== */
+        ================================= */
 
-        .main-area {
+        .main {
             margin-left: 260px;
-
             min-height: 100vh;
         }
 
-
-        /* =====================================================
-           TOPBAR
-        ===================================================== */
-
         .topbar {
-            height: 72px;
-
+            height: 76px;
             background: white;
-
-            border-bottom:
-                1px solid
-                #e2eae5;
-
+            border-bottom: 1px solid #e5ebe7;
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
-            padding:
-                0 30px;
-
+            padding: 0 32px;
             position: sticky;
-
             top: 0;
-
-            z-index: 1000;
+            z-index: 100;
         }
 
         .topbar-left {
             display: flex;
-
             align-items: center;
-
-            gap: 13px;
+            gap: 15px;
         }
 
-        .menu-btn {
+        .mobile-menu {
             display: none;
-
+            border: none;
+            background: #087443;
+            color: white;
             width: 40px;
             height: 40px;
-
-            border: none;
-
             border-radius: 9px;
-
-            background: #eaf5ee;
-
-            color: #08783f;
-
             font-size: 20px;
-
             cursor: pointer;
         }
 
         .page-heading h1 {
-            font-size: 20px;
+            font-size: 21px;
+            color: #163326;
         }
 
         .page-heading p {
-            color: #7a857f;
-
-            font-size: 11px;
-
+            font-size: 12px;
+            color: #78857e;
             margin-top: 4px;
         }
 
         .topbar-right {
             display: flex;
-
             align-items: center;
-
-            gap: 10px;
+            gap: 18px;
         }
 
         .today {
-            background: #f2f7f4;
-
-            color: #66736b;
-
-            padding: 9px 12px;
-
-            border-radius: 8px;
-
-            font-size: 11px;
+            font-size: 12px;
+            color: #6d7973;
         }
 
         .logout-btn {
             border: none;
-
-            background: #fff0f0;
-
-            color: #b42323;
-
-            padding: 9px 13px;
-
-            border-radius: 8px;
-
-            font-size: 11px;
-
-            font-weight: bold;
-
+            background: #edf7f1;
+            color: #087443;
+            padding: 10px 15px;
+            border-radius: 9px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
         }
 
         .logout-btn:hover {
-            background: #ffe1e1;
+            background: #dcefe4;
         }
-
-
-        /* =====================================================
-           CONTENT
-        ===================================================== */
 
         .content {
-            max-width: 1600px;
-
-            margin: auto;
-
             padding: 30px;
+            max-width: 1500px;
+            margin: auto;
         }
 
-
-        /* =====================================================
+        /* ================================
            SECTIONS
-        ===================================================== */
+        ================================= */
 
-        .page-section {
+        .dashboard-section {
             display: none;
         }
 
-        .page-section.active-section {
+        .dashboard-section.active {
             display: block;
+            animation: fadeIn 0.25s ease;
         }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
 
-        /* =====================================================
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================================
            WELCOME
-        ===================================================== */
+        ================================= */
 
-        .welcome {
-            background:
-                linear-gradient(
-                    135deg,
-                    #08783f,
-                    #0b9851
-                );
-
+        .welcome-card {
+            background: linear-gradient(135deg, #087443, #0b8b52);
             color: white;
-
-            border-radius: 17px;
-
-            padding: 30px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 20px;
-
+            border-radius: 18px;
+            padding: 28px;
             margin-bottom: 25px;
-
-            box-shadow:
-                0 10px 30px
-                rgba(8,120,63,.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        .welcome h2 {
-            font-size: 26px;
+        .welcome-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            right: -50px;
+            top: -60px;
+        }
 
+        .welcome-card h2 {
+            font-size: 24px;
             margin-bottom: 8px;
         }
 
-        .welcome p {
-            font-size: 13px;
-
-            opacity: .88;
-
-            line-height: 1.6;
+        .welcome-card p {
+            opacity: 0.88;
+            font-size: 14px;
         }
 
-        .welcome-icon {
-            width: 70px;
-            height: 70px;
-
-            border-radius: 17px;
-
-            background:
-                rgba(255,255,255,.14);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 32px;
-
-            flex-shrink: 0;
-        }
-
-
-        /* =====================================================
-           STATS
-        ===================================================== */
+        /* ================================
+           STAT CARDS
+        ================================= */
 
         .stats-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
-            gap: 15px;
-
-            margin-bottom: 25px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
         }
 
         .stat-card {
             background: white;
+            border: 1px solid #e6ece8;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(20,50,35,0.04);
+        }
 
-            border:
-                1px solid
-                #e2eae5;
-
-            border-radius: 13px;
-
-            padding: 18px;
-
+        .stat-top {
             display: flex;
-
+            justify-content: space-between;
             align-items: center;
-
-            gap: 13px;
-
-            box-shadow:
-                0 4px 15px
-                rgba(0,0,0,.04);
+            margin-bottom: 15px;
         }
 
         .stat-icon {
-            width: 45px;
-            height: 45px;
-
-            border-radius: 11px;
-
-            background: #e6f5eb;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 19px;
-
-            flex-shrink: 0;
-        }
-
-        .stat-info span {
-            display: block;
-
-            color: #758078;
-
-            font-size: 10px;
-
-            margin-bottom: 5px;
-        }
-
-        .stat-info strong {
-            font-size: 24px;
-
-            line-height: 1;
-        }
-
-
-        /* =====================================================
-           QUICK ACCESS
-        ===================================================== */
-
-        .quick-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 15px;
-
-            margin-bottom: 25px;
-        }
-
-        .quick-card {
-            background: white;
-
-            border:
-                1px solid
-                #e2eae5;
-
-            border-radius: 13px;
-
-            padding: 18px;
-
-            cursor: pointer;
-
-            transition: .2s ease;
-        }
-
-        .quick-card:hover {
-            transform: translateY(-3px);
-
-            box-shadow:
-                0 8px 22px
-                rgba(0,0,0,.07);
-        }
-
-        .quick-card-icon {
             width: 40px;
             height: 40px;
-
             border-radius: 10px;
-
-            background: #e6f5eb;
-
+            background: #edf8f2;
+            color: #087443;
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             font-size: 18px;
-
-            margin-bottom: 12px;
         }
 
-        .quick-card h3 {
-            font-size: 13px;
-
-            margin-bottom: 4px;
+        .stat-card h3 {
+            font-size: 28px;
+            color: #15291e;
         }
 
-        .quick-card p {
-            color: #7b877f;
-
-            font-size: 10px;
-        }
-
-
-        /* =====================================================
-           CARD
-        ===================================================== */
-
-        .card {
-            background: white;
-
-            border:
-                1px solid
-                #e2eae5;
-
-            border-radius: 14px;
-
-            box-shadow:
-                0 4px 15px
-                rgba(0,0,0,.04);
-
-            overflow: hidden;
-
-            margin-bottom: 20px;
-        }
-
-        .card-header {
-            padding: 19px 21px;
-
-            border-bottom:
-                1px solid
-                #edf1ee;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 15px;
-        }
-
-        .card-header h2 {
-            font-size: 16px;
-        }
-
-        .card-header p {
-            color: #7b877f;
-
-            font-size: 10px;
-
+        .stat-card p {
+            font-size: 12px;
+            color: #7b8781;
             margin-top: 4px;
         }
 
-        .card-body {
-            padding: 20px;
+        /* ================================
+           GENERAL CARDS
+        ================================= */
+
+        .section-card {
+            background: white;
+            border: 1px solid #e5ebe7;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(20,50,35,0.035);
         }
 
-
-        /* =====================================================
-           SECTION TITLE
-        ===================================================== */
-
-        .section-title {
+        .section-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
             margin-bottom: 20px;
         }
 
-        .section-title h2 {
-            font-size: 22px;
-
-            margin-bottom: 6px;
+        .section-card-header h2 {
+            font-size: 17px;
+            color: #173327;
         }
 
-        .section-title p {
-            color: #78847d;
-
+        .section-card-header p {
+            color: #7b8781;
             font-size: 12px;
+            margin-top: 4px;
         }
 
-
-        /* =====================================================
-           BUTTON
-        ===================================================== */
-
-        .primary-btn {
+        .view-btn {
             border: none;
-
-            background: #08783f;
-
+            background: #087443;
             color: white;
-
-            padding: 10px 15px;
-
+            padding: 10px 14px;
             border-radius: 8px;
-
+            font-size: 12px;
             cursor: pointer;
-
-            font-size: 11px;
-
-            font-weight: bold;
-
-            text-decoration: none;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
         }
 
-        .primary-btn:hover {
-            background: #056333;
+        .view-btn:hover {
+            background: #065d35;
         }
 
+        /* ================================
+           QUICK ACTIONS
+        ================================= */
 
-        /* =====================================================
-           CONTROLS
-        ===================================================== */
-
-        .controls {
-            display: flex;
-
-            align-items: end;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-
-            margin-bottom: 18px;
-        }
-
-        .field {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 5px;
-        }
-
-        .field label {
-            color: #657269;
-
-            font-size: 10px;
-
-            font-weight: bold;
-        }
-
-        .field select,
-        .field input {
-            height: 38px;
-
-            border:
-                1px solid
-                #d4ded7;
-
-            border-radius: 8px;
-
-            padding: 0 10px;
-
-            outline: none;
-
-            font-size: 11px;
-
-            color: #26332b;
-
-            background: white;
-        }
-
-        .field select:focus,
-        .field input:focus {
-            border-color: #08783f;
-        }
-
-
-        /* =====================================================
-           MINI STATS
-        ===================================================== */
-
-        .mini-grid {
+        .quick-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(5, 1fr);
-
-            gap: 9px;
-
-            margin-bottom: 18px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
 
-        .mini-stat {
-            background: #f4f8f5;
-
-            border-radius: 9px;
-
-            padding: 11px;
-
-            text-align: center;
+        .quick-card {
+            border: 1px solid #e3ebe6;
+            background: #fafcfb;
+            border-radius: 13px;
+            padding: 20px;
+            cursor: pointer;
+            transition: 0.2s ease;
         }
 
-        .mini-stat span {
+        .quick-card:hover {
+            transform: translateY(-2px);
+            border-color: #b8d8c5;
+            box-shadow: 0 5px 15px rgba(20,50,35,0.06);
+        }
+
+        .quick-card .quick-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .quick-card strong {
             display: block;
-
-            color: #78847d;
-
-            font-size: 9px;
-
+            font-size: 14px;
             margin-bottom: 5px;
         }
 
-        .mini-stat strong {
-            color: #08783f;
-
-            font-size: 18px;
+        .quick-card span {
+            font-size: 11px;
+            color: #7b8781;
         }
 
-
-        /* =====================================================
+        /* ================================
            TABLE
-        ===================================================== */
+        ================================= */
 
         .table-wrapper {
-            width: 100%;
-
             overflow-x: auto;
-
-            border:
-                1px solid
-                #e1e9e4;
-
-            border-radius: 9px;
         }
 
         table {
             width: 100%;
-
             border-collapse: collapse;
-
-            min-width: 760px;
         }
 
         th {
-            background: #f0f6f2;
-
-            color: #526158;
-
             text-align: left;
-
-            padding: 12px 10px;
-
-            font-size: 9px;
-
+            padding: 13px 12px;
+            background: #f6f9f7;
+            color: #68766e;
+            font-size: 11px;
             text-transform: uppercase;
-
-            letter-spacing: .3px;
-
-            white-space: nowrap;
+            letter-spacing: 0.4px;
         }
 
         td {
-            padding: 12px 10px;
-
-            border-top:
-                1px solid
-                #edf1ee;
-
-            color: #56635b;
-
-            font-size: 10px;
-
-            white-space: nowrap;
+            padding: 14px 12px;
+            border-bottom: 1px solid #edf1ee;
+            font-size: 13px;
+            color: #304238;
         }
 
-        tbody tr:hover td {
-            background: #fafcfb;
+        tr:last-child td {
+            border-bottom: none;
         }
-
-
-        /* =====================================================
-           STATUS
-        ===================================================== */
 
         .status {
-            display: inline-flex;
-
-            padding: 4px 8px;
-
+            display: inline-block;
+            padding: 5px 9px;
             border-radius: 20px;
-
-            font-size: 8px;
-
+            font-size: 10px;
             font-weight: bold;
         }
 
         .status-present {
-            background: #dff5e7;
-
-            color: #08783f;
+            background: #e4f6eb;
+            color: #087443;
         }
 
         .status-absent {
-            background: #fde4e4;
-
-            color: #b42323;
+            background: #fde9e9;
+            color: #bd3b3b;
         }
 
         .status-late {
-            background: #fff1cc;
-
-            color: #8a6200;
+            background: #fff4dc;
+            color: #a76b00;
         }
 
-        .status-excused {
-            background: #e7eaff;
-
-            color: #3647a0;
-        }
-
-        .status-not-marked {
-            background: #edf1ee;
-
-            color: #758078;
-        }
-
-
-        /* =====================================================
+        /* ================================
            TEACHERS
-        ===================================================== */
+        ================================= */
 
         .teacher-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 14px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
         .teacher-card {
-            background: #fbfdfc;
-
-            border:
-                1px solid
-                #e0e9e3;
-
-            border-radius: 12px;
-
-            padding: 16px;
-        }
-
-        .teacher-top {
+            border: 1px solid #e4ebe7;
+            border-radius: 14px;
+            padding: 18px;
             display: flex;
-
             align-items: center;
-
-            gap: 11px;
-
-            margin-bottom: 13px;
+            gap: 13px;
         }
 
         .teacher-avatar {
-            width: 42px;
-            height: 42px;
-
-            border-radius: 11px;
-
-            background: #e3f4e9;
-
-            color: #08783f;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 12px;
-
-            font-weight: bold;
-        }
-
-        .teacher-card h3 {
-            font-size: 13px;
-        }
-
-        .teacher-role {
-            color: #87928b;
-
-            font-size: 9px;
-
-            margin-top: 3px;
-        }
-
-        .teacher-detail {
-            border-top:
-                1px solid
-                #e8eee9;
-
-            padding-top: 9px;
-
-            margin-top: 8px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            font-size: 9px;
-        }
-
-        .teacher-detail span {
-            color: #7c8880;
-        }
-
-        .teacher-detail strong {
-            color: #08783f;
-            text-align: right;
-        }
-
-
-        /* =====================================================
-           ANNOUNCEMENTS
-        ===================================================== */
-
-        .announcement {
-            padding: 15px 0;
-
-            border-bottom:
-                1px solid
-                #edf1ee;
-        }
-
-        .announcement:last-child {
-            border-bottom: none;
-        }
-
-        .announcement h3 {
-            color: #08783f;
-
-            font-size: 13px;
-
-            margin-bottom: 5px;
-        }
-
-        .announcement p {
-            color: #68756d;
-
-            font-size: 11px;
-
-            line-height: 1.6;
-        }
-
-        .announcement-date {
-            display: block;
-
-            color: #929c96;
-
-            font-size: 9px;
-
-            margin-top: 6px;
-        }
-
-
-        /* =====================================================
-           PROFILE
-        ===================================================== */
-
-        .profile-box {
-            max-width: 700px;
-
-            background: white;
-
-            border:
-                1px solid
-                #e2eae5;
-
-            border-radius: 15px;
-
-            padding: 25px;
-        }
-
-        .profile-header {
-            display: flex;
-
-            align-items: center;
-
-            gap: 15px;
-
-            padding-bottom: 20px;
-
-            border-bottom:
-                1px solid
-                #edf1ee;
-
-            margin-bottom: 20px;
-        }
-
-        .profile-avatar {
-            width: 65px;
-            height: 65px;
-
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
             border-radius: 50%;
-
-            background: #e3f4e9;
-
-            color: #08783f;
-
+            background: #eaf6ef;
+            color: #087443;
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            font-size: 22px;
-
             font-weight: bold;
         }
 
-        .profile-header h2 {
-            font-size: 18px;
+        .teacher-card strong {
+            display: block;
+            font-size: 13px;
         }
 
-        .profile-header p {
-            color: #78847d;
-
+        .teacher-card span {
+            display: block;
+            color: #7a8780;
             font-size: 11px;
-
             margin-top: 4px;
         }
 
-        .profile-row {
+        /* ================================
+           STUDENTS
+        ================================= */
+
+        .student-search-area {
             display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
 
-            justify-content: space-between;
+        .student-search-box {
+            position: relative;
+            flex: 1;
+        }
 
-            gap: 20px;
+        .student-search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7c8982;
+            font-size: 17px;
+            pointer-events: none;
+        }
 
-            padding: 13px 0;
+        #studentSearch {
+            width: 100%;
+            border: 1px solid #dce5df;
+            border-radius: 10px;
+            padding: 13px 14px 13px 42px;
+            outline: none;
+            font-size: 13px;
+            background: #fbfcfb;
+            transition: 0.2s ease;
+        }
 
-            border-bottom:
-                1px solid
-                #edf1ee;
+        #studentSearch:focus {
+            border-color: #087443;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(8,116,67,0.08);
+        }
 
+        .student-filter {
+            width: 170px;
+            border: 1px solid #dce5df;
+            border-radius: 10px;
+            padding: 13px;
+            outline: none;
+            background: white;
+            font-size: 13px;
+        }
+
+        .student-count {
+            font-size: 12px;
+            color: #7b8781;
+            margin-bottom: 14px;
+        }
+
+        .no-students {
+            text-align: center;
+            padding: 35px 20px;
+            color: #7c8982;
+            font-size: 13px;
+            display: none;
+        }
+
+        .student-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #eaf6ef;
+            color: #087443;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 9px;
+            vertical-align: middle;
+        }
+
+        /* ================================
+           ATTENDANCE
+        ================================= */
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filters select,
+        .filters input {
+            border: 1px solid #dce5df;
+            border-radius: 9px;
+            padding: 11px 13px;
+            background: white;
+            outline: none;
             font-size: 12px;
         }
 
-        .profile-row:last-child {
-            border-bottom: none;
+        .attendance-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .profile-row span {
-            color: #7b877f;
+        .attendance-mini {
+            padding: 15px;
+            border-radius: 11px;
+            background: #f7faf8;
+            border: 1px solid #e5ece8;
         }
 
-        .profile-row strong {
-            color: #26332b;
-
-            text-align: right;
+        .attendance-mini strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 4px;
         }
 
-
-        /* =====================================================
-           MESSAGE
-        ===================================================== */
-
-        .message {
-            text-align: center;
-
-            padding: 30px 15px;
-
-            color: #7a867f;
-
+        .attendance-mini span {
+            color: #7a8780;
             font-size: 11px;
         }
 
-        .loading {
-            color: #08783f;
+        /* ================================
+           PROFILE
+        ================================= */
 
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            padding: 25px;
+            border: 1px solid #e2ebe5;
+            border-radius: 15px;
+            background: #fafcfb;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #087443;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
             font-weight: bold;
         }
 
+        .profile-info h2 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
 
-        /* =====================================================
+        .profile-info p {
+            color: #748078;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        /* ================================
+           EMPTY
+        ================================= */
+
+        .empty-state {
+            text-align: center;
+            padding: 35px 15px;
+            color: #7a8780;
+            font-size: 13px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+            color: #7a8780;
+            font-size: 13px;
+        }
+
+        /* ================================
            OVERLAY
-        ===================================================== */
+        ================================= */
 
         .sidebar-overlay {
             display: none;
-
             position: fixed;
-
             inset: 0;
-
-            background:
-                rgba(0,0,0,.45);
-
-            z-index: 1500;
+            background: rgba(0,0,0,0.35);
+            z-index: 999;
         }
 
+        /* ================================
+           RESPONSIVE
+        ================================= */
 
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        footer {
-            text-align: center;
-
-            color: #89938d;
-
-            font-size: 10px;
-
-            padding:
-                10px 20px 25px;
-        }
-
-
-        /* =====================================================
-           TABLET
-        ===================================================== */
-
-        @media (max-width: 1200px) {
-
+        @media (max-width: 1100px) {
             .stats-grid {
-                grid-template-columns:
-                    repeat(3, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .quick-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .teacher-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
-
         }
 
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 768px) {
-
+        @media (max-width: 800px) {
             .sidebar {
-                transform:
-                    translateX(-100%);
+                transform: translateX(-100%);
             }
 
             .sidebar.open {
-                transform:
-                    translateX(0);
+                transform: translateX(0);
             }
 
-            .sidebar-overlay.active {
+            .sidebar-overlay.show {
                 display: block;
             }
 
-            .main-area {
+            .main {
                 margin-left: 0;
             }
 
+            .mobile-menu {
+                display: block;
+            }
+
             .topbar {
-                height: 64px;
-
-                padding:
-                    0 14px;
-            }
-
-            .menu-btn {
-                display: flex;
-
-                align-items: center;
-
-                justify-content: center;
-            }
-
-            .page-heading h1 {
-                font-size: 16px;
-            }
-
-            .page-heading p {
-                display: none;
+                padding: 0 18px;
             }
 
             .today {
                 display: none;
             }
 
-            .topbar-right .logout-btn {
-                display: none;
-            }
-
             .content {
-                padding: 15px;
-            }
-
-            .welcome {
-                padding: 21px;
-
-                border-radius: 13px;
-            }
-
-            .welcome h2 {
-                font-size: 20px;
-            }
-
-            .welcome p {
-                font-size: 11px;
-            }
-
-            .welcome-icon {
-                width: 52px;
-                height: 52px;
-
-                font-size: 24px;
+                padding: 20px 15px;
             }
 
             .stats-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-                gap: 10px;
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .stat-card {
-                padding: 14px;
+            .student-search-area {
+                flex-direction: column;
             }
 
-            .stat-info strong {
-                font-size: 20px;
+            .student-filter {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
 
             .quick-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
 
             .teacher-grid {
                 grid-template-columns: 1fr;
             }
 
-            .mini-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
+            .attendance-mini-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .controls {
-                flex-direction: column;
-
-                align-items: stretch;
+            .welcome-card h2 {
+                font-size: 20px;
             }
 
-            .field,
-            .field select,
-            .field input,
-            .controls .primary-btn {
-                width: 100%;
-            }
-
-            .card-header {
-                align-items: flex-start;
-
-                flex-direction: column;
-            }
-
-        }
-
-
-        /* =====================================================
-           SMALL PHONE
-        ===================================================== */
-
-        @media (max-width: 480px) {
-
-            .content {
-                padding: 10px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .quick-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .welcome-icon {
+            .topbar-right .logout-btn {
                 display: none;
             }
 
-            .profile-row {
-                flex-direction: column;
-
-                gap: 5px;
+            .page-heading h1 {
+                font-size: 17px;
             }
 
-            .profile-row strong {
-                text-align: left;
+            .section-card {
+                padding: 16px;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- SIDEBAR OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<!-- =========================================================
-     SIDEBAR
-========================================================= -->
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
 
-<aside
-    class="sidebar"
-    id="sidebar"
->
+    <aside class="sidebar" id="sidebar">
 
-    <div class="sidebar-brand">
+        <div class="sidebar-header">
 
-        <img
-            src="images/school.jpg"
-            class="sidebar-logo"
-            alt="School Logo"
-        >
+            <img
+                src="school.jpg"
+                class="school-logo"
+                alt="School Logo"
+                onerror="this.style.display='none'"
+            >
 
-        <div class="brand-text">
-
-            <h2>
+            <div class="school-name">
                 Lagos State Model College Meiran
-            </h2>
-
-            <p>
-                Principal Administration
-            </p>
+                <span>Principal Administration</span>
+            </div>
 
         </div>
 
-    </div>
-
-
-    <nav class="sidebar-nav">
-
-        <div class="nav-label">
+        <div class="nav-title">
             Main Menu
         </div>
 
-
-        <a
-            href="#dashboard"
-            class="nav-link active"
-            data-section="dashboard"
-        >
-
-            <span class="nav-icon">
-                🏠
-            </span>
-
-            Dashboard
-
-        </a>
-
-
-        <a
-            href="#teachers"
-            class="nav-link"
-            data-section="teachers"
-        >
-
-            <span class="nav-icon">
-                👨‍🏫
-            </span>
-
-            Teachers
-
-        </a>
-
-
-        <a
-            href="#students"
-            class="nav-link"
-            data-section="students"
-        >
-
-            <span class="nav-icon">
-                👨‍🎓
-            </span>
-
-            Students
-
-        </a>
-
-
-        <a
-            href="#attendance"
-            class="nav-link"
-            data-section="attendance"
-        >
-
-            <span class="nav-icon">
-                📋
-            </span>
-
-            Attendance
-
-        </a>
-
-
-        <a
-            href="#announcements"
-            class="nav-link"
-            data-section="announcements"
-        >
-
-            <span class="nav-icon">
-                📰
-            </span>
-
-            News & Announcements
-
-        </a>
-
-
-        <div
-            class="nav-label"
-            style="margin-top:20px;"
-        >
-            Administration
-        </div>
-
-
-        <a
-            href="#activities"
-            class="nav-link"
-            data-section="activities"
-        >
-
-            <span class="nav-icon">
-                📊
-            </span>
-
-            Teacher Activities
-
-        </a>
-
-
-        <a
-            href="#login-history"
-            class="nav-link"
-            data-section="login-history"
-        >
-
-            <span class="nav-icon">
-                🔐
-            </span>
-
-            Login History
-
-        </a>
-
-
-        <a
-            href="#profile"
-            class="nav-link"
-            data-section="profile"
-        >
-
-            <span class="nav-icon">
-                👤
-            </span>
-
-            My Profile
-
-        </a>
-
-
-        <a
-            href="#"
-            class="nav-link"
-            onclick="logoutPrincipal(); return false;"
-        >
-
-            <span class="nav-icon">
-                🚪
-            </span>
-
-            Logout
-
-        </a>
-
-    </nav>
-
-
-    <div class="sidebar-footer">
-
-        <div class="principal-mini">
-
-            <div class="principal-avatar">
-                AT
-            </div>
-
-            <div>
-
-                <strong>
-                    Dr. Ajayi Temitope
-                </strong>
-
-                <span>
-                    Principal
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</aside>
-
-
-<div
-    class="sidebar-overlay"
-    id="sidebarOverlay"
-></div>
-
-
-<!-- =========================================================
-     MAIN AREA
-========================================================= -->
-
-<div class="main-area">
-
-
-    <!-- =====================================================
-         TOPBAR
-    ===================================================== -->
-
-    <header class="topbar">
-
-        <div class="topbar-left">
-
-            <button
-                class="menu-btn"
-                id="menuBtn"
-            >
-                ☰
-            </button>
-
-            <div class="page-heading">
-
-                <h1 id="pageTitle">
-                    Principal Dashboard
-                </h1>
-
-                <p id="pageSubtitle">
-                    School administration and monitoring
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="topbar-right">
-
-            <div
-                class="today"
-                id="todayBadge"
-            >
-                Today
-            </div>
-
-            <button
-                class="logout-btn"
-                onclick="logoutPrincipal()"
-            >
-                Logout
-            </button>
-
-        </div>
-
-    </header>
-
-
-    <!-- =====================================================
-         CONTENT
-    ===================================================== -->
-
-    <main class="content">
-
-
-        <!-- =================================================
-             DASHBOARD
-        ================================================= -->
-
-        <section
-            id="dashboard"
-            class="page-section active-section"
-        >
-
-            <div class="welcome">
+        <ul class="nav-menu">
+
+            <li>
+                <button
+                    class="nav-link active"
+                    data-section="dashboard"
+                >
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="teachers"
+                >
+                    <span class="nav-icon">👨‍🏫</span>
+                    Teachers
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="students"
+                >
+                    <span class="nav-icon">🎓</span>
+                    Students
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="attendance"
+                >
+                    <span class="nav-icon">✓</span>
+                    Attendance
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="announcements"
+                >
+                    <span class="nav-icon">📰</span>
+                    News & Announcements
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="activities"
+                >
+                    <span class="nav-icon">📋</span>
+                    Teacher Activities
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="login-history"
+                >
+                    <span class="nav-icon">🕘</span>
+                    Login History
+                </button>
+            </li>
+
+            <li>
+                <button
+                    class="nav-link"
+                    data-section="profile"
+                >
+                    <span class="nav-icon">👤</span>
+                    My Profile
+                </button>
+            </li>
+
+        </ul>
+
+        <div class="sidebar-footer">
+
+            <div class="principal-mini">
+
+                <div class="principal-avatar">
+                    AT
+                </div>
 
                 <div>
+                    <strong>Dr. Ajayi Temitope</strong>
+                    <span>Principal</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================================
+         MAIN
+    ================================= -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button
+                    class="mobile-menu"
+                    id="mobileMenu"
+                >
+                    ☰
+                </button>
+
+                <div class="page-heading">
+
+                    <h1 id="pageTitle">
+                        Principal Dashboard
+                    </h1>
+
+                    <p id="pageSubtitle">
+                        School administration overview
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <span
+                    class="today"
+                    id="todayDate"
+                ></span>
+
+                <button
+                    class="logout-btn"
+                    onclick="logoutPrincipal()"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+
+            <!-- ================================
+                 DASHBOARD
+            ================================= -->
+
+            <section
+                id="dashboard"
+                class="dashboard-section active"
+            >
+
+                <div class="welcome-card">
 
                     <h2>
                         Welcome, Dr. Ajayi Temitope 👋
                     </h2>
 
                     <p>
-                        Principal, Lagos State Model College Meiran.
-                        <br>
-                        Here's an overview of your school's activities
-                        and attendance.
+                        Here's what's happening at Lagos State Model College Meiran.
                     </p>
 
                 </div>
 
-                <div class="welcome-icon">
-                    🏫
-                </div>
 
-            </div>
+                <!-- STATISTICS -->
 
+                <div class="stats-grid">
 
-            <div class="stats-grid">
+                    <div class="stat-card">
 
+                        <div class="stat-top">
+                            <div class="stat-icon">🎓</div>
+                        </div>
 
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        👨‍🎓
-                    </div>
-
-                    <div class="stat-info">
-
-                        <span>
-                            Total Students
-                        </span>
-
-                        <strong id="totalStudents">
+                        <h3 id="totalStudents">
                             0
-                        </strong>
+                        </h3>
+
+                        <p>Total Students</p>
 
                     </div>
 
-                </div>
 
+                    <div class="stat-card">
 
-                <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon">👨‍🏫</div>
+                        </div>
 
-                    <div class="stat-icon">
-                        👨‍🏫
-                    </div>
-
-                    <div class="stat-info">
-
-                        <span>
-                            Teachers
-                        </span>
-
-                        <strong id="totalTeachers">
+                        <h3 id="totalTeachers">
                             0
-                        </strong>
+                        </h3>
+
+                        <p>Total Teachers</p>
 
                     </div>
 
-                </div>
 
+                    <div class="stat-card">
 
-                <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon">✓</div>
+                        </div>
 
-                    <div class="stat-icon">
-                        ✅
-                    </div>
-
-                    <div class="stat-info">
-
-                        <span>
-                            Present
-                        </span>
-
-                        <strong id="totalPresent">
+                        <h3 id="totalPresent">
                             0
-                        </strong>
+                        </h3>
+
+                        <p>Present Today</p>
 
                     </div>
 
-                </div>
 
+                    <div class="stat-card">
 
-                <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon">!</div>
+                        </div>
 
-                    <div class="stat-icon">
-                        ❌
-                    </div>
-
-                    <div class="stat-info">
-
-                        <span>
-                            Absent
-                        </span>
-
-                        <strong id="totalAbsent">
+                        <h3 id="totalAbsent">
                             0
-                        </strong>
+                        </h3>
+
+                        <p>Absent Today</p>
 
                     </div>
 
-                </div>
 
+                    <div class="stat-card">
 
-                <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon">◷</div>
+                        </div>
 
-                    <div class="stat-icon">
-                        ⏰
-                    </div>
-
-                    <div class="stat-info">
-
-                        <span>
-                            Late
-                        </span>
-
-                        <strong id="totalLate">
+                        <h3 id="totalLate">
                             0
-                        </strong>
+                        </h3>
+
+                        <p>Late Today</p>
 
                     </div>
 
                 </div>
 
-            </div>
 
+                <!-- QUICK ACTIONS -->
 
-            <div class="quick-grid">
+                <div class="section-card">
 
+                    <div class="section-card-header">
 
-                <div
-                    class="quick-card"
-                    onclick="showSection('teachers')"
-                >
-
-                    <div class="quick-card-icon">
-                        👨‍🏫
-                    </div>
-
-                    <h3>
-                        Teachers
-                    </h3>
-
-                    <p>
-                        View teacher information and activity.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="quick-card"
-                    onclick="showSection('students')"
-                >
-
-                    <div class="quick-card-icon">
-                        👨‍🎓
-                    </div>
-
-                    <h3>
-                        Students
-                    </h3>
-
-                    <p>
-                        View students registered in the system.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="quick-card"
-                    onclick="showSection('attendance')"
-                >
-
-                    <div class="quick-card-icon">
-                        📋
-                    </div>
-
-                    <h3>
-                        Attendance
-                    </h3>
-
-                    <p>
-                        Monitor weekly student attendance.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="quick-card"
-                    onclick="showSection('announcements')"
-                >
-
-                    <div class="quick-card-icon">
-                        📰
-                    </div>
-
-                    <h3>
-                        Announcements
-                    </h3>
-
-                    <p>
-                        Manage school announcements.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Principal's Overview
-                        </h2>
-
-                        <p>
-                            Quick access to important school information.
-                        </p>
+                        <div>
+                            <h2>Quick Access</h2>
+                            <p>Navigate to important school management areas.</p>
+                        </div>
 
                     </div>
 
-                </div>
 
-                <div class="card-body">
+                    <div class="quick-grid">
 
-                    <p
-                        style="
-                            color:#68756d;
-                            font-size:12px;
-                            line-height:1.7;
-                        "
-                    >
-                        Use the navigation menu on the left to
-                        manage teachers, students, attendance,
-                        announcements and view teacher activities.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
+                        <div
+                            class="quick-card"
+                            data-go="teachers"
+                        >
+                            <div class="quick-icon">👨‍🏫</div>
+                            <strong>Teachers</strong>
+                            <span>View teaching staff</span>
+                        </div>
 
 
-        <!-- =================================================
-             TEACHERS
-        ================================================= -->
-
-        <section
-            id="teachers"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <h2>
-                    Teachers
-                </h2>
-
-                <p>
-                    View teachers and their latest activity.
-                </p>
-
-            </div>
+                        <div
+                            class="quick-card"
+                            data-go="students"
+                        >
+                            <div class="quick-icon">🎓</div>
+                            <strong>Students</strong>
+                            <span>Search and view students</span>
+                        </div>
 
 
-            <div class="card">
+                        <div
+                            class="quick-card"
+                            data-go="attendance"
+                        >
+                            <div class="quick-icon">✓</div>
+                            <strong>Attendance</strong>
+                            <span>Monitor weekly attendance</span>
+                        </div>
 
-                <div class="card-header">
 
-                    <div>
-
-                        <h2>
-                            Teacher Overview
-                        </h2>
-
-                        <p>
-                            Class assignment and recent login.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="card-body">
-
-                    <div
-                        id="teachersContainer"
-                        class="teacher-grid"
-                    >
-
-                        <div class="message loading">
-                            Loading teachers...
+                        <div
+                            class="quick-card"
+                            data-go="announcements"
+                        >
+                            <div class="quick-icon">📰</div>
+                            <strong>News & Announcements</strong>
+                            <span>Manage school updates</span>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
 
-        </section>
+                <!-- RECENT ACTIVITIES -->
 
+                <div class="section-card">
 
-        <!-- =================================================
-             STUDENTS
-        ================================================= -->
+                    <div class="section-card-header">
 
-        <section
-            id="students"
-            class="page-section"
-        >
+                        <div>
+                            <h2>Recent Teacher Activities</h2>
+                            <p>Latest actions performed by teachers.</p>
+                        </div>
 
-            <div class="section-title">
-
-                <h2>
-                    Students
-                </h2>
-
-                <p>
-                    Students currently registered in the school system.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Student Directory
-                        </h2>
-
-                        <p>
-                            Registered student information.
-                        </p>
+                        <button
+                            class="view-btn"
+                            onclick="showSection('activities')"
+                        >
+                            View All
+                        </button>
 
                     </div>
 
-                    <span
-                        id="studentDirectoryCount"
-                        style="
-                            font-size:11px;
-                            color:#08783f;
-                            font-weight:bold;
-                        "
+                    <div
+                        class="table-wrapper"
+                        id="dashboardActivities"
                     >
-                        0 Students
-                    </span>
+                        <div class="loading">
+                            Loading activities...
+                        </div>
+                    </div>
 
                 </div>
 
-                <div class="card-body">
+            </section>
+
+
+            <!-- ================================
+                 TEACHERS
+            ================================= -->
+
+            <section
+                id="teachers"
+                class="dashboard-section"
+            >
+
+                <div class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+                            <h2>Teachers</h2>
+                            <p>Teaching staff registered in the school portal.</p>
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="teacher-grid"
+                        id="teacherGrid"
+                    >
+                        <div class="loading">
+                            Loading teachers...
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 STUDENTS
+            ================================= -->
+
+            <section
+                id="students"
+                class="dashboard-section"
+            >
+
+                <div class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+                            <h2>Student Directory</h2>
+                            <p>
+                                Quickly search for any student by name,
+                                registration number or class.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- SEARCH -->
+
+                    <div class="student-search-area">
+
+                        <div class="student-search-box">
+
+                            <span class="student-search-icon">
+                                🔍
+                            </span>
+
+                            <input
+                                type="text"
+                                id="studentSearch"
+                                placeholder="Search student name, registration number or class..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+
+                        <select
+                            id="studentClassFilter"
+                            class="student-filter"
+                        >
+                            <option value="ALL">
+                                All Classes
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div
+                        class="student-count"
+                        id="studentCount"
+                    >
+                        Loading students...
+                    </div>
+
 
                     <div class="table-wrapper">
 
@@ -2153,7 +1326,7 @@
                                     </th>
 
                                     <th>
-                                        Registration No.
+                                        Registration Number
                                     </th>
 
                                     <th>
@@ -2161,22 +1334,14 @@
                                     </th>
 
                                     <th>
-                                        Class Teacher
+                                        Gender
                                     </th>
 
                                 </tr>
 
                             </thead>
 
-                            <tbody id="studentsBody">
-
-                                <tr>
-
-                                    <td colspan="4">
-                                        Loading students...
-                                    </td>
-
-                                </tr>
+                            <tbody id="studentTableBody">
 
                             </tbody>
 
@@ -2184,205 +1349,93 @@
 
                     </div>
 
-                </div>
 
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             ATTENDANCE
-        ================================================= -->
-
-        <section
-            id="attendance"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <h2>
-                    Attendance
-                </h2>
-
-                <p>
-                    Monitor weekly attendance across all classes.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Weekly Attendance
-                        </h2>
-
-                        <p>
-                            Select a class and week to view attendance.
-                        </p>
-
+                    <div
+                        class="no-students"
+                        id="noStudents"
+                    >
+                        No students matched your search.
                     </div>
 
                 </div>
 
+            </section>
 
-                <div class="card-body">
 
+            <!-- ================================
+                 ATTENDANCE
+            ================================= -->
 
-                    <div class="controls">
+            <section
+                id="attendance"
+                class="dashboard-section"
+            >
 
-                        <div class="field">
+                <div class="section-card">
 
-                            <label>
-                                Class
-                            </label>
+                    <div class="section-card-header">
 
-                            <select id="classFilter">
-
-                                <option value="ALL">
-                                    All Classes
-                                </option>
-
-                                <option value="SS1">
-                                    SS1
-                                </option>
-
-                                <option value="SS2">
-                                    SS2
-                                </option>
-
-                                <option value="SS3">
-                                    SS3
-                                </option>
-
-                            </select>
-
+                        <div>
+                            <h2>Attendance Overview</h2>
+                            <p>Monitor student attendance for the school week.</p>
                         </div>
 
-
-                        <div class="field">
-
-                            <label>
-                                Week Starting
-                            </label>
-
-                            <input
-                                type="date"
-                                id="attendanceWeek"
-                            >
-
-                        </div>
+                    </div>
 
 
-                        <button
-                            class="primary-btn"
-                            id="loadAttendanceButton"
+                    <div class="filters">
+
+                        <select id="attendanceClass">
+
+                            <option value="ALL">
+                                All Classes
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            type="date"
+                            id="attendanceWeek"
                         >
-                            Load Attendance
-                        </button>
 
                     </div>
 
 
-                    <div class="mini-grid">
+                    <div class="attendance-mini-grid">
 
-
-                        <div class="mini-stat">
-
-                            <span>
-                                Students
-                            </span>
-
-                            <strong
-                                id="attendanceStudentCount"
-                            >
+                        <div class="attendance-mini">
+                            <strong id="attendanceTotal">
                                 0
                             </strong>
-
+                            <span>Marked</span>
                         </div>
 
-
-                        <div class="mini-stat">
-
-                            <span>
-                                Marked
-                            </span>
-
-                            <strong
-                                id="markedCount"
-                            >
+                        <div class="attendance-mini">
+                            <strong id="attendancePresent">
                                 0
                             </strong>
-
+                            <span>Present</span>
                         </div>
 
-
-                        <div class="mini-stat">
-
-                            <span>
-                                Present
-                            </span>
-
-                            <strong
-                                id="weekPresent"
-                            >
+                        <div class="attendance-mini">
+                            <strong id="attendanceAbsent">
                                 0
                             </strong>
-
+                            <span>Absent</span>
                         </div>
 
-
-                        <div class="mini-stat">
-
-                            <span>
-                                Absent
-                            </span>
-
-                            <strong
-                                id="weekAbsent"
-                            >
+                        <div class="attendance-mini">
+                            <strong id="attendanceLate">
                                 0
                             </strong>
-
-                        </div>
-
-
-                        <div class="mini-stat">
-
-                            <span>
-                                Late / Excused
-                            </span>
-
-                            <strong
-                                id="weekOther"
-                            >
-                                0
-                            </strong>
-
+                            <span>Late</span>
                         </div>
 
                     </div>
 
 
-                    <div
-                        id="attendanceMessage"
-                        class="message"
-                    >
-                        Select a week to view attendance.
-                    </div>
-
-
-                    <div
-                        class="table-wrapper"
-                        id="attendanceTableWrapper"
-                        style="display:none;"
-                    >
+                    <div class="table-wrapper">
 
                         <table>
 
@@ -2395,15 +1448,7 @@
                                     </th>
 
                                     <th>
-                                        Registration No.
-                                    </th>
-
-                                    <th>
                                         Class
-                                    </th>
-
-                                    <th>
-                                        Class Teacher
                                     </th>
 
                                     <th>
@@ -2430,7 +1475,9 @@
 
                             </thead>
 
-                            <tbody id="attendanceTableBody"></tbody>
+                            <tbody id="attendanceTableBody">
+
+                            </tbody>
 
                         </table>
 
@@ -2438,2061 +1485,915 @@
 
                 </div>
 
-            </div>
-
-        </section>
+            </section>
 
 
-        <!-- =================================================
-             ANNOUNCEMENTS
-        ================================================= -->
+            <!-- ================================
+                 ANNOUNCEMENTS
+            ================================= -->
 
-        <section
-            id="announcements"
-            class="page-section"
-        >
+            <section
+                id="announcements"
+                class="dashboard-section"
+            >
 
-            <div class="section-title">
+                <div class="section-card">
 
-                <h2>
-                    News & Announcements
-                </h2>
+                    <div class="section-card-header">
 
-                <p>
-                    School news and important announcements.
-                </p>
+                        <div>
+                            <h2>News & Announcements</h2>
+                            <p>Publish and manage school announcements.</p>
+                        </div>
 
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Published Announcements
-                        </h2>
-
-                        <p>
-                            Recent information published by the school.
-                        </p>
+                        <button
+                            class="view-btn"
+                            onclick="window.location.href='manage-announcements.html'"
+                        >
+                            Manage Announcements
+                        </button>
 
                     </div>
 
 
-                    <a
-                        href="manage-announcements.html"
-                        class="primary-btn"
+                    <div
+                        class="table-wrapper"
+                        id="announcementList"
                     >
-                        + Upload Announcement
-                    </a>
+                        <div class="loading">
+                            Loading announcements...
+                        </div>
+                    </div>
 
                 </div>
 
+            </section>
 
-                <div class="card-body">
 
-                    <div id="newsContainer">
+            <!-- ================================
+                 ACTIVITIES
+            ================================= -->
 
-                        <div class="message loading">
-                            Loading announcements...
+            <section
+                id="activities"
+                class="dashboard-section"
+            >
+
+                <div class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+                            <h2>Teacher Activities</h2>
+                            <p>Track actions performed by teaching staff.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="table-wrapper"
+                        id="activitiesTable"
+                    >
+                        <div class="loading">
+                            Loading activities...
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 LOGIN HISTORY
+            ================================= -->
+
+            <section
+                id="login-history"
+                class="dashboard-section"
+            >
+
+                <div class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+                            <h2>Teacher Login History</h2>
+                            <p>See when teachers accessed their accounts.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="table-wrapper"
+                        id="loginHistoryTable"
+                    >
+                        <div class="loading">
+                            Loading login history...
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 PROFILE
+            ================================= -->
+
+            <section
+                id="profile"
+                class="dashboard-section"
+            >
+
+                <div class="section-card">
+
+                    <div class="section-card-header">
+
+                        <div>
+                            <h2>My Profile</h2>
+                            <p>Principal account information.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-card">
+
+                        <div class="profile-avatar">
+                            AT
+                        </div>
+
+                        <div class="profile-info">
+
+                            <h2>
+                                Dr. Ajayi Temitope
+                            </h2>
+
+                            <p>
+                                <strong>Role:</strong>
+                                Principal
+                            </p>
+
+                            <p>
+                                Lagos State Model College Meiran
+                            </p>
+
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
-        </section>
-
-
-        <!-- =================================================
-             TEACHER ACTIVITIES
-        ================================================= -->
-
-        <section
-            id="activities"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <h2>
-                    Teacher Activities
-                </h2>
-
-                <p>
-                    Monitor recent actions performed by teachers.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Activity Log
-                        </h2>
-
-                        <p>
-                            Recent teacher actions.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card-body">
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Teacher
-                                    </th>
-
-                                    <th>
-                                        Activity
-                                    </th>
-
-                                    <th>
-                                        Student
-                                    </th>
-
-                                    <th>
-                                        Class
-                                    </th>
-
-                                    <th>
-                                        Date
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="teacherActivityBody">
-
-                                <tr>
-
-                                    <td colspan="5">
-                                        Loading teacher activities...
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             LOGIN HISTORY
-        ================================================= -->
-
-        <section
-            id="login-history"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <h2>
-                    Login History
-                </h2>
-
-                <p>
-                    Monitor teacher sign-in activity.
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Teacher Login History
-                        </h2>
-
-                        <p>
-                            Recent teacher sign-ins.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card-body">
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>
-                                        Teacher
-                                    </th>
-
-                                    <th>
-                                        Username
-                                    </th>
-
-                                    <th>
-                                        Class
-                                    </th>
-
-                                    <th>
-                                        Login Time
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="loginHistoryBody">
-
-                                <tr>
-
-                                    <td colspan="4">
-                                        Loading login history...
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             PROFILE
-        ================================================= -->
-
-        <section
-            id="profile"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <h2>
-                    My Profile
-                </h2>
-
-                <p>
-                    Principal account information.
-                </p>
-
-            </div>
-
-
-            <div class="profile-box">
-
-                <div class="profile-header">
-
-                    <div class="profile-avatar">
-                        AT
-                    </div>
-
-                    <div>
-
-                        <h2>
-                            Dr. Ajayi Temitope
-                        </h2>
-
-                        <p>
-                            Principal · Lagos State Model College Meiran
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <span>
-                        Full Name
-                    </span>
-
-                    <strong>
-                        Dr. Ajayi Temitope
-                    </strong>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <span>
-                        Position
-                    </span>
-
-                    <strong>
-                        Principal
-                    </strong>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <span>
-                        Role
-                    </span>
-
-                    <strong>
-                        School Administrator
-                    </strong>
-
-                </div>
-
-
-                <div class="profile-row">
-
-                    <span>
-                        School
-                    </span>
-
-                    <strong>
-                        Lagos State Model College Meiran
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </section>
-
+        </div>
 
     </main>
 
 
-    <footer>
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
 
-        Lagos State Model College Meiran
-        <br>
-        Principal Administration Portal
+    <script>
 
-    </footer>
-
-
-</div>
+        const API_URL =
+            "https://lagos-state-model-college-backend.onrender.com";
 
 
-<script>
-
-    /* =====================================================
-       RENDER BACKEND
-    ===================================================== */
-
-    const API_URL =
-        "https://lagos-state-model-college-backend.onrender.com";
+        let allStudents = [];
+        let allTeachers = [];
+        let allActivities = [];
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+        /* =================================
+           PAGE TITLES
+        ================================= */
 
-    const sidebar =
-        document.getElementById("sidebar");
+        const sectionInfo = {
 
-    const menuBtn =
-        document.getElementById("menuBtn");
+            dashboard: {
+                title: "Principal Dashboard",
+                subtitle: "School administration overview"
+            },
 
-    const sidebarOverlay =
-        document.getElementById("sidebarOverlay");
+            teachers: {
+                title: "Teachers",
+                subtitle: "Manage and view teaching staff"
+            },
 
+            students: {
+                title: "Students",
+                subtitle: "Search and view students"
+            },
 
-    const classFilter =
-        document.getElementById("classFilter");
+            attendance: {
+                title: "Attendance",
+                subtitle: "Monitor weekly student attendance"
+            },
 
-    const attendanceWeek =
-        document.getElementById("attendanceWeek");
+            announcements: {
+                title: "News & Announcements",
+                subtitle: "Manage school news and announcements"
+            },
 
-    const loadAttendanceButton =
-        document.getElementById(
-            "loadAttendanceButton"
-        );
+            activities: {
+                title: "Teacher Activities",
+                subtitle: "Monitor teacher actions"
+            },
 
+            "login-history": {
+                title: "Login History",
+                subtitle: "Teacher account access history"
+            },
 
-    /* =====================================================
-       PAGE NAVIGATION
-    ===================================================== */
+            profile: {
+                title: "My Profile",
+                subtitle: "Principal account information"
+            }
 
-    const sectionTitles = {
-
-        dashboard: [
-            "Principal Dashboard",
-            "School administration and monitoring"
-        ],
-
-        teachers: [
-            "Teachers",
-            "Teacher information and activity"
-        ],
-
-        students: [
-            "Students",
-            "Student management and information"
-        ],
-
-        attendance: [
-            "Attendance",
-            "Weekly student attendance"
-        ],
-
-        announcements: [
-            "News & Announcements",
-            "School news and information"
-        ],
-
-        activities: [
-            "Teacher Activities",
-            "Teacher activity monitoring"
-        ],
-
-        "login-history": [
-            "Login History",
-            "Teacher sign-in activity"
-        ],
-
-        profile: [
-            "My Profile",
-            "Principal account information"
-        ]
-
-    };
+        };
 
 
-    function showSection(sectionId) {
+        /* =================================
+           SHOW SECTION
+        ================================= */
 
-        document
-            .querySelectorAll(".page-section")
-            .forEach(
-                section => {
+        function showSection(sectionName) {
 
-                    section.classList.remove(
-                        "active-section"
-                    );
+            document
+                .querySelectorAll(".dashboard-section")
+                .forEach(function(section) {
 
-                }
-            );
+                    section.classList.remove("active");
 
-
-        const section =
-            document.getElementById(
-                sectionId
-            );
+                });
 
 
-        if (!section) return;
+            const target =
+                document.getElementById(sectionName);
+
+            if (target) {
+                target.classList.add("active");
+            }
 
 
-        section.classList.add(
-            "active-section"
-        );
+            document
+                .querySelectorAll(".nav-link")
+                .forEach(function(button) {
 
+                    button.classList.remove("active");
+
+                    if (
+                        button.dataset.section ===
+                        sectionName
+                    ) {
+                        button.classList.add("active");
+                    }
+
+                });
+
+
+            const info =
+                sectionInfo[sectionName];
+
+            if (info) {
+
+                document.getElementById(
+                    "pageTitle"
+                ).textContent = info.title;
+
+                document.getElementById(
+                    "pageSubtitle"
+                ).textContent = info.subtitle;
+
+            }
+
+
+            closeMobileSidebar();
+
+
+            if (sectionName === "students") {
+                loadStudents();
+            }
+
+            if (sectionName === "teachers") {
+                loadTeachers();
+            }
+
+            if (sectionName === "attendance") {
+                loadAttendance();
+            }
+
+            if (sectionName === "announcements") {
+                loadAnnouncements();
+            }
+
+            if (sectionName === "activities") {
+                loadActivities();
+            }
+
+            if (sectionName === "login-history") {
+                loadLoginHistory();
+            }
+
+        }
+
+
+        /* =================================
+           NAVIGATION
+        ================================= */
 
         document
             .querySelectorAll(".nav-link")
-            .forEach(
-                link => {
+            .forEach(function(button) {
 
-                    link.classList.remove(
-                        "active"
-                    );
-
-
-                    if (
-                        link.dataset.section ===
-                        sectionId
-                    ) {
-
-                        link.classList.add(
-                            "active"
-                        );
-
-                    }
-
-                }
-            );
-
-
-        const title =
-            sectionTitles[sectionId];
-
-
-        if (title) {
-
-            document.getElementById(
-                "pageTitle"
-            ).textContent =
-                title[0];
-
-
-            document.getElementById(
-                "pageSubtitle"
-            ).textContent =
-                title[1];
-
-        }
-
-
-        closeSidebar();
-
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-
-        if (
-            sectionId === "students"
-        ) {
-
-            loadStudentDirectory();
-
-        }
-
-        if (
-            sectionId === "teachers"
-        ) {
-
-            loadTeachers();
-
-        }
-
-        if (
-            sectionId === "attendance"
-        ) {
-
-            loadPrincipalAttendance();
-
-        }
-
-        if (
-            sectionId === "activities"
-        ) {
-
-            loadTeacherActivities();
-
-        }
-
-        if (
-            sectionId === "login-history"
-        ) {
-
-            loadLoginHistory();
-
-        }
-
-        if (
-            sectionId === "announcements"
-        ) {
-
-            loadNews();
-
-        }
-
-    }
-
-
-    document
-        .querySelectorAll(
-            ".nav-link[data-section]"
-        )
-        .forEach(
-            link => {
-
-                link.addEventListener(
+                button.addEventListener(
                     "click",
-                    function(event) {
-
-                        event.preventDefault();
+                    function() {
 
                         showSection(
-                            this.dataset.section
+                            button.dataset.section
                         );
 
                     }
                 );
 
+            });
+
+
+        document
+            .querySelectorAll("[data-go]")
+            .forEach(function(card) {
+
+                card.addEventListener(
+                    "click",
+                    function() {
+
+                        showSection(
+                            card.dataset.go
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /* =================================
+           MOBILE SIDEBAR
+        ================================= */
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+        const sidebarOverlay =
+            document.getElementById(
+                "sidebarOverlay"
+            );
+
+        const mobileMenu =
+            document.getElementById("mobileMenu");
+
+
+        mobileMenu.addEventListener(
+            "click",
+            function() {
+
+                sidebar.classList.add("open");
+
+                sidebarOverlay.classList.add("show");
+
             }
         );
 
-
-    /* =====================================================
-       MOBILE SIDEBAR
-    ===================================================== */
-
-    function openSidebar() {
-
-        sidebar.classList.add("open");
-
-        sidebarOverlay.classList.add(
-            "active"
-        );
-
-    }
-
-
-    function closeSidebar() {
-
-        sidebar.classList.remove("open");
-
-        sidebarOverlay.classList.remove(
-            "active"
-        );
-
-    }
-
-
-    if (menuBtn) {
-
-        menuBtn.addEventListener(
-            "click",
-            openSidebar
-        );
-
-    }
-
-
-    if (sidebarOverlay) {
 
         sidebarOverlay.addEventListener(
             "click",
-            closeSidebar
+            closeMobileSidebar
         );
 
-    }
+
+        function closeMobileSidebar() {
+
+            sidebar.classList.remove("open");
+
+            sidebarOverlay.classList.remove("show");
+
+        }
 
 
-    /* =====================================================
-       TODAY
-    ===================================================== */
+        /* =================================
+           DATE
+        ================================= */
 
-    document.getElementById(
-        "todayBadge"
-    ).textContent =
-        new Date().toLocaleDateString(
-            "en-NG",
-            {
-                weekday: "short",
-                day: "numeric",
-                month: "short",
-                year: "numeric"
+        document.getElementById(
+            "todayDate"
+        ).textContent =
+            new Date().toLocaleDateString(
+                "en-NG",
+                {
+                    weekday: "short",
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+
+        /* =================================
+           LOAD STUDENTS
+        ================================= */
+
+        async function loadStudents() {
+
+            const tbody =
+                document.getElementById(
+                    "studentTableBody"
+                );
+
+            const count =
+                document.getElementById(
+                    "studentCount"
+                );
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/students`
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load students."
+                    );
+
+                }
+
+
+                allStudents =
+                    Array.isArray(data.students)
+                        ? data.students
+                        : Array.isArray(data)
+                            ? data
+                            : [];
+
+
+                populateClassFilters();
+
+                renderStudents();
+
             }
-        );
+            catch (error) {
 
+                console.error(
+                    "Student loading error:",
+                    error
+                );
 
-    /* =====================================================
-       DATE HELPERS
-    ===================================================== */
-
-    function getMonday(date) {
-
-        const d =
-            new Date(date);
-
-        const day =
-            d.getDay();
-
-        const difference =
-            day === 0
-                ? -6
-                : 1 - day;
-
-        d.setDate(
-            d.getDate() + difference
-        );
-
-        return d;
-
-    }
-
-
-    function formatDate(date) {
-
-        const year =
-            date.getFullYear();
-
-        const month =
-            String(
-                date.getMonth() + 1
-            ).padStart(
-                2,
-                "0"
-            );
-
-        const day =
-            String(
-                date.getDate()
-            ).padStart(
-                2,
-                "0"
-            );
-
-        return `${year}-${month}-${day}`;
-
-    }
-
-
-    function addDays(
-        dateString,
-        days
-    ) {
-
-        const date =
-            new Date(
-                dateString +
-                "T00:00:00"
-            );
-
-        date.setDate(
-            date.getDate() + days
-        );
-
-        return formatDate(date);
-
-    }
-
-
-    /* =====================================================
-       DEFAULT WEEK
-    ===================================================== */
-
-    attendanceWeek.value =
-        formatDate(
-            getMonday(
-                new Date()
-            )
-        );
-
-
-    /* =====================================================
-       GET STUDENTS
-    ===================================================== */
-
-    async function getStudents() {
-
-        const response =
-            await fetch(
-                `${API_URL}/api/students`
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message ||
-                "Unable to load students."
-            );
-
-        }
-
-
-        if (
-            Array.isArray(data)
-        ) {
-
-            return data;
-
-        }
-
-
-        if (
-            data.success &&
-            Array.isArray(
-                data.students
-            )
-        ) {
-
-            return data.students;
-
-        }
-
-
-        throw new Error(
-            "Invalid students response from server."
-        );
-
-    }
-
-
-    /* =====================================================
-       STUDENT DIRECTORY
-    ===================================================== */
-
-    async function loadStudentDirectory() {
-
-        const body =
-            document.getElementById(
-                "studentsBody"
-            );
-
-
-        try {
-
-            const students =
-                await getStudents();
-
-
-            document.getElementById(
-                "studentDirectoryCount"
-            ).textContent =
-                `${students.length} Student${students.length === 1 ? "" : "s"}`;
-
-
-            if (
-                students.length === 0
-            ) {
-
-                body.innerHTML = `
+                tbody.innerHTML = `
                     <tr>
-                        <td colspan="4">
-                            No students registered yet.
+                        <td colspan="4" style="text-align:center;">
+                            Unable to load students.
                         </td>
                     </tr>
                 `;
 
-                return;
+                count.textContent =
+                    "Unable to load students.";
 
             }
 
+        }
 
-            const sortedStudents =
-                [...students].sort(
-                    (a, b) => {
 
-                        const nameA =
-                            String(
-                                a.student_name ||
-                                a.full_name ||
-                                ""
-                            );
+        /* =================================
+           POPULATE CLASS FILTERS
+        ================================= */
 
-                        const nameB =
-                            String(
-                                b.student_name ||
-                                b.full_name ||
-                                ""
-                            );
+        function populateClassFilters() {
 
-                        return nameA.localeCompare(
-                            nameB
-                        );
+            const studentFilter =
+                document.getElementById(
+                    "studentClassFilter"
+                );
 
-                    }
+            const attendanceFilter =
+                document.getElementById(
+                    "attendanceClass"
                 );
 
 
-            body.innerHTML =
-                sortedStudents
-                    .map(
-                        student => {
-
-                            const name =
-                                student.student_name ||
-                                student.full_name ||
-                                "Unknown Student";
-
-
-                            const registration =
-                                student.registration_number ||
-                                student.admission_number ||
-                                "—";
-
-
-                            const studentClass =
+            const classes =
+                [...new Set(
+                    allStudents
+                        .map(function(student) {
+                            return (
                                 student.student_class ||
+                                student.studentClass ||
                                 student.class ||
-                                "—";
+                                ""
+                            );
+                        })
+                        .filter(Boolean)
+                )]
+                .sort();
 
 
-                            const teacher =
-                                student.teacher_name ||
-                                student.class_teacher ||
-                                "—";
-
-
-                            return `
-
-                                <tr>
-
-                                    <td>
-                                        <strong>
-                                            ${escapeHTML(name)}
-                                        </strong>
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(registration)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(studentClass)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(teacher)}
-                                    </td>
-
-                                </tr>
-
-                            `;
-
-                        }
-                    )
-                    .join("");
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Student directory error:",
-                error
-            );
-
-
-            body.innerHTML = `
-                <tr>
-                    <td colspan="4">
-                        Unable to load students.
-                    </td>
-                </tr>
+            studentFilter.innerHTML = `
+                <option value="ALL">
+                    All Classes
+                </option>
             `;
 
-        }
 
-    }
-
-
-    /* =====================================================
-       PRINCIPAL ATTENDANCE
-    ===================================================== */
-
-    async function loadPrincipalAttendance() {
-
-        const selectedClass =
-            classFilter.value;
+            attendanceFilter.innerHTML = `
+                <option value="ALL">
+                    All Classes
+                </option>
+            `;
 
 
-        let weekStart =
-            attendanceWeek.value;
+            classes.forEach(function(className) {
+
+                const option1 =
+                    document.createElement("option");
+
+                option1.value = className;
+                option1.textContent = className;
+
+                studentFilter.appendChild(option1);
 
 
-        if (!weekStart) {
+                const option2 =
+                    document.createElement("option");
 
-            weekStart =
-                formatDate(
-                    getMonday(
-                        new Date()
-                    )
-                );
+                option2.value = className;
+                option2.textContent = className;
 
-            attendanceWeek.value =
-                weekStart;
+                attendanceFilter.appendChild(option2);
+
+            });
 
         }
 
 
-        const message =
-            document.getElementById(
-                "attendanceMessage"
-            );
+        /* =================================
+           RENDER STUDENTS
+        ================================= */
 
+        function renderStudents() {
 
-        const wrapper =
-            document.getElementById(
-                "attendanceTableWrapper"
-            );
-
-
-        message.style.display =
-            "block";
-
-        message.textContent =
-            "Loading attendance...";
-
-
-        wrapper.style.display =
-            "none";
-
-
-        try {
-
-            const [
-                students,
-                attendanceResponse
-            ] =
-                await Promise.all([
-
-                    getStudents(),
-
-                    fetch(
-                        `${API_URL}/api/principal/attendance?` +
-                        `studentClass=${encodeURIComponent(selectedClass)}` +
-                        `&weekStart=${encodeURIComponent(weekStart)}`
-                    )
-
-                ]);
-
-
-            const attendanceData =
-                await attendanceResponse.json();
-
-
-            if (
-                !attendanceResponse.ok ||
-                !attendanceData.success
-            ) {
-
-                throw new Error(
-                    attendanceData.message ||
-                    "Unable to load attendance."
-                );
-
-            }
-
-
-            let filteredStudents =
-                [...students];
-
-
-            if (
-                selectedClass !== "ALL"
-            ) {
-
-                filteredStudents =
-                    filteredStudents.filter(
-                        student => {
-
-                            const studentClass =
-                                String(
-                                    student.student_class ||
-                                    student.class ||
-                                    ""
-                                )
-                                .trim()
-                                .toLowerCase();
-
-
-                            return (
-                                studentClass ===
-                                selectedClass
-                                    .trim()
-                                    .toLowerCase()
-                            );
-
-                        }
-                    );
-
-            }
-
-
-            const attendanceRows =
-                attendanceData.attendance ||
-                [];
-
-
-            const attendanceMap =
-                new Map();
-
-
-            attendanceRows.forEach(
-                row => {
-
-                    const studentId =
-                        String(
-                            row.student_id
-                        );
-
-
-                    const date =
-                        String(
-                            row.attendance_date
-                        )
-                        .substring(
-                            0,
-                            10
-                        );
-
-
-                    if (
-                        !attendanceMap.has(
-                            studentId
-                        )
-                    ) {
-
-                        attendanceMap.set(
-                            studentId,
-                            {}
-                        );
-
-                    }
-
-
-                    attendanceMap
-                        .get(studentId)[date] =
-                        row;
-
-                }
-            );
-
-
-            let marked = 0;
-            let present = 0;
-            let absent = 0;
-            let late = 0;
-            let excused = 0;
-
-
-            const body =
+            const tbody =
                 document.getElementById(
-                    "attendanceTableBody"
+                    "studentTableBody"
+                );
+
+            const count =
+                document.getElementById(
+                    "studentCount"
+                );
+
+            const noStudents =
+                document.getElementById(
+                    "noStudents"
                 );
 
 
-            body.innerHTML = "";
+            const search =
+                document
+                    .getElementById("studentSearch")
+                    .value
+                    .trim()
+                    .toLowerCase();
 
 
-            filteredStudents
-                .sort(
-                    (a, b) => {
-
-                        const nameA =
-                            String(
-                                a.student_name ||
-                                a.full_name ||
-                                ""
-                            );
-
-                        const nameB =
-                            String(
-                                b.student_name ||
-                                b.full_name ||
-                                ""
-                            );
-
-                        return nameA.localeCompare(
-                            nameB
-                        );
-
-                    }
-                )
-                .forEach(
-                    student => {
-
-                        const studentId =
-                            String(
-                                student.id
-                            );
+            const classFilter =
+                document
+                    .getElementById(
+                        "studentClassFilter"
+                    )
+                    .value;
 
 
-                        const records =
-                            attendanceMap.get(
-                                studentId
-                            ) || {};
-
-
-                        const weekRecords =
-                            [];
-
-
-                        for (
-                            let day = 0;
-                            day < 5;
-                            day++
-                        ) {
-
-                            const date =
-                                addDays(
-                                    weekStart,
-                                    day
-                                );
-
-
-                            const record =
-                                records[date];
-
-
-                            weekRecords.push(
-                                record
-                            );
-
-
-                            if (record) {
-
-                                marked++;
-
-
-                                if (
-                                    record.status ===
-                                    "Present"
-                                ) {
-
-                                    present++;
-
-                                }
-
-                                else if (
-                                    record.status ===
-                                    "Absent"
-                                ) {
-
-                                    absent++;
-
-                                }
-
-                                else if (
-                                    record.status ===
-                                    "Late"
-                                ) {
-
-                                    late++;
-
-                                }
-
-                                else if (
-                                    record.status ===
-                                    "Excused"
-                                ) {
-
-                                    excused++;
-
-                                }
-
-                            }
-
-                        }
-
-
-                        let teacherName =
-                            student.teacher_name ||
-                            student.class_teacher ||
-                            "";
-
-
-                        if (!teacherName) {
-
-                            const record =
-                                weekRecords.find(
-                                    item =>
-                                        item &&
-                                        item.teacher_name
-                                );
-
-
-                            if (record) {
-
-                                teacherName =
-                                    record.teacher_name;
-
-                            }
-
-                        }
-
-
-                        if (!teacherName) {
-
-                            teacherName =
-                                "—";
-
-                        }
-
+            const filteredStudents =
+                allStudents.filter(
+                    function(student) {
 
                         const name =
-                            student.student_name ||
-                            student.full_name ||
-                            "Unknown Student";
+                            String(
+                                student.student_name ||
+                                student.studentName ||
+                                student.name ||
+                                ""
+                            ).toLowerCase();
 
 
                         const registration =
-                            student.registration_number ||
-                            student.admission_number ||
-                            "—";
+                            String(
+                                student.registration_number ||
+                                student.registrationNumber ||
+                                student.admission_number ||
+                                student.admissionNumber ||
+                                ""
+                            ).toLowerCase();
 
 
                         const studentClass =
-                            student.student_class ||
-                            student.class ||
-                            "—";
+                            String(
+                                student.student_class ||
+                                student.studentClass ||
+                                student.class ||
+                                ""
+                            ).toLowerCase();
 
 
-                        const row =
-                            document.createElement(
-                                "tr"
-                            );
+                        const matchesSearch =
+                            !search ||
+                            name.includes(search) ||
+                            registration.includes(search) ||
+                            studentClass.includes(search);
 
 
-                        row.innerHTML = `
-
-                            <td>
-                                <strong>
-                                    ${escapeHTML(name)}
-                                </strong>
-                            </td>
-
-                            <td>
-                                ${escapeHTML(registration)}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(studentClass)}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(teacherName)}
-                            </td>
-
-                            ${weekRecords
-                                .map(
-                                    record => `
-                                        <td>
-                                            ${statusHTML(record)}
-                                        </td>
-                                    `
-                                )
-                                .join("")}
-
-                        `;
+                        const matchesClass =
+                            classFilter === "ALL" ||
+                            studentClass ===
+                            classFilter.toLowerCase();
 
 
-                        body.appendChild(row);
+                        return (
+                            matchesSearch &&
+                            matchesClass
+                        );
 
                     }
                 );
 
 
-            document.getElementById(
-                "attendanceStudentCount"
-            ).textContent =
-                filteredStudents.length;
-
-
-            document.getElementById(
-                "markedCount"
-            ).textContent =
-                marked;
-
-
-            document.getElementById(
-                "weekPresent"
-            ).textContent =
-                present;
-
-
-            document.getElementById(
-                "weekAbsent"
-            ).textContent =
-                absent;
-
-
-            document.getElementById(
-                "weekOther"
-            ).textContent =
-                late + excused;
-
-
-            document.getElementById(
-                "totalStudents"
-            ).textContent =
-                students.length;
-
-
-            document.getElementById(
-                "totalPresent"
-            ).textContent =
-                present;
-
-
-            document.getElementById(
-                "totalAbsent"
-            ).textContent =
-                absent;
-
-
-            document.getElementById(
-                "totalLate"
-            ).textContent =
-                late;
+            count.textContent =
+                `${filteredStudents.length} student${
+                    filteredStudents.length === 1
+                        ? ""
+                        : "s"
+                } found`;
 
 
             if (
                 filteredStudents.length === 0
             ) {
 
-                message.style.display =
+                tbody.innerHTML = "";
+
+                noStudents.style.display =
                     "block";
 
-                message.textContent =
-                    "No students found for this class.";
-
                 return;
 
             }
 
 
-            message.style.display =
+            noStudents.style.display =
                 "none";
 
-            wrapper.style.display =
-                "block";
 
-        }
+            tbody.innerHTML =
+                filteredStudents
+                    .map(function(student) {
 
-        catch (error) {
+                        const name =
+                            student.student_name ||
+                            student.studentName ||
+                            student.name ||
+                            "Unknown Student";
 
-            console.error(
-                "Principal attendance error:",
-                error
-            );
 
+                        const registration =
+                            student.registration_number ||
+                            student.registrationNumber ||
+                            student.admission_number ||
+                            student.admissionNumber ||
+                            "—";
 
-            message.style.display =
-                "block";
 
-            message.textContent =
-                "Unable to load attendance. Please try again.";
+                        const studentClass =
+                            student.student_class ||
+                            student.studentClass ||
+                            student.class ||
+                            "—";
 
-            wrapper.style.display =
-                "none";
 
-        }
+                        const gender =
+                            student.gender ||
+                            "—";
 
-    }
 
+                        const initials =
+                            getInitials(name);
 
-    /* =====================================================
-       STATUS
-    ===================================================== */
 
-    function statusHTML(record) {
-
-        if (!record) {
-
-            return `
-                <span class="status status-not-marked">
-                    Not marked
-                </span>
-            `;
-
-        }
-
-
-        const status =
-            String(
-                record.status || ""
-            ).trim();
-
-
-        let className =
-            "status-not-marked";
-
-
-        if (
-            status === "Present"
-        ) {
-
-            className =
-                "status-present";
-
-        }
-
-        else if (
-            status === "Absent"
-        ) {
-
-            className =
-                "status-absent";
-
-        }
-
-        else if (
-            status === "Late"
-        ) {
-
-            className =
-                "status-late";
-
-        }
-
-        else if (
-            status === "Excused"
-        ) {
-
-            className =
-                "status-excused";
-
-        }
-
-
-        return `
-            <span class="status ${className}">
-                ${escapeHTML(status || "Not marked")}
-            </span>
-        `;
-
-    }
-
-
-    /* =====================================================
-       TEACHER ACTIVITIES
-    ===================================================== */
-
-    async function loadTeacherActivities() {
-
-        const body =
-            document.getElementById(
-                "teacherActivityBody"
-            );
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/teacher-activities`
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !data.success
-            ) {
-
-                throw new Error(
-                    "Unable to load activities."
-                );
-
-            }
-
-
-            const activities =
-                data.activities || [];
-
-
-            if (
-                activities.length === 0
-            ) {
-
-                body.innerHTML = `
-                    <tr>
-                        <td colspan="5">
-                            No teacher activities recorded yet.
-                        </td>
-                    </tr>
-                `;
-
-                return;
-
-            }
-
-
-            body.innerHTML =
-                activities
-                    .slice(0, 100)
-                    .map(
-                        activity => {
-
-                            const teacher =
-                                activity.teacher_name ||
-                                "—";
-
-
-                            const activityType =
-                                activity.activity_type ||
-                                activity.activity ||
-                                "—";
-
-
-                            const student =
-                                activity.student_name ||
-                                "—";
-
-
-                            const studentClass =
-                                activity.student_class ||
-                                activity.teacher_class ||
-                                "—";
-
-
-                            return `
-
-                                <tr>
-
-                                    <td>
-                                        ${escapeHTML(teacher)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(activityType)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(student)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(studentClass)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            formatDateTime(
-                                                activity.created_at
-                                            )
-                                        )}
-                                    </td>
-
-                                </tr>
-
-                            `;
-
-                        }
-                    )
-                    .join("");
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Teacher activity error:",
-                error
-            );
-
-
-            body.innerHTML = `
-                <tr>
-                    <td colspan="5">
-                        Unable to load teacher activities.
-                    </td>
-                </tr>
-            `;
-
-        }
-
-    }
-
-
-    /* =====================================================
-       LOGIN HISTORY
-    ===================================================== */
-
-    async function loadLoginHistory() {
-
-        const body =
-            document.getElementById(
-                "loginHistoryBody"
-            );
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/teacher-login-history`
-                );
-
-
-            const data =
-                await response.json();
-
-
-            if (
-                !response.ok ||
-                !data.success
-            ) {
-
-                throw new Error(
-                    "Unable to load login history."
-                );
-
-            }
-
-
-            const history =
-                data.history || [];
-
-
-            if (
-                history.length === 0
-            ) {
-
-                body.innerHTML = `
-                    <tr>
-                        <td colspan="4">
-                            No teacher login history available.
-                        </td>
-                    </tr>
-                `;
-
-                return;
-
-            }
-
-
-            body.innerHTML =
-                history
-                    .slice(0, 100)
-                    .map(
-                        login => `
+                        return `
 
                             <tr>
 
                                 <td>
+                                    <span class="student-avatar">
+                                        ${escapeHTML(initials)}
+                                    </span>
+
+                                    ${escapeHTML(name)}
+                                </td>
+
+                                <td>
                                     ${escapeHTML(
-                                        login.teacher_name ||
-                                        login.full_name ||
-                                        "—"
+                                        registration
                                     )}
                                 </td>
 
                                 <td>
                                     ${escapeHTML(
-                                        login.username ||
-                                        "—"
+                                        studentClass
                                     )}
                                 </td>
 
                                 <td>
                                     ${escapeHTML(
-                                        login.assigned_class ||
-                                        "—"
-                                    )}
-                                </td>
-
-                                <td>
-                                    ${escapeHTML(
-                                        formatDateTime(
-                                            login.login_at ||
-                                            login.created_at
-                                        )
+                                        gender
                                     )}
                                 </td>
 
                             </tr>
 
-                        `
-                    )
+                        `;
+
+                    })
                     .join("");
 
         }
 
-        catch (error) {
 
-            console.error(
-                "Login history error:",
-                error
+        /* =================================
+           STUDENT SEARCH
+        ================================= */
+
+        document
+            .getElementById("studentSearch")
+            .addEventListener(
+                "input",
+                renderStudents
             );
 
 
-            body.innerHTML = `
-                <tr>
-                    <td colspan="4">
-                        Unable to load login history.
-                    </td>
-                </tr>
-            `;
-
-        }
-
-    }
-
-
-    /* =====================================================
-       TEACHERS
-    ===================================================== */
-
-    async function loadTeachers() {
-
-        const container =
-            document.getElementById(
-                "teachersContainer"
-            );
-
-
-        try {
-
-            const [
-                activityResponse,
-                loginResponse
-            ] =
-                await Promise.all([
-
-                    fetch(
-                        `${API_URL}/api/teacher-activities`
-                    ),
-
-                    fetch(
-                        `${API_URL}/api/teacher-login-history`
-                    )
-
-                ]);
-
-
-            const activityData =
-                await activityResponse.json();
-
-
-            const loginData =
-                await loginResponse.json();
-
-
-            const teachers =
-                new Map();
-
-
-            (
-                activityData.activities ||
-                []
+        document
+            .getElementById(
+                "studentClassFilter"
             )
-            .forEach(
-                activity => {
-
-                    const name =
-                        activity.teacher_name;
-
-
-                    if (!name) return;
+            .addEventListener(
+                "change",
+                renderStudents
+            );
 
 
-                    const key =
-                        name.toLowerCase();
+        /* =================================
+           LOAD TEACHERS
+        ================================= */
 
+        async function loadTeachers() {
 
-                    teachers.set(
-                        key,
-                        {
-                            name: name,
+            const container =
+                document.getElementById(
+                    "teacherGrid"
+                );
 
-                            className:
-                                activity.student_class ||
-                                activity.teacher_class ||
-                                "—",
+            try {
 
-                            lastLogin:
-                                "—"
-                        }
+                const response =
+                    await fetch(
+                        `${API_URL}/api/staff`
                     );
 
-                }
-            );
 
-
-            (
-                loginData.history ||
-                []
-            )
-            .forEach(
-                login => {
-
-                    const name =
-                        login.teacher_name ||
-                        login.full_name;
-
-
-                    if (!name) return;
-
-
-                    const key =
-                        name.toLowerCase();
-
-
-                    const existing =
-                        teachers.get(key) ||
-                        {
-                            name: name,
-
-                            className:
-                                login.assigned_class ||
-                                "—",
-
-                            lastLogin:
-                                "—"
-                        };
-
-
-                    existing.name =
-                        name;
-
-
-                    existing.className =
-                        login.assigned_class ||
-                        existing.className ||
-                        "—";
-
-
-                    if (
-                        existing.lastLogin ===
-                        "—"
-                    ) {
-
-                        existing.lastLogin =
-                            login.login_at ||
-                            login.created_at ||
-                            "—";
-
-                    }
-
-
-                    teachers.set(
-                        key,
-                        existing
+                if (!response.ok) {
+                    throw new Error(
+                        "Unable to load teachers."
                     );
-
                 }
-            );
 
 
-            if (
-                teachers.size === 0
-            ) {
+                const data =
+                    await response.json();
 
-                container.innerHTML = `
-                    <div class="message">
-                        No teacher information recorded yet.
-                    </div>
-                `;
+
+                allTeachers =
+                    Array.isArray(data.teachers)
+                        ? data.teachers
+                        : Array.isArray(data)
+                            ? data
+                            : [];
+
+
+                renderTeachers();
 
                 document.getElementById(
                     "totalTeachers"
-                ).textContent = "0";
+                ).textContent =
+                    allTeachers.length;
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Teacher loading error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        Unable to load teachers.
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        /* =================================
+           RENDER TEACHERS
+        ================================= */
+
+        function renderTeachers() {
+
+            const container =
+                document.getElementById(
+                    "teacherGrid"
+                );
+
+
+            if (!allTeachers.length) {
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        No teachers found.
+                    </div>
+                `;
 
                 return;
 
             }
 
 
-            document.getElementById(
-                "totalTeachers"
-            ).textContent =
-                teachers.size;
-
-
             container.innerHTML =
-                Array.from(
-                    teachers.values()
-                )
-                .sort(
-                    (a, b) =>
-                        a.name.localeCompare(
-                            b.name
-                        )
-                )
-                .map(
-                    teacher => {
+                allTeachers.map(
+                    function(teacher) {
 
-                        const initials =
-                            getInitials(
-                                teacher.name
-                            );
+                        const name =
+                            teacher.teacher_name ||
+                            teacher.teacherName ||
+                            teacher.full_name ||
+                            teacher.fullName ||
+                            teacher.name ||
+                            "Teacher";
+
+
+                        const assignedClass =
+                            teacher.assigned_class ||
+                            teacher.assignedClass ||
+                            teacher.teacher_class ||
+                            teacher.teacherClass ||
+                            "No class assigned";
 
 
                         return `
 
                             <div class="teacher-card">
 
-                                <div class="teacher-top">
-
-                                    <div class="teacher-avatar">
-                                        ${escapeHTML(initials)}
-                                    </div>
-
-                                    <div>
-
-                                        <h3>
-                                            ${escapeHTML(
-                                                teacher.name
-                                            )}
-                                        </h3>
-
-                                        <div class="teacher-role">
-                                            Class Teacher
-                                        </div>
-
-                                    </div>
-
+                                <div class="teacher-avatar">
+                                    ${escapeHTML(
+                                        getInitials(name)
+                                    )}
                                 </div>
 
-
-                                <div class="teacher-detail">
-
-                                    <span>
-                                        Class
-                                    </span>
+                                <div>
 
                                     <strong>
-                                        ${escapeHTML(
-                                            teacher.className
-                                        )}
+                                        ${escapeHTML(name)}
                                     </strong>
-
-                                </div>
-
-
-                                <div class="teacher-detail">
 
                                     <span>
-                                        Last Login
-                                    </span>
-
-                                    <strong>
                                         ${escapeHTML(
-                                            formatDateTime(
-                                                teacher.lastLogin
-                                            )
+                                            assignedClass
                                         )}
-                                    </strong>
+                                    </span>
 
                                 </div>
 
@@ -4501,83 +2402,456 @@
                         `;
 
                     }
-                )
-                .join("");
+                ).join("");
 
         }
 
-        catch (error) {
 
-            console.error(
-                "Teacher overview error:",
-                error
-            );
+        /* =================================
+           LOAD ATTENDANCE
+        ================================= */
+
+        async function loadAttendance() {
+
+            const className =
+                document.getElementById(
+                    "attendanceClass"
+                ).value;
 
 
-            document.getElementById(
-                "totalTeachers"
-            ).textContent = "0";
+            const weekInput =
+                document.getElementById(
+                    "attendanceWeek"
+                );
 
 
-            container.innerHTML = `
-                <div class="message">
-                    Unable to load teacher information.
-                </div>
+            const weekStart =
+                weekInput.value ||
+                getMonday(
+                    new Date()
+                );
+
+
+            weekInput.value =
+                weekStart;
+
+
+            const tbody =
+                document.getElementById(
+                    "attendanceTableBody"
+                );
+
+
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        <div class="loading">
+                            Loading attendance...
+                        </div>
+                    </td>
+                </tr>
             `;
 
+
+            try {
+
+                const url =
+                    `${API_URL}/api/principal/attendance?` +
+                    `studentClass=${encodeURIComponent(
+                        className
+                    )}&weekStart=${encodeURIComponent(
+                        weekStart
+                    )}`;
+
+
+                const response =
+                    await fetch(url);
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load attendance."
+                    );
+
+                }
+
+
+                renderAttendance(
+                    data.attendance || []
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Attendance error:",
+                    error
+                );
+
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                Unable to load attendance.
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+            }
+
         }
 
-    }
 
-
-    /* =====================================================
-       NEWS
-    ===================================================== */
-
-    async function loadNews() {
-
-        const container =
-            document.getElementById(
-                "newsContainer"
+        document
+            .getElementById(
+                "attendanceClass"
+            )
+            .addEventListener(
+                "change",
+                loadAttendance
             );
 
 
-        try {
+        document
+            .getElementById(
+                "attendanceWeek"
+            )
+            .addEventListener(
+                "change",
+                loadAttendance
+            );
 
-            const response =
-                await fetch(
-                    `${API_URL}/api/announcements`
+
+        /* =================================
+           RENDER ATTENDANCE
+        ================================= */
+
+        function renderAttendance(records) {
+
+            const tbody =
+                document.getElementById(
+                    "attendanceTableBody"
                 );
 
 
-            const data =
-                await response.json();
+            const students = {};
 
 
-            if (
-                !response.ok ||
-                !data.success
-            ) {
+            records.forEach(function(record) {
 
-                throw new Error(
-                    "Unable to load announcements."
-                );
+                const id =
+                    record.student_id ||
+                    record.studentId ||
+                    record.registration_number;
+
+
+                if (!students[id]) {
+
+                    students[id] = {
+                        name:
+                            record.student_name ||
+                            record.studentName ||
+                            "Student",
+
+                        class:
+                            record.student_class ||
+                            record.studentClass ||
+                            "—",
+
+                        days: {}
+
+                    };
+
+                }
+
+
+                const date =
+                    String(
+                        record.attendance_date ||
+                        record.attendanceDate ||
+                        ""
+                    ).substring(0, 10);
+
+
+                const day =
+                    new Date(
+                        `${date}T00:00:00`
+                    ).getDay();
+
+
+                students[id].days[day] =
+                    record.status;
+
+            });
+
+
+            const studentList =
+                Object.values(students);
+
+
+            let total = 0;
+            let present = 0;
+            let absent = 0;
+            let late = 0;
+
+
+            studentList.forEach(function(student) {
+
+                Object.values(student.days)
+                    .forEach(function(status) {
+
+                        if (!status) return;
+
+                        total++;
+
+                        if (
+                            status === "Present"
+                        ) {
+                            present++;
+                        }
+
+                        if (
+                            status === "Absent"
+                        ) {
+                            absent++;
+                        }
+
+                        if (
+                            status === "Late"
+                        ) {
+                            late++;
+                        }
+
+                    });
+
+            });
+
+
+            document.getElementById(
+                "attendanceTotal"
+            ).textContent = total;
+
+
+            document.getElementById(
+                "attendancePresent"
+            ).textContent = present;
+
+
+            document.getElementById(
+                "attendanceAbsent"
+            ).textContent = absent;
+
+
+            document.getElementById(
+                "attendanceLate"
+            ).textContent = late;
+
+
+            document.getElementById(
+                "totalPresent"
+            ).textContent = present;
+
+
+            document.getElementById(
+                "totalAbsent"
+            ).textContent = absent;
+
+
+            document.getElementById(
+                "totalLate"
+            ).textContent = late;
+
+
+            if (!studentList.length) {
+
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7">
+                            <div class="empty-state">
+                                No attendance records found.
+                            </div>
+                        </td>
+                    </tr>
+                `;
+
+                return;
 
             }
 
 
-            const announcements =
-                data.announcements ||
-                [];
+            tbody.innerHTML =
+                studentList.map(
+                    function(student) {
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        ${escapeHTML(
+                                            student.name
+                                        )}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(
+                                        student.class
+                                    )}
+                                </td>
+
+                                ${attendanceCell(
+                                    student.days[1]
+                                )}
+
+                                ${attendanceCell(
+                                    student.days[2]
+                                )}
+
+                                ${attendanceCell(
+                                    student.days[3]
+                                )}
+
+                                ${attendanceCell(
+                                    student.days[4]
+                                )}
+
+                                ${attendanceCell(
+                                    student.days[5]
+                                )}
+
+                            </tr>
+
+                        `;
+
+                    }
+                ).join("");
+
+        }
 
 
-            if (
-                announcements.length === 0
-            ) {
+        function attendanceCell(status) {
+
+            if (!status) {
+                return `
+                    <td>—</td>
+                `;
+            }
+
+
+            let className =
+                "status-present";
+
+
+            if (status === "Absent") {
+                className =
+                    "status-absent";
+            }
+
+
+            if (status === "Late") {
+                className =
+                    "status-late";
+            }
+
+
+            return `
+                <td>
+                    <span class="status ${className}">
+                        ${escapeHTML(status)}
+                    </span>
+                </td>
+            `;
+
+        }
+
+
+        /* =================================
+           LOAD ACTIVITIES
+        ================================= */
+
+        async function loadActivities() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/teacher-activities`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load activities."
+                    );
+
+                }
+
+
+                allActivities =
+                    data.activities || [];
+
+
+                renderActivities(
+                    document.getElementById(
+                        "activitiesTable"
+                    ),
+                    allActivities
+                );
+
+
+                renderActivities(
+                    document.getElementById(
+                        "dashboardActivities"
+                    ),
+                    allActivities.slice(0, 5)
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Activities error:",
+                    error
+                );
+
+                document.getElementById(
+                    "activitiesTable"
+                ).innerHTML = `
+                    <div class="empty-state">
+                        Unable to load activities.
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        function renderActivities(
+            container,
+            activities
+        ) {
+
+            if (!activities.length) {
 
                 container.innerHTML = `
-                    <div class="message">
-                        There are no announcements available.
+                    <div class="empty-state">
+                        No teacher activities found.
                     </div>
                 `;
 
@@ -4586,248 +2860,641 @@
             }
 
 
-            container.innerHTML =
-                announcements
-                    .slice(0, 20)
-                    .map(
-                        announcement => `
-
-                            <div class="announcement">
-
-                                <h3>
-                                    ${escapeHTML(
-                                        announcement.title
-                                    )}
-                                </h3>
-
-                                <p>
-                                    ${escapeHTML(
-                                        announcement.content
-                                    )}
-                                </p>
-
-                                <span class="announcement-date">
-                                    ${escapeHTML(
-                                        formatDateTime(
-                                            announcement.created_at
-                                        )
-                                    )}
-                                </span>
-
-                            </div>
-
-                        `
-                    )
-                    .join("");
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "News error:",
-                error
-            );
-
-
             container.innerHTML = `
-                <div class="message">
-                    Unable to load announcements.
-                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Teacher
+                            </th>
+
+                            <th>
+                                Activity
+                            </th>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Class
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        ${activities.map(
+                            function(activity) {
+
+                                const teacher =
+                                    activity.teacher_name ||
+                                    "Teacher";
+
+
+                                const description =
+                                    activity.description ||
+                                    activity.activity_type ||
+                                    "Activity";
+
+
+                                const student =
+                                    activity.student_name ||
+                                    "—";
+
+
+                                const className =
+                                    activity.teacher_class ||
+                                    "—";
+
+
+                                const date =
+                                    formatDateTime(
+                                        activity.created_at
+                                    );
+
+
+                                return `
+
+                                    <tr>
+
+                                        <td>
+                                            ${escapeHTML(
+                                                teacher
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHTML(
+                                                description
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHTML(
+                                                student
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHTML(
+                                                className
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHTML(
+                                                date
+                                            )}
+                                        </td>
+
+                                    </tr>
+
+                                `;
+
+                            }
+                        ).join("")}
+
+                    </tbody>
+
+                </table>
+
             `;
 
         }
 
-    }
+
+        /* =================================
+           LOGIN HISTORY
+        ================================= */
+
+        async function loadLoginHistory() {
+
+            const container =
+                document.getElementById(
+                    "loginHistoryTable"
+                );
 
 
-    /* =====================================================
-       DATE FORMAT
-    ===================================================== */
+            try {
 
-    function formatDateTime(value) {
+                const response =
+                    await fetch(
+                        `${API_URL}/api/teacher-login-history`
+                    );
 
-        if (!value) {
 
-            return "—";
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load login history."
+                    );
+
+                }
+
+
+                const history =
+                    data.history ||
+                    data.logins ||
+                    data.loginHistory ||
+                    [];
+
+
+                if (!history.length) {
+
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            No teacher login history found.
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                container.innerHTML = `
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Teacher
+                                </th>
+
+                                <th>
+                                    Username
+                                </th>
+
+                                <th>
+                                    Class
+                                </th>
+
+                                <th>
+                                    Login Time
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            ${history.map(
+                                function(item) {
+
+                                    return `
+
+                                        <tr>
+
+                                            <td>
+                                                ${escapeHTML(
+                                                    item.teacher_name ||
+                                                    "Teacher"
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHTML(
+                                                    item.username ||
+                                                    "—"
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHTML(
+                                                    item.assigned_class ||
+                                                    "—"
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHTML(
+                                                    formatDateTime(
+                                                        item.login_at
+                                                    )
+                                                )}
+                                            </td>
+
+                                        </tr>
+
+                                    `;
+
+                                }
+                            ).join("")}
+
+                        </tbody>
+
+                    </table>
+
+                `;
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Login history error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        Unable to load login history.
+                    </div>
+                `;
+
+            }
 
         }
 
 
-        const date =
-            new Date(value);
+        /* =================================
+           ANNOUNCEMENTS
+        ================================= */
+
+        async function loadAnnouncements() {
+
+            const container =
+                document.getElementById(
+                    "announcementList"
+                );
 
 
-        if (
-            Number.isNaN(
-                date.getTime()
-            )
-        ) {
+            try {
 
-            return "—";
+                const response =
+                    await fetch(
+                        `${API_URL}/api/announcements`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load announcements."
+                    );
+
+                }
+
+
+                const announcements =
+                    data.announcements ||
+                    data ||
+                    [];
+
+
+                if (
+                    !Array.isArray(
+                        announcements
+                    ) ||
+                    !announcements.length
+                ) {
+
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            No announcements have been published yet.
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                container.innerHTML = `
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Title
+                                </th>
+
+                                <th>
+                                    Content
+                                </th>
+
+                                <th>
+                                    Published
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            ${announcements.map(
+                                function(item) {
+
+                                    return `
+
+                                        <tr>
+
+                                            <td>
+                                                <strong>
+                                                    ${escapeHTML(
+                                                        item.title ||
+                                                        "Announcement"
+                                                    )}
+                                                </strong>
+                                            </td>
+
+                                            <td>
+                                                ${escapeHTML(
+                                                    truncate(
+                                                        item.content ||
+                                                        "",
+                                                        100
+                                                    )
+                                                )}
+                                            </td>
+
+                                            <td>
+                                                ${escapeHTML(
+                                                    formatDateTime(
+                                                        item.created_at ||
+                                                        item.createdAt
+                                                    )
+                                                )}
+                                            </td>
+
+                                        </tr>
+
+                                    `;
+
+                                }
+                            ).join("")}
+
+                        </tbody>
+
+                    </table>
+
+                `;
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Announcements error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        Unable to load announcements.
+                    </div>
+                `;
+
+            }
 
         }
 
 
-        return date.toLocaleString(
-            "en-NG",
-            {
-                dateStyle: "medium",
-                timeStyle: "short"
+        /* =================================
+           TOTAL STUDENTS
+        ================================= */
+
+        async function loadDashboardStudents() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/api/students`
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                const students =
+                    Array.isArray(
+                        data.students
+                    )
+                        ? data.students
+                        : Array.isArray(data)
+                            ? data
+                            : [];
+
+
+                allStudents = students;
+
+
+                document.getElementById(
+                    "totalStudents"
+                ).textContent =
+                    students.length;
+
+
+                populateClassFilters();
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Dashboard student count error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =================================
+           HELPERS
+        ================================= */
+
+        function getMonday(date) {
+
+            const d =
+                new Date(date);
+
+            const day =
+                d.getDay();
+
+
+            const diff =
+                day === 0
+                    ? -6
+                    : 1 - day;
+
+
+            d.setDate(
+                d.getDate() + diff
+            );
+
+
+            return d
+                .toISOString()
+                .split("T")[0];
+
+        }
+
+
+        function getInitials(name) {
+
+            return String(name)
+                .trim()
+                .split(/\s+/)
+                .slice(0, 2)
+                .map(function(word) {
+
+                    return word
+                        .charAt(0)
+                        .toUpperCase();
+
+                })
+                .join("");
+
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        function truncate(text, length) {
+
+            text =
+                String(text || "");
+
+
+            if (
+                text.length <= length
+            ) {
+                return text;
+            }
+
+
+            return (
+                text.substring(
+                    0,
+                    length
+                ) + "..."
+            );
+
+        }
+
+
+        function formatDateTime(value) {
+
+            if (!value) {
+                return "—";
+            }
+
+
+            const date =
+                new Date(value);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return String(value);
+            }
+
+
+            return date.toLocaleString(
+                "en-NG",
+                {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        }
+
+
+        /* =================================
+           LOGOUT
+        ================================= */
+
+        function logoutPrincipal() {
+
+            localStorage.removeItem(
+                "staffUser"
+            );
+
+            sessionStorage.clear();
+
+            window.location.href =
+                "admin-login.html";
+
+        }
+
+
+        /* =================================
+           INITIAL LOAD
+        ================================= */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function() {
+
+                document.getElementById(
+                    "attendanceWeek"
+                ).value =
+                    getMonday(new Date());
+
+
+                await loadDashboardStudents();
+
+                await loadTeachers();
+
+                await loadActivities();
+
+                await loadAttendance();
+
+                await loadAnnouncements();
+
+                await loadLoginHistory();
+
             }
         );
 
-    }
-
-
-    /* =====================================================
-       INITIALS
-    ===================================================== */
-
-    function getInitials(name) {
-
-        const parts =
-            String(
-                name || ""
-            )
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-
-
-        if (
-            parts.length === 0
-        ) {
-
-            return "T";
-
-        }
-
-
-        if (
-            parts.length === 1
-        ) {
-
-            return parts[0]
-                .substring(0, 2)
-                .toUpperCase();
-
-        }
-
-
-        return (
-            parts[0][0] +
-            parts[parts.length - 1][0]
-        ).toUpperCase();
-
-    }
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
-
-    function escapeHTML(value) {
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-
-        div.textContent =
-            value === null ||
-            value === undefined
-                ? ""
-                : String(value);
-
-
-        return div.innerHTML;
-
-    }
-
-
-    /* =====================================================
-       LOGOUT
-    ===================================================== */
-
-    function logoutPrincipal() {
-
-        localStorage.removeItem(
-            "staffUser"
-        );
-
-        sessionStorage.clear();
-
-        window.location.href =
-            "admin-login.html";
-
-    }
-
-
-    /* =====================================================
-       EVENTS
-    ===================================================== */
-
-    loadAttendanceButton.addEventListener(
-        "click",
-        loadPrincipalAttendance
-    );
-
-
-    classFilter.addEventListener(
-        "change",
-        loadPrincipalAttendance
-    );
-
-
-    attendanceWeek.addEventListener(
-        "change",
-        loadPrincipalAttendance
-    );
-
-
-    /* =====================================================
-       INITIAL DASHBOARD LOAD
-    ===================================================== */
-
-    async function initializeDashboard() {
-
-        try {
-
-            const students =
-                await getStudents();
-
-
-            document.getElementById(
-                "totalStudents"
-            ).textContent =
-                students.length;
-
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Initial student loading error:",
-                error
-            );
-
-        }
-
-
-        loadTeachers();
-
-        loadPrincipalAttendance();
-
-    }
-
-
-    initializeDashboard();
-
-</script>
-
+    </script>
 
 </body>
 </html>

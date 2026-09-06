@@ -1707,12 +1707,8 @@ app.get(
             if (!weekStart) {
 
                 return res.status(400).json({
-
                     success: false,
-
-                    message:
-                        "Week start date is required."
-
+                    message: "Week start date is required."
                 });
 
             }
@@ -1737,10 +1733,12 @@ app.get(
             `;
 
 
-            const values = [
-                weekStart
-            ];
+            const values = [weekStart];
 
+
+            // -----------------------------------------
+            // CLASS FILTER
+            // -----------------------------------------
 
             if (
                 studentClass &&
@@ -1757,6 +1755,10 @@ app.get(
             }
 
 
+            // -----------------------------------------
+            // ORDER
+            // -----------------------------------------
+
             query += `
                 ORDER BY
                     student_class ASC,
@@ -1772,12 +1774,15 @@ app.get(
                 );
 
 
+            // -----------------------------------------
+            // RESPONSE
+            // -----------------------------------------
+
             res.json({
 
                 success: true,
 
-                weekStart:
-                    weekStart,
+                weekStart: weekStart,
 
                 attendance:
                     result.rows
@@ -1792,7 +1797,6 @@ app.get(
                 "Principal attendance report error:",
                 error
             );
-
 
             res.status(500).json({
 

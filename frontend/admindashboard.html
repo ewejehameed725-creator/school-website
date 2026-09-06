@@ -1,365 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Admin Dashboard | Lagos State Model College Meiran
-    </title>
-
-    <link
-        rel="icon"
-        type="image/jpg"
-        href="images/school.jpg"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <title>Principal Dashboard | Lagos State Model College Meiran</title>
 
     <style>
-
-        /* =================================
-           ADMIN DASHBOARD
-        ================================= */
-
-        .admin-dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px 60px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        .dashboard-heading {
-            margin-bottom: 35px;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7f5;
+            color: #1d2b22;
         }
 
-        .dashboard-heading .section-label {
-            color: #168a45;
-            font-weight: 700;
-            letter-spacing: 1px;
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #08783f;
+            color: white;
+            padding: 16px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .school-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: white;
+            padding: 3px;
+        }
+
+        .header-title h1 {
+            font-size: 19px;
+        }
+
+        .header-title p {
             font-size: 13px;
+            opacity: 0.9;
+            margin-top: 3px;
         }
 
-        .dashboard-heading h1 {
-            margin: 8px 0;
+        .logout-btn {
+            border: none;
+            background: white;
+            color: #08783f;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        .dashboard-heading p {
-            color: #666;
+        .logout-btn:hover {
+            background: #eaf7ef;
         }
 
+        /* =========================
+           MAIN
+        ========================= */
 
-        /* =================================
-           DASHBOARD CARDS
-        ================================= */
+        main {
+            max-width: 1500px;
+            margin: auto;
+            padding: 25px;
+        }
 
-        .dashboard-cards {
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            color: #08783f;
+            margin-bottom: 5px;
+        }
+
+        .welcome p {
+            color: #64736a;
+        }
+
+        /* =========================
+           SUMMARY CARDS
+        ========================= */
+
+        .summary-grid {
             display: grid;
-            grid-template-columns:
-                repeat(2, minmax(0, 1fr));
-
-            gap: 25px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
         }
 
-        .dashboard-card {
-            background: #ffffff;
-            border-radius: 15px;
-            padding: 28px;
-            box-shadow:
-                0 5px 20px rgba(0, 0, 0, 0.08);
-
-            border: 1px solid #eeeeee;
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+            border-left: 5px solid #08783f;
         }
 
-        .dashboard-icon {
-            font-size: 35px;
-            margin-bottom: 12px;
-        }
-
-        .dashboard-card h3 {
+        .summary-card h3 {
+            font-size: 14px;
+            color: #68766d;
             margin-bottom: 10px;
         }
 
-        .dashboard-card p {
-            color: #666;
-            line-height: 1.6;
+        .summary-card strong {
+            font-size: 28px;
+            color: #08783f;
         }
 
+        /* =========================
+           SECTION
+        ========================= */
 
-        /* =================================
-           DASHBOARD LINKS
-        ================================= */
-
-        .dashboard-link {
-            display: inline-block;
-            margin-top: 15px;
-            text-decoration: none;
-            font-weight: 700;
-            color: #168a45;
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 28px;
+            box-shadow: 0 3px 14px rgba(0,0,0,0.06);
         }
 
-        .dashboard-link:hover {
-            text-decoration: underline;
-        }
-
-
-        /* =================================
-           FULL WIDTH SECTIONS
-        ================================= */
-
-        .dashboard-wide {
-            grid-column: 1 / -1;
-        }
-
-
-        /* =================================
-           SECTION HEADER
-        ================================= */
-
-        .admin-section-header {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
 
+        .section-header h2 {
+            color: #08783f;
+            font-size: 20px;
+        }
+
+        .section-description {
+            color: #68766d;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           CONTROLS
+        ========================= */
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .controls label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .controls select,
+        .controls input {
+            padding: 10px 12px;
+            border: 1px solid #cbd8cf;
+            border-radius: 8px;
+            background: white;
+            outline: none;
+        }
+
+        .controls select:focus,
+        .controls input:focus {
+            border-color: #08783f;
+        }
+
+        .primary-btn {
+            border: none;
+            background: #08783f;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .primary-btn:hover {
+            background: #056333;
+        }
+
+        /* =========================
+           ATTENDANCE SUMMARY
+        ========================= */
+
+        .attendance-summary {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
             margin-bottom: 20px;
         }
 
-        .admin-section-header h2 {
-            margin: 0;
+        .attendance-summary-card {
+            padding: 15px;
+            background: #f5f9f6;
+            border-radius: 10px;
+            text-align: center;
         }
 
-        .admin-section-header p {
-            margin: 5px 0 0;
-            color: #777;
+        .attendance-summary-card span {
+            display: block;
+            font-size: 12px;
+            color: #68766d;
+            margin-bottom: 6px;
         }
 
-
-        /* =================================
-           REFRESH BUTTON
-        ================================= */
-
-        .refresh-btn {
-            border: none;
-            background: #168a45;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
+        .attendance-summary-card strong {
+            font-size: 22px;
+            color: #08783f;
         }
 
-        .refresh-btn:hover {
-            opacity: 0.9;
-        }
-
-
-        /* =================================
+        /* =========================
            TABLE
-        ================================= */
+        ========================= */
 
-        .admin-table-wrapper {
+        .table-wrapper {
             width: 100%;
             overflow-x: auto;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 700px;
-        }
-
-        .admin-table th,
-        .admin-table td {
-            padding: 13px 12px;
-            border-bottom: 1px solid #eeeeee;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        .admin-table th {
-            background: #f5f8f6;
-            font-weight: 700;
-        }
-
-        .admin-table tr:hover {
-            background: #fafafa;
-        }
-
-
-        /* =================================
-           STATUS
-        ================================= */
-
-        .activity-status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: #e8f6ed;
-            color: #168a45;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-
-        /* =================================
-           ATTENDANCE
-        ================================= */
-
-        .attendance-table {
-            min-width: 900px;
-        }
-
-        .attendance-present {
-            color: #168a45;
-            font-weight: 700;
-        }
-
-        .attendance-absent {
-            color: #c62828;
-            font-weight: 700;
-        }
-
-        .attendance-late {
-            color: #ef8c00;
-            font-weight: 700;
-        }
-
-        .attendance-excused {
-            color: #555;
-            font-weight: 700;
-        }
-
-
-        /* =================================
-           CLASS FILTER
-        ================================= */
-
-        .class-filter {
-            padding: 10px 13px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: white;
-            min-width: 180px;
-        }
-
-
-        /* =================================
-           EMPTY MESSAGE
-        ================================= */
-
-        .empty-message {
-            padding: 25px;
-            text-align: center;
-            color: #777;
-            background: #fafafa;
+            border: 1px solid #e0e8e3;
             border-radius: 10px;
         }
 
-
-        /* =================================
-           LOADING
-        ================================= */
-
-        .table-loading {
-            padding: 25px;
-            text-align: center;
-            color: #777;
+        table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
         }
 
+        th {
+            background: #08783f;
+            color: white;
+            padding: 13px 10px;
+            text-align: left;
+            font-size: 13px;
+            white-space: nowrap;
+        }
 
-        /* =================================
-           RESPONSIVE
-        ================================= */
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e7ece9;
+            font-size: 13px;
+            white-space: nowrap;
+        }
 
-        @media (max-width: 800px) {
+        tr:hover td {
+            background: #f7faf8;
+        }
 
-            .dashboard-cards {
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .status-present {
+            background: #d9f5e3;
+            color: #08783f;
+        }
+
+        .status-absent {
+            background: #fde1e1;
+            color: #b42323;
+        }
+
+        .status-late {
+            background: #fff0c7;
+            color: #8a6200;
+        }
+
+        .status-excused {
+            background: #e4e8ff;
+            color: #3647a0;
+        }
+
+        .status-not-marked {
+            background: #edf0ee;
+            color: #68766d;
+        }
+
+        /* =========================
+           EMPTY / LOADING
+        ========================= */
+
+        .message {
+            text-align: center;
+            padding: 30px;
+            color: #68766d;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 25px;
+            color: #08783f;
+            font-weight: bold;
+        }
+
+        /* =========================
+           TEACHER CARDS
+        ========================= */
+
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .teacher-card {
+            border: 1px solid #e0e8e3;
+            border-radius: 12px;
+            padding: 16px;
+            background: #fbfdfc;
+        }
+
+        .teacher-card h3 {
+            color: #08783f;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .teacher-card p {
+            font-size: 13px;
+            color: #657168;
+            margin: 5px 0;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #718078;
+            font-size: 13px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .summary-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .attendance-summary {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .teacher-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 13px 15px;
+            }
+
+            .header-title h1 {
+                font-size: 15px;
+            }
+
+            .header-title p {
+                font-size: 11px;
+            }
+
+            .school-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logout-btn {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .attendance-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .teacher-grid {
                 grid-template-columns: 1fr;
             }
 
-            .dashboard-wide {
-                grid-column: auto;
+            .section {
+                padding: 16px;
             }
 
-            .admin-section-header {
-                flex-direction: column;
-                align-items: flex-start;
+            .welcome h2 {
+                font-size: 20px;
             }
-
-            .class-filter {
-                width: 100%;
-            }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<header>
 
-    <!-- =================================
-         PAGE LOADER
-    ================================= -->
+    <div class="header-left">
 
-    <div id="pageLoader">
+        <img
+            src="school.jpg"
+            alt="School Logo"
+            class="school-logo"
+        >
 
-        <div class="loader-content">
+        <div class="header-title">
+            <h1>Lagos State Model College Meiran</h1>
+            <p>Principal Administration Dashboard</p>
+        </div>
 
-            <img
-                src="images/school.jpg"
-                alt="School Logo"
-                class="loader-logo"
-            >
+    </div>
 
-            <h2>
-                Lagos State Model College Meiran
-            </h2>
+    <button
+        class="logout-btn"
+        onclick="logoutPrincipal()"
+    >
+        Logout
+    </button>
 
-            <p>
-                Loading school portal...
-            </p>
+</header>
 
-            <div class="loader-spinner"></div>
 
+<main>
+
+    <!-- =========================
+         WELCOME
+    ========================== -->
+
+    <div class="welcome">
+
+        <h2>
+            Welcome, Principal
+        </h2>
+
+        <p>
+            Monitor teachers, students, attendance and school activities.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <h3>Total Students</h3>
+            <strong id="totalStudents">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <h3>Present</h3>
+            <strong id="totalPresent">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <h3>Absent</h3>
+            <strong id="totalAbsent">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <h3>Late</h3>
+            <strong id="totalLate">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <h3>Excused</h3>
+            <strong id="totalExcused">0</strong>
         </div>
 
     </div>
 
 
+    <!-- =========================
+         ATTENDANCE
+    ========================== -->
 
-    <!-- =================================
-         ADMIN HEADER
-    ================================= -->
+    <section class="section">
 
-    <header class="admin-header">
+        <div class="section-header">
 
-        <div class="admin-brand">
+            <div>
+                <h2>Students & Attendance</h2>
 
-            <img
-                src="images/school.jpg"
-                alt="School Logo"
-            >
+                <p class="section-description">
+                    View weekly attendance for SS1, SS2 and SS3.
+                </p>
+            </div>
+
+
+            <div class="controls">
+
+                <label for="classFilter">
+                    Class:
+                </label>
+
+                <select id="classFilter">
+
+                    <option value="ALL">
+                        All Classes
+                    </option>
+
+                    <option value="SS1">
+                        SS1
+                    </option>
+
+                    <option value="SS2">
+                        SS2
+                    </option>
+
+                    <option value="SS3">
+                        SS3
+                    </option>
+
+                </select>
+
+
+                <label for="attendanceWeek">
+                    Week:
+                </label>
+
+                <input
+                    type="date"
+                    id="attendanceWeek"
+                >
+
+                <button
+                    class="primary-btn"
+                    id="loadAttendanceButton"
+                >
+                    Load Attendance
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="attendance-summary">
+
+            <div class="attendance-summary-card">
+                <span>Students</span>
+                <strong id="attendanceStudentCount">0</strong>
+            </div>
+
+            <div class="attendance-summary-card">
+                <span>Marked</span>
+                <strong id="markedCount">0</strong>
+            </div>
+
+            <div class="attendance-summary-card">
+                <span>Present</span>
+                <strong id="weekPresent">0</strong>
+            </div>
+
+            <div class="attendance-summary-card">
+                <span>Absent</span>
+                <strong id="weekAbsent">0</strong>
+            </div>
+
+            <div class="attendance-summary-card">
+                <span>Late / Excused</span>
+                <strong id="weekOther">0</strong>
+            </div>
+
+        </div>
+
+
+        <div
+            id="attendanceMessage"
+            class="message"
+        >
+            Select a week to view attendance.
+        </div>
+
+
+        <div
+            class="table-wrapper"
+            id="attendanceTableWrapper"
+            style="display:none;"
+        >
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Registration No.
+                        </th>
+
+                        <th>
+                            Class
+                        </th>
+
+                        <th>
+                            Class Teacher
+                        </th>
+
+                        <th>
+                            Monday
+                        </th>
+
+                        <th>
+                            Tuesday
+                        </th>
+
+                        <th>
+                            Wednesday
+                        </th>
+
+                        <th>
+                            Thursday
+                        </th>
+
+                        <th>
+                            Friday
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="attendanceTableBody"
+                ></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TEACHERS
+    ========================== -->
+
+    <section class="section">
+
+        <div class="section-header">
 
             <div>
 
-                <h2>
-                    School Administration
-                </h2>
+                <h2>Teacher Overview</h2>
 
-                <p>
-                    Principal Dashboard
+                <p class="section-description">
+                    Teachers connected to attendance, activities and login records.
                 </p>
 
             </div>
@@ -367,1025 +704,1645 @@
         </div>
 
 
-        <a
-            href="index.html"
-            class="logout-btn"
-            onclick="logoutAdmin()"
+        <div
+            id="teachersContainer"
+            class="teacher-grid"
         >
-            Logout
-        </a>
 
-    </header>
+            <div class="message">
+                Loading teachers...
+            </div>
 
+        </div>
 
-
-    <!-- =================================
-         MAIN DASHBOARD
-    ================================= -->
-
-    <main class="admin-dashboard">
+    </section>
 
 
-        <!-- =================================
-             HEADING
-        ================================= -->
+    <!-- =========================
+         TEACHER ACTIVITY
+    ========================== -->
 
-        <div class="dashboard-heading">
+    <section class="section">
 
-            <p class="section-label">
-                PRINCIPAL PORTAL
-            </p>
+        <div class="section-header">
 
-            <h1>
-                Welcome, Administrator
-            </h1>
+            <div>
 
-            <p>
-                Monitor teachers, students, attendance
-                and school announcements from one place.
-            </p>
+                <h2>Teacher Activities</h2>
+
+                <p class="section-description">
+                    Recent actions performed by class teachers.
+                </p>
+
+            </div>
 
         </div>
 
 
+        <div class="table-wrapper">
 
-        <!-- =================================
-             DASHBOARD CARDS
-        ================================= -->
+            <table>
 
-        <div class="dashboard-cards">
+                <thead>
 
+                    <tr>
 
-            <!-- =================================
-                 TEACHER ACTIVITY
-            ================================= -->
+                        <th>
+                            Teacher
+                        </th>
 
-            <div class="dashboard-card dashboard-wide">
+                        <th>
+                            Activity
+                        </th>
 
-                <div class="admin-section-header">
+                        <th>
+                            Student
+                        </th>
 
-                    <div>
+                        <th>
+                            Class
+                        </th>
 
-                        <div class="dashboard-icon">
-                            👨‍🏫
-                        </div>
+                        <th>
+                            Date
+                        </th>
 
-                        <h2>
-                            Teacher Activity
-                        </h2>
+                    </tr>
 
-                        <p>
-                            Monitor activities performed by
-                            teachers on the school portal.
-                        </p>
+                </thead>
 
-                    </div>
-
-
-                    <button
-                        class="refresh-btn"
-                        onclick="loadTeacherActivities()"
-                    >
-                        Refresh
-                    </button>
-
-                </div>
-
-
-                <div
-                    id="teacherActivityContainer"
-                    class="admin-table-wrapper"
+                <tbody
+                    id="teacherActivityBody"
                 >
 
-                    <div class="table-loading">
-                        Loading teacher activities...
-                    </div>
+                    <tr>
+                        <td colspan="5">
+                            Loading teacher activities...
+                        </td>
+                    </tr>
 
-                </div>
+                </tbody>
 
-            </div>
-
-
-
-            <!-- =================================
-                 TEACHER LOGIN HISTORY
-            ================================= -->
-
-            <div class="dashboard-card dashboard-wide">
-
-                <div class="admin-section-header">
-
-                    <div>
-
-                        <div class="dashboard-icon">
-                            🔐
-                        </div>
-
-                        <h2>
-                            Teacher Login History
-                        </h2>
-
-                        <p>
-                            View teachers who have logged
-                            into the school portal.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        class="refresh-btn"
-                        onclick="loadTeacherLoginHistory()"
-                    >
-                        Refresh
-                    </button>
-
-                </div>
-
-
-                <div
-                    id="teacherLoginContainer"
-                    class="admin-table-wrapper"
-                >
-
-                    <div class="table-loading">
-                        Loading login history...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================
-                 STUDENTS & ATTENDANCE
-            ================================= -->
-
-            <div class="dashboard-card dashboard-wide">
-
-                <div class="admin-section-header">
-
-                    <div>
-
-                        <div class="dashboard-icon">
-                            👨‍🎓
-                        </div>
-
-                        <h2>
-                            Students & Attendance
-                        </h2>
-
-                        <p>
-                            View students entered by class
-                            teachers and monitor their
-                            weekly attendance.
-                        </p>
-
-                    </div>
-
-
-                    <div>
-
-                        <select
-                            id="classFilter"
-                            class="class-filter"
-                            onchange="loadStudentsAndAttendance()"
-                        >
-
-                            <option value="all">
-                                All Classes
-                            </option>
-
-                            <option value="SS1">
-                                SS1
-                            </option>
-
-                            <option value="SS2">
-                                SS2
-                            </option>
-
-                            <option value="SS3">
-                                SS3
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="studentsAttendanceContainer"
-                    class="admin-table-wrapper"
-                >
-
-                    <div class="table-loading">
-                        Loading students and attendance...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================
-                 NEWS & ANNOUNCEMENTS
-            ================================= -->
-
-            <div class="dashboard-card dashboard-wide">
-
-                <div class="admin-section-header">
-
-                    <div>
-
-                        <div class="dashboard-icon">
-                            📰
-                        </div>
-
-                        <h2>
-                            News & Announcements
-                        </h2>
-
-                        <p>
-                            Create, publish, edit and delete
-                            school news and announcements.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <a
-                    href="manage-announcements.html"
-                    class="dashboard-link"
-                >
-                    Manage News & Announcements →
-                </a>
-
-            </div>
-
+            </table>
 
         </div>
 
-    </main>
+    </section>
 
 
+    <!-- =========================
+         LOGIN HISTORY
+    ========================== -->
 
-    <!-- =================================
-         DASHBOARD SCRIPT
-    ================================= -->
+    <section class="section">
 
-    <script>
+        <div class="section-header">
 
-        const API_URL =
-            "https://lagos-state-model-college-backend.onrender.com";
+            <div>
 
+                <h2>Teacher Login History</h2>
 
-        /* =================================
-           LOGOUT
-        ================================= */
+                <p class="section-description">
+                    Monitor teacher login activity.
+                </p>
 
-        function logoutAdmin() {
+            </div>
 
-            localStorage.removeItem("staffUser");
+        </div>
 
-        }
 
+        <div class="table-wrapper">
 
+            <table>
 
-        /* =================================
-           TEACHER ACTIVITY
-        ================================= */
+                <thead>
 
-        async function loadTeacherActivities() {
+                    <tr>
 
-            const container =
-                document.getElementById(
-                    "teacherActivityContainer"
-                );
+                        <th>
+                            Teacher
+                        </th>
 
-            container.innerHTML =
-                `<div class="table-loading">
-                    Loading teacher activities...
-                </div>`;
+                        <th>
+                            Username
+                        </th>
 
-            try {
+                        <th>
+                            Class
+                        </th>
 
-                const response =
-                    await fetch(
-                        `${API_URL}/api/teacher-activities`
-                    );
+                        <th>
+                            Login Time
+                        </th>
 
-                const data =
-                    await response.json();
+                    </tr>
 
-                if (
-                    !response.ok ||
-                    !data.success
-                ) {
+                </thead>
 
-                    throw new Error(
-                        "Unable to load activities"
-                    );
+                <tbody
+                    id="loginHistoryBody"
+                >
 
-                }
+                    <tr>
+                        <td colspan="4">
+                            Loading login history...
+                        </td>
+                    </tr>
 
+                </tbody>
 
-                const activities =
-                    data.activities || [];
+            </table>
 
+        </div>
 
-                if (
-                    activities.length === 0
-                ) {
+    </section>
 
-                    container.innerHTML =
-                        `<div class="empty-message">
-                            No teacher activities have been recorded yet.
-                        </div>`;
 
-                    return;
+    <!-- =========================
+         NEWS
+    ========================== -->
 
-                }
+    <section class="section">
 
+        <div class="section-header">
 
-                let html = `
+            <div>
 
-                    <table class="admin-table">
+                <h2>News & Announcements</h2>
 
-                        <thead>
+                <p class="section-description">
+                    Recent announcements published by the school.
+                </p>
 
-                            <tr>
+            </div>
 
-                                <th>
-                                    Teacher
-                                </th>
+        </div>
 
-                                <th>
-                                    Activity
-                                </th>
 
-                                <th>
-                                    Student
-                                </th>
+        <div
+            id="newsContainer"
+            class="message"
+        >
+            Loading announcements...
+        </div>
 
-                                <th>
-                                    Class
-                                </th>
+    </section>
 
-                                <th>
-                                    Date & Time
-                                </th>
+</main>
 
-                            </tr>
 
-                        </thead>
+<footer>
 
-                        <tbody>
-                `;
+    Lagos State Model College Meiran
 
+    <br>
 
-                activities.forEach(activity => {
+    Principal Administration Portal
 
-                    const date =
-                        formatDateTime(
-                            activity.created_at
-                        );
+</footer>
 
 
-                    html += `
+<script>
 
-                        <tr>
+    // =====================================================
+    // LIVE RENDER BACKEND
+    // =====================================================
 
-                            <td>
-                                ${escapeHTML(
-                                    activity.teacher_name ||
-                                    "Unknown"
-                                )}
-                            </td>
+    const API_URL =
+        "https://lagos-state-model-college-backend.onrender.com";
 
-                            <td>
 
-                                <span class="activity-status">
+    // =====================================================
+    // ELEMENTS
+    // =====================================================
 
-                                    ${escapeHTML(
-                                        activity.activity_type ||
-                                        activity.activity ||
-                                        "Activity"
-                                    )}
+    const classFilter =
+        document.getElementById("classFilter");
 
-                                </span>
+    const attendanceWeek =
+        document.getElementById("attendanceWeek");
 
-                            </td>
+    const loadAttendanceButton =
+        document.getElementById(
+            "loadAttendanceButton"
+        );
 
-                            <td>
-                                ${escapeHTML(
-                                    activity.student_name ||
-                                    "-"
-                                )}
-                            </td>
+    const attendanceTableBody =
+        document.getElementById(
+            "attendanceTableBody"
+        );
 
-                            <td>
-                                ${escapeHTML(
-                                    activity.student_class ||
-                                    "-"
-                                )}
-                            </td>
+    const attendanceMessage =
+        document.getElementById(
+            "attendanceMessage"
+        );
 
-                            <td>
-                                ${date}
-                            </td>
+    const attendanceTableWrapper =
+        document.getElementById(
+            "attendanceTableWrapper"
+        );
 
-                        </tr>
 
-                    `;
+    // =====================================================
+    // DATE HELPERS
+    // =====================================================
 
-                });
+    function getMonday(date) {
 
+        const d =
+            new Date(date);
 
-                html += `
+        const day =
+            d.getDay();
 
-                        </tbody>
+        const difference =
+            day === 0
+                ? -6
+                : 1 - day;
 
-                    </table>
+        d.setDate(
+            d.getDate() + difference
+        );
 
-                `;
+        return d;
 
+    }
 
-                container.innerHTML = html;
 
-            }
+    function formatDate(date) {
 
-            catch (error) {
+        const year =
+            date.getFullYear();
 
-                console.error(
-                    "Teacher activity error:",
-                    error
-                );
+        const month =
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0");
 
-                container.innerHTML =
-                    `<div class="empty-message">
-                        Unable to load teacher activities.
-                    </div>`;
+        const day =
+            String(
+                date.getDate()
+            ).padStart(2, "0");
 
-            }
+        return `${year}-${month}-${day}`;
 
-        }
+    }
 
 
+    function addDays(dateString, days) {
 
-        /* =================================
-           TEACHER LOGIN HISTORY
-        ================================= */
+        const date =
+            new Date(
+                dateString + "T00:00:00"
+            );
 
-        async function loadTeacherLoginHistory() {
+        date.setDate(
+            date.getDate() + days
+        );
 
-            const container =
-                document.getElementById(
-                    "teacherLoginContainer"
-                );
+        return formatDate(date);
 
-            container.innerHTML =
-                `<div class="table-loading">
-                    Loading login history...
-                </div>`;
+    }
 
-            try {
 
-                const response =
-                    await fetch(
-                        `${API_URL}/api/teacher-login-history`
-                    );
+    // =====================================================
+    // DEFAULT WEEK
+    // =====================================================
 
-                const data =
-                    await response.json();
+    const currentMonday =
+        getMonday(new Date());
 
-                if (
-                    !response.ok ||
-                    !data.success
-                ) {
+    attendanceWeek.value =
+        formatDate(currentMonday);
 
-                    throw new Error(
-                        "Unable to load login history"
-                    );
 
-                }
+    // =====================================================
+    // LOAD STUDENTS
+    // =====================================================
 
+    async function getStudents() {
 
-                const teachers =
-                    data.teachers || [];
+        const response =
+            await fetch(
+                `${API_URL}/api/students`
+            );
 
+        const data =
+            await response.json();
 
-                if (
-                    teachers.length === 0
-                ) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
-                    container.innerHTML =
-                        `<div class="empty-message">
-                            No teacher login history is available yet.
-                        </div>`;
-
-                    return;
-
-                }
-
-
-                let html = `
-
-                    <table class="admin-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    Teacher Name
-                                </th>
-
-                                <th>
-                                    Username
-                                </th>
-
-                                <th>
-                                    Assigned Class
-                                </th>
-
-                                <th>
-                                    Last Login
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-                `;
-
-
-                teachers.forEach(teacher => {
-
-                    html += `
-
-                        <tr>
-
-                            <td>
-                                ${escapeHTML(
-                                    teacher.full_name ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    teacher.username ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHTML(
-                                    teacher.assigned_class ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${
-                                    teacher.last_login_at
-                                    ? formatDateTime(
-                                        teacher.last_login_at
-                                    )
-                                    : "Never logged in"
-                                }
-                            </td>
-
-                        </tr>
-
-                    `;
-
-                });
-
-
-                html += `
-
-                        </tbody>
-
-                    </table>
-
-                `;
-
-
-                container.innerHTML = html;
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Teacher login history error:",
-                    error
-                );
-
-                container.innerHTML =
-                    `<div class="empty-message">
-                        Unable to load teacher login history.
-                    </div>`;
-
-            }
-
-        }
-
-
-
-        /* =================================
-           STUDENTS & ATTENDANCE
-        ================================= */
-
-        async function loadStudentsAndAttendance() {
-
-            const container =
-                document.getElementById(
-                    "studentsAttendanceContainer"
-                );
-
-            const filter =
-                document.getElementById(
-                    "classFilter"
-                ).value;
-
-
-            container.innerHTML =
-                `<div class="table-loading">
-                    Loading students and attendance...
-                </div>`;
-
-
-            try {
-
-                const studentsResponse =
-                    await fetch(
-                        `${API_URL}/api/students`
-                    );
-
-
-                const studentsData =
-                    await studentsResponse.json();
-
-
-                if (
-                    !studentsResponse.ok ||
-                    !studentsData.success
-                ) {
-
-                    throw new Error(
-                        "Unable to load students"
-                    );
-
-                }
-
-
-                let students =
-                    studentsData.students || [];
-
-
-                if (
-                    filter !== "all"
-                ) {
-
-                    students =
-                        students.filter(student =>
-                            String(
-                                student.student_class ||
-                                student.class_name ||
-                                ""
-                            )
-                            .toUpperCase()
-                            .startsWith(
-                                filter.toUpperCase()
-                            )
-                        );
-
-                }
-
-
-                if (
-                    students.length === 0
-                ) {
-
-                    container.innerHTML =
-                        `<div class="empty-message">
-                            No students have been added for this class yet.
-                        </div>`;
-
-                    return;
-
-                }
-
-
-                /*
-                 * Group students by class.
-                 */
-
-                const groupedStudents = {};
-
-
-                students.forEach(student => {
-
-                    const className =
-                        student.student_class ||
-                        student.class_name ||
-                        "Unassigned";
-
-
-                    if (
-                        !groupedStudents[className]
-                    ) {
-
-                        groupedStudents[className] =
-                            [];
-
-                    }
-
-
-                    groupedStudents[className]
-                        .push(student);
-
-                });
-
-
-                let finalHTML = "";
-
-
-                for (
-                    const className
-                    of Object.keys(groupedStudents)
-                ) {
-
-                    const classStudents =
-                        groupedStudents[className];
-
-
-                    finalHTML += `
-
-                        <div style="
-                            margin-bottom:35px;
-                        ">
-
-                            <h3 style="
-                                margin-bottom:15px;
-                            ">
-                                ${escapeHTML(
-                                    className
-                                )}
-                            </h3>
-
-
-                            <table
-                                class="admin-table attendance-table"
-                            >
-
-                                <thead>
-
-                                    <tr>
-
-                                        <th>
-                                            #
-                                        </th>
-
-                                        <th>
-                                            Student Name
-                                        </th>
-
-                                        <th>
-                                            Registration Number
-                                        </th>
-
-                                        <th>
-                                            Class Teacher
-                                        </th>
-
-                                        <th>
-                                            Monday
-                                        </th>
-
-                                        <th>
-                                            Tuesday
-                                        </th>
-
-                                        <th>
-                                            Wednesday
-                                        </th>
-
-                                        <th>
-                                            Thursday
-                                        </th>
-
-                                        <th>
-                                            Friday
-                                        </th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody>
-                    `;
-
-
-                    classStudents.forEach(
-                        (student, index) => {
-
-                            finalHTML += `
-
-                                <tr>
-
-                                    <td>
-                                        ${index + 1}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            student.full_name ||
-                                            student.student_name ||
-                                            "-"
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            student.registration_number ||
-                                            student.admission_number ||
-                                            "-"
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            student.teacher_name ||
-                                            student.class_teacher ||
-                                            "-"
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        -
-                                    </td>
-
-                                    <td>
-                                        -
-                                    </td>
-
-                                    <td>
-                                        -
-                                    </td>
-
-                                    <td>
-                                        -
-                                    </td>
-
-                                    <td>
-                                        -
-                                    </td>
-
-                                </tr>
-
-                            `;
-
-                        }
-                    );
-
-
-                    finalHTML += `
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                    `;
-
-                }
-
-
-                container.innerHTML =
-                    finalHTML;
-
-
-                /*
-                 * Attendance data will be connected
-                 * to the weekly attendance endpoint
-                 * after the dashboard backend route
-                 * is connected.
-                 */
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Students error:",
-                    error
-                );
-
-                container.innerHTML =
-                    `<div class="empty-message">
-                        Unable to load students from the school server.
-                    </div>`;
-
-            }
-
-        }
-
-
-
-        /* =================================
-           DATE FORMAT
-        ================================= */
-
-        function formatDateTime(value) {
-
-            if (!value) {
-                return "-";
-            }
-
-
-            const date =
-                new Date(value);
-
-
-            if (
-                Number.isNaN(
-                    date.getTime()
-                )
-            ) {
-
-                return "-";
-
-            }
-
-
-            return date.toLocaleString(
-                "en-NG",
-                {
-                    dateStyle: "medium",
-                    timeStyle: "short"
-                }
+            throw new Error(
+                data.message ||
+                "Unable to load students."
             );
 
         }
 
+        return data.students || [];
+
+    }
 
 
-        /* =================================
-           SECURITY
-        ================================= */
+    // =====================================================
+    // LOAD PRINCIPAL ATTENDANCE
+    // =====================================================
 
-        function escapeHTML(value) {
+    async function loadPrincipalAttendance() {
 
-            const div =
-                document.createElement("div");
+        const selectedClass =
+            classFilter.value;
 
-            div.textContent =
-                value ?? "";
+        let weekStart =
+            attendanceWeek.value;
 
-            return div.innerHTML;
+
+        if (!weekStart) {
+
+            weekStart =
+                formatDate(
+                    getMonday(new Date())
+                );
+
+            attendanceWeek.value =
+                weekStart;
 
         }
 
 
+        attendanceMessage.style.display =
+            "block";
 
-        /* =================================
-           LOAD DASHBOARD
-        ================================= */
+        attendanceMessage.textContent =
+            "Loading attendance...";
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
+        attendanceTableWrapper.style.display =
+            "none";
 
-                loadTeacherActivities();
 
-                loadTeacherLoginHistory();
+        try {
 
-                loadStudentsAndAttendance();
+            /*
+             * Load students and attendance
+             * separately.
+             *
+             * This allows students who have
+             * not yet been marked to still
+             * appear in the table.
+             */
 
+            const [
+                students,
+                attendanceResponse
+            ] = await Promise.all([
+
+                getStudents(),
+
+                fetch(
+                    `${API_URL}/api/principal/attendance?` +
+                    `studentClass=${encodeURIComponent(selectedClass)}` +
+                    `&weekStart=${encodeURIComponent(weekStart)}`
+                )
+
+            ]);
+
+
+            const attendanceData =
+                await attendanceResponse.json();
+
+
+            if (
+                !attendanceResponse.ok ||
+                !attendanceData.success
+            ) {
+
+                throw new Error(
+                    attendanceData.message ||
+                    "Unable to load attendance."
+                );
+
+            }
+
+
+            let filteredStudents =
+                students;
+
+
+            // =============================================
+            // FILTER CLASS
+            // =============================================
+
+            if (
+                selectedClass !== "ALL"
+            ) {
+
+                filteredStudents =
+                    students.filter(
+                        student =>
+                            String(
+                                student.student_class ||
+                                ""
+                            ).trim().toLowerCase()
+                            ===
+                            selectedClass
+                                .trim()
+                                .toLowerCase()
+                    );
+
+            }
+
+
+            const attendanceRows =
+                attendanceData.attendance || [];
+
+
+            // =============================================
+            // BUILD ATTENDANCE MAP
+            // =============================================
+
+            const attendanceMap =
+                new Map();
+
+
+            attendanceRows.forEach(
+                row => {
+
+                    const studentId =
+                        String(
+                            row.student_id
+                        );
+
+                    const date =
+                        String(
+                            row.attendance_date
+                        ).substring(0, 10);
+
+
+                    if (
+                        !attendanceMap.has(
+                            studentId
+                        )
+                    ) {
+
+                        attendanceMap.set(
+                            studentId,
+                            {}
+                        );
+
+                    }
+
+
+                    attendanceMap
+                        .get(studentId)[date] =
+                        row;
+
+                }
+            );
+
+
+            // =============================================
+            // SORT STUDENTS
+            // =============================================
+
+            filteredStudents.sort(
+                (a, b) => {
+
+                    const nameA =
+                        String(
+                            a.student_name ||
+                            a.full_name ||
+                            ""
+                        );
+
+                    const nameB =
+                        String(
+                            b.student_name ||
+                            b.full_name ||
+                            ""
+                        );
+
+                    return nameA.localeCompare(
+                        nameB
+                    );
+
+                }
+            );
+
+
+            // =============================================
+            // DISPLAY
+            // =============================================
+
+            attendanceTableBody.innerHTML =
+                "";
+
+
+            let marked =
+                0;
+
+            let present =
+                0;
+
+            let absent =
+                0;
+
+            let late =
+                0;
+
+            let excused =
+                0;
+
+
+            filteredStudents.forEach(
+                student => {
+
+                    const studentId =
+                        String(
+                            student.id
+                        );
+
+                    const records =
+                        attendanceMap.get(
+                            studentId
+                        ) || {};
+
+
+                    const weekRecords =
+                        [];
+
+
+                    for (
+                        let day = 0;
+                        day < 5;
+                        day++
+                    ) {
+
+                        const date =
+                            addDays(
+                                weekStart,
+                                day
+                            );
+
+                        const record =
+                            records[date];
+
+                        weekRecords.push(
+                            record
+                        );
+
+
+                        if (record) {
+
+                            marked++;
+
+                            if (
+                                record.status ===
+                                "Present"
+                            ) {
+                                present++;
+                            }
+
+                            else if (
+                                record.status ===
+                                "Absent"
+                            ) {
+                                absent++;
+                            }
+
+                            else if (
+                                record.status ===
+                                "Late"
+                            ) {
+                                late++;
+                            }
+
+                            else if (
+                                record.status ===
+                                "Excused"
+                            ) {
+                                excused++;
+                            }
+
+                        }
+
+                    }
+
+
+                    // =====================================
+                    // TEACHER
+                    // =====================================
+
+                    let teacherName =
+                        student.teacher_name ||
+                        student.class_teacher ||
+                        "";
+
+
+                    if (!teacherName) {
+
+                        const teacherRecord =
+                            weekRecords.find(
+                                record =>
+                                    record &&
+                                    record.teacher_name
+                            );
+
+                        if (teacherRecord) {
+
+                            teacherName =
+                                teacherRecord.teacher_name;
+
+                        }
+
+                    }
+
+
+                    if (!teacherName) {
+
+                        teacherName =
+                            "—";
+
+                    }
+
+
+                    // =====================================
+                    // STUDENT NAME
+                    // =====================================
+
+                    const studentName =
+                        student.student_name ||
+                        student.full_name ||
+                        "Unknown Student";
+
+
+                    const registrationNumber =
+                        student.registration_number ||
+                        student.admission_number ||
+                        "—";
+
+
+                    const studentClass =
+                        student.student_class ||
+                        student.class ||
+                        "—";
+
+
+                    // =====================================
+                    // ROW
+                    // =====================================
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    row.innerHTML = `
+
+                        <td>
+                            <strong>
+                                ${escapeHTML(studentName)}
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${escapeHTML(registrationNumber)}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(studentClass)}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(teacherName)}
+                        </td>
+
+                        ${weekRecords.map(
+                            record =>
+                                `<td>
+                                    ${statusHTML(record)}
+                                </td>`
+                        ).join("")}
+
+                    `;
+
+
+                    attendanceTableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            // =============================================
+            // SUMMARY
+            // =============================================
+
+            document.getElementById(
+                "attendanceStudentCount"
+            ).textContent =
+                filteredStudents.length;
+
+
+            document.getElementById(
+                "markedCount"
+            ).textContent =
+                marked;
+
+
+            document.getElementById(
+                "weekPresent"
+            ).textContent =
+                present;
+
+
+            document.getElementById(
+                "weekAbsent"
+            ).textContent =
+                absent;
+
+
+            document.getElementById(
+                "weekOther"
+            ).textContent =
+                late + excused;
+
+
+            document.getElementById(
+                "totalStudents"
+            ).textContent =
+                filteredStudents.length;
+
+
+            document.getElementById(
+                "totalPresent"
+            ).textContent =
+                present;
+
+
+            document.getElementById(
+                "totalAbsent"
+            ).textContent =
+                absent;
+
+
+            document.getElementById(
+                "totalLate"
+            ).textContent =
+                late;
+
+
+            document.getElementById(
+                "totalExcused"
+            ).textContent =
+                excused;
+
+
+            if (
+                filteredStudents.length === 0
+            ) {
+
+                attendanceMessage.style.display =
+                    "block";
+
+                attendanceMessage.textContent =
+                    "No students found for this class.";
+
+                return;
+
+            }
+
+
+            attendanceMessage.style.display =
+                "none";
+
+            attendanceTableWrapper.style.display =
+                "block";
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Principal attendance error:",
+                error
+            );
+
+
+            attendanceMessage.style.display =
+                "block";
+
+            attendanceMessage.textContent =
+                "Unable to load attendance. Please try again.";
+
+            attendanceTableWrapper.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // =====================================================
+    // STATUS HTML
+    // =====================================================
+
+    function statusHTML(record) {
+
+        if (!record) {
+
+            return `
+                <span class="status status-not-marked">
+                    Not marked
+                </span>
+            `;
+
+        }
+
+
+        const status =
+            String(
+                record.status || ""
+            ).trim();
+
+
+        let className =
+            "status-not-marked";
+
+
+        if (
+            status === "Present"
+        ) {
+
+            className =
+                "status-present";
+
+        }
+
+        else if (
+            status === "Absent"
+        ) {
+
+            className =
+                "status-absent";
+
+        }
+
+        else if (
+            status === "Late"
+        ) {
+
+            className =
+                "status-late";
+
+        }
+
+        else if (
+            status === "Excused"
+        ) {
+
+            className =
+                "status-excused";
+
+        }
+
+
+        return `
+            <span class="status ${className}">
+                ${escapeHTML(status || "Not marked")}
+            </span>
+        `;
+
+    }
+
+
+    // =====================================================
+    // TEACHER ACTIVITIES
+    // =====================================================
+
+    async function loadTeacherActivities() {
+
+        const body =
+            document.getElementById(
+                "teacherActivityBody"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/teacher-activities`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    "Unable to load activities."
+                );
+
+            }
+
+
+            const activities =
+                data.activities || [];
+
+
+            if (
+                activities.length === 0
+            ) {
+
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="5">
+                            No teacher activities recorded yet.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+
+            body.innerHTML =
+                activities.map(
+                    activity => {
+
+                        const teacher =
+                            activity.teacher_name ||
+                            "—";
+
+                        const activityType =
+                            activity.activity_type ||
+                            activity.activity ||
+                            "—";
+
+                        const student =
+                            activity.student_name ||
+                            "—";
+
+                        const studentClass =
+                            activity.student_class ||
+                            "—";
+
+                        const date =
+                            formatDateTime(
+                                activity.created_at
+                            );
+
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    ${escapeHTML(teacher)}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(activityType)}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(student)}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(studentClass)}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(date)}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                ).join("");
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Teacher activity error:",
+                error
+            );
+
+
+            body.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        Unable to load teacher activities.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+    }
+
+
+    // =====================================================
+    // LOGIN HISTORY
+    // =====================================================
+
+    async function loadLoginHistory() {
+
+        const body =
+            document.getElementById(
+                "loginHistoryBody"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/teacher-login-history`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    "Unable to load login history."
+                );
+
+            }
+
+
+            const history =
+                data.history || [];
+
+
+            if (
+                history.length === 0
+            ) {
+
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="4">
+                            No teacher login history available.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+
+            body.innerHTML =
+                history.map(
+                    login => {
+
+                        return `
+
+                            <tr>
+
+                                <td>
+                                    ${escapeHTML(
+                                        login.teacher_name ||
+                                        login.full_name ||
+                                        "—"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(
+                                        login.username ||
+                                        "—"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(
+                                        login.assigned_class ||
+                                        "—"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHTML(
+                                        formatDateTime(
+                                            login.login_at ||
+                                            login.created_at
+                                        )
+                                    )}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                ).join("");
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Login history error:",
+                error
+            );
+
+
+            body.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        Unable to load login history.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+    }
+
+
+    // =====================================================
+    // TEACHER OVERVIEW
+    // =====================================================
+
+    async function loadTeachers() {
+
+        const container =
+            document.getElementById(
+                "teachersContainer"
+            );
+
+
+        try {
+
+            const [
+                activityResponse,
+                loginResponse
+            ] = await Promise.all([
+
+                fetch(
+                    `${API_URL}/api/teacher-activities`
+                ),
+
+                fetch(
+                    `${API_URL}/api/teacher-login-history`
+                )
+
+            ]);
+
+
+            const activityData =
+                await activityResponse.json();
+
+            const loginData =
+                await loginResponse.json();
+
+
+            const teachers =
+                new Map();
+
+
+            // =============================================
+            // ADD FROM ACTIVITIES
+            // =============================================
+
+            (
+                activityData.activities || []
+            ).forEach(
+                activity => {
+
+                    const name =
+                        activity.teacher_name;
+
+                    if (!name) return;
+
+
+                    const key =
+                        name.toLowerCase();
+
+
+                    teachers.set(
+                        key,
+                        {
+                            name: name,
+                            className:
+                                activity.student_class ||
+                                "—",
+                            lastLogin:
+                                "—"
+                        }
+                    );
+
+                }
+            );
+
+
+            // =============================================
+            // ADD FROM LOGIN HISTORY
+            // =============================================
+
+            (
+                loginData.history || []
+            ).forEach(
+                login => {
+
+                    const name =
+                        login.teacher_name ||
+                        login.full_name;
+
+                    if (!name) return;
+
+
+                    const key =
+                        name.toLowerCase();
+
+
+                    const existing =
+                        teachers.get(key) ||
+                        {
+                            name: name,
+                            className:
+                                login.assigned_class ||
+                                "—",
+                            lastLogin:
+                                "—"
+                        };
+
+
+                    existing.name =
+                        name;
+
+
+                    existing.className =
+                        login.assigned_class ||
+                        existing.className ||
+                        "—";
+
+
+                    existing.lastLogin =
+                        login.login_at ||
+                        login.created_at ||
+                        existing.lastLogin;
+
+
+                    teachers.set(
+                        key,
+                        existing
+                    );
+
+                }
+            );
+
+
+            if (
+                teachers.size === 0
+            ) {
+
+                container.innerHTML = `
+                    <div class="message">
+                        No teacher activity has been recorded yet.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                Array.from(
+                    teachers.values()
+                )
+                .sort(
+                    (a, b) =>
+                        a.name.localeCompare(
+                            b.name
+                        )
+                )
+                .map(
+                    teacher => `
+
+                        <div class="teacher-card">
+
+                            <h3>
+                                ${escapeHTML(
+                                    teacher.name
+                                )}
+                            </h3>
+
+                            <p>
+                                <strong>
+                                    Class:
+                                </strong>
+
+                                ${escapeHTML(
+                                    teacher.className
+                                )}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Last Login:
+                                </strong>
+
+                                ${escapeHTML(
+                                    formatDateTime(
+                                        teacher.lastLogin
+                                    )
+                                )}
+                            </p>
+
+                        </div>
+
+                    `
+                ).join("");
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Teacher overview error:",
+                error
+            );
+
+
+            container.innerHTML = `
+                <div class="message">
+                    Unable to load teacher information.
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    // =====================================================
+    // NEWS & ANNOUNCEMENTS
+    // =====================================================
+
+    async function loadNews() {
+
+        const container =
+            document.getElementById(
+                "newsContainer"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/announcements`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    "Unable to load announcements."
+                );
+
+            }
+
+
+            const announcements =
+                data.announcements || [];
+
+
+            if (
+                announcements.length === 0
+            ) {
+
+                container.innerHTML =
+                    "There are no announcements available.";
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                announcements
+                .slice(0, 10)
+                .map(
+                    announcement => `
+
+                        <div
+                            style="
+                                text-align:left;
+                                border-bottom:1px solid #e5ebe7;
+                                padding:14px 0;
+                            "
+                        >
+
+                            <h3
+                                style="
+                                    color:#08783f;
+                                    margin-bottom:6px;
+                                "
+                            >
+                                ${escapeHTML(
+                                    announcement.title
+                                )}
+                            </h3>
+
+                            <p
+                                style="
+                                    color:#657168;
+                                    line-height:1.6;
+                                "
+                            >
+                                ${escapeHTML(
+                                    announcement.content
+                                )}
+                            </p>
+
+                            <small
+                                style="
+                                    color:#89948d;
+                                "
+                            >
+                                ${escapeHTML(
+                                    formatDateTime(
+                                        announcement.created_at
+                                    )
+                                )}
+                            </small>
+
+                        </div>
+
+                    `
+                ).join("");
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "News error:",
+                error
+            );
+
+
+            container.textContent =
+                "Unable to load announcements.";
+
+        }
+
+    }
+
+
+    // =====================================================
+    // FORMAT DATE
+    // =====================================================
+
+    function formatDateTime(value) {
+
+        if (!value) {
+
+            return "—";
+
+        }
+
+
+        const date =
+            new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "—";
+
+        }
+
+
+        return date.toLocaleString(
+            "en-NG",
+            {
+                dateStyle: "medium",
+                timeStyle: "short"
             }
         );
 
-    </script>
+    }
 
 
-    <!-- =================================
-         LOADING SCRIPT
-    ================================= -->
+    // =====================================================
+    // ESCAPE HTML
+    // =====================================================
 
-    <script src="loading.js"></script>
+    function escapeHTML(value) {
 
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.textContent =
+            value === null ||
+            value === undefined
+                ? ""
+                : String(value);
+
+        return div.innerHTML;
+
+    }
+
+
+    // =====================================================
+    // LOGOUT
+    // =====================================================
+
+    function logoutPrincipal() {
+
+        localStorage.removeItem(
+            "staffUser"
+        );
+
+        window.location.href =
+            "admin-login.html";
+
+    }
+
+
+    // =====================================================
+    // EVENTS
+    // =====================================================
+
+    loadAttendanceButton.addEventListener(
+        "click",
+        loadPrincipalAttendance
+    );
+
+
+    classFilter.addEventListener(
+        "change",
+        loadPrincipalAttendance
+    );
+
+
+    attendanceWeek.addEventListener(
+        "change",
+        loadPrincipalAttendance
+    );
+
+
+    // =====================================================
+    // INITIAL LOAD
+    // =====================================================
+
+    loadPrincipalAttendance();
+
+    loadTeacherActivities();
+
+    loadLoginHistory();
+
+    loadTeachers();
+
+    loadNews();
+
+</script>
 
 </body>
-
 </html>

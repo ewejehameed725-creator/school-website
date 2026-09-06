@@ -20,7 +20,439 @@
         href="style.css"
     >
 
+    <style>
+
+        /* =========================================
+           MANAGE ANNOUNCEMENTS PAGE
+        ========================================= */
+
+        .announcement-page {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 35px 25px 60px;
+        }
+
+
+        /* =========================================
+           PAGE INTRO
+        ========================================= */
+
+        .announcement-page-intro {
+            margin-bottom: 30px;
+        }
+
+        .announcement-page-intro .section-label {
+            margin-bottom: 8px;
+        }
+
+        .announcement-page-intro h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        .announcement-page-intro p:last-child {
+            margin: 0;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+
+        /* =========================================
+           CREATE ANNOUNCEMENT CARD
+        ========================================= */
+
+        .announcement-create-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            margin-bottom: 45px;
+        }
+
+
+        .announcement-card-heading {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .announcement-heading-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f5e9;
+            border-radius: 12px;
+            font-size: 24px;
+        }
+
+
+        .announcement-card-heading h2 {
+            margin: 0 0 4px;
+            font-size: 21px;
+        }
+
+
+        .announcement-card-heading p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .announcement-form {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+
+        .announcement-form label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 12px;
+        }
+
+
+        .announcement-form label:first-child {
+            margin-top: 0;
+        }
+
+
+        .announcement-form input[type="text"],
+        .announcement-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 13px 14px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #111827;
+            background: #ffffff;
+            outline: none;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .announcement-form input[type="text"] {
+            height: 48px;
+        }
+
+
+        .announcement-form textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+
+        .announcement-form input[type="text"]:focus,
+        .announcement-form textarea:focus {
+            border-color: #15803d;
+            box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.10);
+        }
+
+
+        /* =========================================
+           IMAGE UPLOAD
+        ========================================= */
+
+        .announcement-upload-box {
+            border: 2px dashed #cbd5d1;
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 5px;
+            background: #f8faf9;
+            transition: all 0.2s ease;
+        }
+
+
+        .announcement-upload-box:hover {
+            border-color: #15803d;
+            background: #f1f8f3;
+        }
+
+
+        .announcement-upload-icon {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+
+        .announcement-upload-box input[type="file"] {
+            width: 100%;
+            font-size: 14px;
+        }
+
+
+        .upload-note {
+            margin: 4px 0 0;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           PUBLISH BUTTON
+        ========================================= */
+
+        .announcement-publish-button {
+            margin-top: 20px;
+            min-height: 48px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: #15803d;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .announcement-publish-button:hover {
+            background: #166534;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(21, 128, 61, 0.20);
+        }
+
+
+        .announcement-publish-button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           EXISTING ANNOUNCEMENTS
+        ========================================= */
+
+        .existing-announcements {
+            margin-top: 10px;
+        }
+
+
+        .existing-announcements-heading {
+            margin-bottom: 22px;
+        }
+
+
+        .existing-announcements-heading .section-label {
+            margin-bottom: 6px;
+        }
+
+
+        .existing-announcements-heading h2 {
+            margin: 0 0 5px;
+            font-size: 24px;
+        }
+
+
+        .existing-announcements-heading p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+
+        #announcementsContainer {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+
+        /* =========================================
+           ANNOUNCEMENT CARDS
+        ========================================= */
+
+        #announcementsContainer > * {
+            box-sizing: border-box;
+        }
+
+
+        .announcement-item,
+        .announcement-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .announcement-item img,
+        .announcement-card img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        .announcement-item-content,
+        .announcement-card-content {
+            padding: 20px;
+        }
+
+
+        .announcement-item h3,
+        .announcement-card h3 {
+            margin: 0 0 9px;
+            font-size: 18px;
+            line-height: 1.35;
+        }
+
+
+        .announcement-item p,
+        .announcement-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           EMPTY / LOADING MESSAGE
+        ========================================= */
+
+        #announcementsContainer > p {
+            grid-column: 1 / -1;
+            background: #ffffff;
+            border: 1px dashed #cbd5d1;
+            border-radius: 14px;
+            padding: 35px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .admin-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+        }
+
+
+        .admin-brand img {
+            border-radius: 50%;
+        }
+
+
+        .logout-btn {
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            .announcement-page {
+                padding: 25px 15px 45px;
+            }
+
+
+            .announcement-page-intro h1 {
+                font-size: 26px;
+            }
+
+
+            .announcement-create-card {
+                padding: 20px;
+                border-radius: 14px;
+            }
+
+
+            .announcement-card-heading {
+                align-items: flex-start;
+            }
+
+
+            .announcement-heading-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+                flex-shrink: 0;
+            }
+
+
+            .announcement-card-heading h2 {
+                font-size: 18px;
+            }
+
+
+            #announcementsContainer {
+                grid-template-columns: 1fr;
+            }
+
+
+            .announcement-publish-button {
+                width: 100%;
+            }
+
+        }
+
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 480px) {
+
+            .announcement-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+
+            .announcement-create-card {
+                padding: 16px;
+            }
+
+
+            .announcement-card-heading {
+                gap: 10px;
+            }
+
+
+            .announcement-upload-box {
+                padding: 17px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
@@ -93,15 +525,15 @@
 
 
     <!-- ============================= -->
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <!-- ============================= -->
 
-    <main class="admin-dashboard">
+    <main class="announcement-page">
 
 
-        <!-- PAGE HEADING -->
+        <!-- PAGE INTRO -->
 
-        <div class="dashboard-heading">
+        <div class="announcement-page-intro">
 
             <p class="section-label">
                 ADMIN PORTAL
@@ -112,8 +544,8 @@
             </h1>
 
             <p>
-                Create and publish important school
-                news and announcements.
+                Create, publish and manage important
+                school news and announcements.
             </p>
 
         </div>
@@ -123,16 +555,35 @@
         <!-- CREATE ANNOUNCEMENT -->
         <!-- ============================= -->
 
-        <section
-            class="dashboard-card announcement-form-card"
-        >
-
-            <h2>
-                Create New Announcement
-            </h2>
+        <section class="announcement-create-card">
 
 
-            <form id="announcementForm">
+            <div class="announcement-card-heading">
+
+                <div class="announcement-heading-icon">
+                    📰
+                </div>
+
+                <div>
+
+                    <h2>
+                        Create New Announcement
+                    </h2>
+
+                    <p>
+                        Share important information with students,
+                        teachers and parents.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                id="announcementForm"
+                class="announcement-form"
+            >
 
 
                 <!-- TITLE -->
@@ -144,7 +595,7 @@
                 <input
                     type="text"
                     id="announcement-title"
-                    placeholder="Enter announcement title"
+                    placeholder="e.g. Resumption Date for New Term"
                     required
                 >
 
@@ -158,7 +609,7 @@
                 <textarea
                     id="announcement-content"
                     rows="8"
-                    placeholder="Write your announcement here..."
+                    placeholder="Write the announcement here..."
                     required
                 ></textarea>
 
@@ -166,30 +617,42 @@
                 <!-- IMAGE -->
 
                 <label for="announcement-image">
-                    Image (Optional)
+                    Announcement Image
                 </label>
 
-                <input
-                    type="file"
-                    id="announcement-image"
-                    accept="image/*"
-                >
+
+                <div class="announcement-upload-box">
+
+                    <div class="announcement-upload-icon">
+                        🖼️
+                    </div>
+
+                    <input
+                        type="file"
+                        id="announcement-image"
+                        accept="image/*"
+                    >
+
+                    <p class="upload-note">
+                        Optional. Add an image to make the announcement
+                        more attractive.
+                    </p>
+
+                </div>
 
 
-                <p class="upload-note">
-                    You can select an image to accompany the announcement.
-                </p>
-
-
-                <!-- PUBLISH BUTTON -->
+                <!-- BUTTON -->
 
                 <button
                     type="submit"
-                    class="btn"
+                    class="btn announcement-publish-button"
                     id="publishAnnouncementBtn"
                 >
-                    Publish Announcement
+
+                    📢 Publish Announcement
+
                 </button>
+
 
             </form>
 
@@ -200,10 +663,10 @@
         <!-- EXISTING ANNOUNCEMENTS -->
         <!-- ============================= -->
 
-        <section class="announcement-list-section">
+        <section class="existing-announcements">
 
 
-            <div class="dashboard-heading">
+            <div class="existing-announcements-heading">
 
                 <p class="section-label">
                     PUBLISHED NEWS
@@ -213,11 +676,16 @@
                     Existing Announcements
                 </h2>
 
+                <p>
+                    View and manage announcements already published
+                    on the school website.
+                </p>
+
             </div>
 
 
             <!-- IMPORTANT:
-                 This ID matches announcements.js -->
+                 This ID MUST remain unchanged -->
 
             <div id="announcementsContainer">
 
@@ -226,6 +694,7 @@
                 </p>
 
             </div>
+
 
         </section>
 

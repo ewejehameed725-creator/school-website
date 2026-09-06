@@ -20,6 +20,283 @@
         href="style.css"
     >
 
+    <style>
+        /* =========================================
+           MOBILE RESPONSIVE DESIGN
+           TEACHER DASHBOARD
+        ========================================= */
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        button,
+        input,
+        select,
+        textarea,
+        a {
+            max-width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+        
+            body {
+                font-size: 14px;
+            }
+        
+            /* HEADER */
+            header,
+            .topbar,
+            .header {
+                width: 100%;
+                padding: 12px 15px !important;
+            }
+        
+            .header-content,
+            .topbar-content {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        
+            .school-logo,
+            header img {
+                width: 42px !important;
+                height: 42px !important;
+                object-fit: contain;
+            }
+        
+            /* SIDEBAR */
+            .sidebar {
+                width: 280px;
+                max-width: 85vw;
+            }
+        
+            /* MAIN CONTENT */
+            main,
+            .main-content,
+            .content,
+            .dashboard-content {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 15px !important;
+            }
+        
+            /* HEADINGS */
+            h1 {
+                font-size: 22px !important;
+                line-height: 1.25;
+            }
+        
+            h2 {
+                font-size: 19px !important;
+            }
+        
+            h3 {
+                font-size: 17px !important;
+            }
+        
+            /* DASHBOARD CARDS */
+            .stats-grid,
+            .summary-grid,
+            .dashboard-cards,
+            .stat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px !important;
+            }
+        
+            .stat-card,
+            .summary-card,
+            .dashboard-card {
+                width: 100% !important;
+                min-width: 0 !important;
+                padding: 15px !important;
+            }
+        
+            .stat-card h3,
+            .summary-card h3 {
+                font-size: 13px !important;
+            }
+        
+            .stat-card strong,
+            .summary-card strong,
+            .stat-number {
+                font-size: 24px !important;
+            }
+        
+            /* SECTIONS */
+            .section,
+            .card,
+            .dashboard-section,
+            .student-section,
+            .attendance-section,
+            .profile-section {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden;
+            }
+        
+            .section-header {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 12px;
+            }
+        
+            /* FORMS */
+            .form-row,
+            .form-group-row,
+            .student-form,
+            .attendance-controls,
+            .control-row {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 10px !important;
+            }
+        
+            .form-row > *,
+            .form-group-row > *,
+            .student-form > *,
+            .attendance-controls > *,
+            .control-row > * {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+        
+            input,
+            select,
+            textarea {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: 44px;
+                font-size: 16px !important;
+            }
+        
+            textarea {
+                min-height: 120px;
+            }
+        
+            button,
+            .btn,
+            .primary-btn,
+            .secondary-btn {
+                min-height: 44px;
+            }
+        
+            /* TABLES */
+            .table-container,
+            .table-wrapper,
+            .attendance-table-container,
+            .student-table-container {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        
+            table {
+                min-width: 700px;
+            }
+        
+            th,
+            td {
+                white-space: nowrap;
+                padding: 9px 10px !important;
+                font-size: 12px !important;
+            }
+        
+            /* STUDENT MANAGEMENT */
+            .student-management,
+            .student-list,
+            .students-section {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden;
+            }
+        
+            /* ATTENDANCE */
+            .attendance-card,
+            .attendance-section {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: hidden;
+            }
+        
+            /* PROFILE */
+            .profile-card,
+            .profile-grid {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        
+            /* QUICK ACTIONS */
+            .quick-actions,
+            .action-grid {
+                grid-template-columns: 1fr !important;
+                width: 100% !important;
+            }
+        
+            /* MOBILE TEXT */
+            .page-title,
+            .section-title {
+                word-break: break-word;
+            }
+        }
+        
+        @media (max-width: 480px) {
+        
+            main,
+            .main-content,
+            .content,
+            .dashboard-content {
+                padding: 10px !important;
+            }
+        
+            .stats-grid,
+            .summary-grid,
+            .dashboard-cards,
+            .stat-grid {
+                grid-template-columns: 1fr !important;
+            }
+        
+            h1 {
+                font-size: 20px !important;
+            }
+        
+            h2 {
+                font-size: 18px !important;
+            }
+        
+            .stat-card,
+            .summary-card,
+            .dashboard-card {
+                padding: 13px !important;
+            }
+        
+            table {
+                min-width: 650px;
+            }
+        
+            th,
+            td {
+                font-size: 11px !important;
+                padding: 8px !important;
+            }
+        }
+        </style>
+
 </head>
 
 <body>

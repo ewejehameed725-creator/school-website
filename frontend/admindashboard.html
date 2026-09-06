@@ -1306,21 +1306,24 @@ const response = await fetch(
 const data = await response.json();
 
 if (!response.ok) {
+
     throw new Error(
         data.message ||
         "Unable to load students."
     );
+
 }
 
-// Your backend currently returns the
-// students array directly.
+// Current backend returns students directly
 if (Array.isArray(data)) {
     return data;
 }
 
-// Also support the newer { success, students }
-// response format if the backend is changed later.
-if (data.success && Array.isArray(data.students)) {
+// Also support { success: true, students: [] }
+if (
+    data.success &&
+    Array.isArray(data.students)
+) {
     return data.students;
 }
 
@@ -1328,7 +1331,6 @@ throw new Error(
     "Invalid students response from server."
 );
 }
-
 
     // =====================================================
     // LOAD PRINCIPAL ATTENDANCE

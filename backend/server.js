@@ -1401,10 +1401,7 @@ app.post(
 
         try {
 
-            const {
-                records
-            } = req.body;
-
+            const { records } = req.body;
 
             if (
                 !Array.isArray(records) ||
@@ -1412,24 +1409,18 @@ app.post(
             ) {
 
                 return res.status(400).json({
-
                     success: false,
-
-                    message:
-                        "No attendance records were provided."
-
+                    message: "No attendance records were provided."
                 });
 
             }
 
 
             let savedCount = 0;
+            const errors = [];
 
 
-            for (
-                const record
-                of records
-            ) {
+            for (const record of records) {
 
                 const {
                     studentId,
@@ -1443,6 +1434,10 @@ app.post(
                 } = record;
 
 
+                // -----------------------------------------
+                // VALIDATE REQUIRED FIELDS
+                // -----------------------------------------
+
                 if (
                     !studentId ||
                     !studentName ||
@@ -1453,10 +1448,19 @@ app.post(
                     !status
                 ) {
 
+                    errors.push({
+                        studentId: studentId || null,
+                        message: "Missing required attendance information."
+                    });
+
                     continue;
 
                 }
 
+
+                // -----------------------------------------
+                // VALIDATE ATTENDANCE STATUS
+                // -----------------------------------------
 
                 if (
                     ![
@@ -1467,20 +1471,30 @@ app.post(
                     ].includes(status)
                 ) {
 
+                    errors.push({
+                        studentId,
+                        message: `Invalid attendance status: ${status}`
+                    });
+
                     continue;
 
                 }
 
 
-                // Confirm the student really belongs
-                // to the selected class.
+                // -----------------------------------------
+                // CHECK STUDENT
+                // -----------------------------------------
 
                 const studentCheck =
                     await pool.query(
-                        `SELECT id
+                        `SELECT
+                            id,
+                            student_name,
+                            registration_number,
+                            student_class
                          FROM students
                          WHERE id = $1
-                         AND student_class = $2
+                         AND LOWER(student_class) = LOWER($2)
                          LIMIT 1`,
                         [
                             studentId,
@@ -1493,10 +1507,49 @@ app.post(
                     studentCheck.rows.length === 0
                 ) {
 
+                    errors.push({
+                        studentId,
+                        studentName,
+                        message:
+                            "Student was not found in the selected class."
+                    });
+
                     continue;
 
                 }
 
+
+                // -----------------------------------------
+                // NORMALIZE TEACHER ID
+                // -----------------------------------------
+
+                let validTeacherId = null;
+
+                if (
+                    teacherId !== null &&
+                    teacherId !== undefined &&
+                    teacherId !== ""
+                ) {
+
+                    const parsedTeacherId =
+                        Number(teacherId);
+
+                    if (
+                        Number.isInteger(parsedTeacherId) &&
+                        parsedTeacherId > 0
+                    ) {
+
+                        validTeacherId =
+                            parsedTeacherId;
+
+                    }
+
+                }
+
+
+                // -----------------------------------------
+                // SAVE / UPDATE ATTENDANCE
+                // -----------------------------------------
 
                 await pool.query(
                     `INSERT INTO attendance
@@ -1520,7 +1573,7 @@ app.post(
                         $4,
                         $5,
                         $6,
-                        $7,
+                        $7::DATE,
                         $8,
                         NOW(),
                         NOW()
@@ -1531,6 +1584,7 @@ app.post(
                         attendance_date
                     )
                     DO UPDATE SET
+
                         student_name =
                             EXCLUDED.student_name,
 
@@ -1550,13 +1604,14 @@ app.post(
                             EXCLUDED.status,
 
                         updated_at =
-                            NOW()`,
+                            NOW()
+                    `,
                     [
                         studentId,
                         studentName,
                         registrationNumber,
                         studentClass,
-                        teacherId || null,
+                        validTeacherId,
                         teacherName,
                         attendanceDate,
                         status
@@ -1569,6 +1624,32 @@ app.post(
             }
 
 
+            // -----------------------------------------
+            // NOTHING WAS SAVED
+            // -----------------------------------------
+
+            if (savedCount === 0) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "No attendance records were saved.",
+
+                    savedCount: 0,
+
+                    errors: errors
+
+                });
+
+            }
+
+
+            // -----------------------------------------
+            // RESPONSE
+            // -----------------------------------------
+
             res.json({
 
                 success: true,
@@ -1576,8 +1657,9 @@ app.post(
                 message:
                     "Attendance saved successfully.",
 
-                savedCount:
-                    savedCount
+                savedCount: savedCount,
+
+                errors: errors
 
             });
 
@@ -1587,16 +1669,18 @@ app.post(
 
             console.error(
                 "Save attendance error:",
-                error.message
+                error
             );
-
 
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to save attendance."
+                    "Unable to save attendance.",
+
+                error:
+                    error.message
 
             });
 

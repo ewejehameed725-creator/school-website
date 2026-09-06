@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         Principal Dashboard | Lagos State Model College Meiran
@@ -40,7 +38,7 @@
                 Helvetica,
                 sans-serif;
 
-            background: #f4f7f5;
+            background: #f5f8f6;
 
             color: #17231c;
 
@@ -66,8 +64,8 @@
         .sidebar {
             position: fixed;
 
-            top: 0;
             left: 0;
+            top: 0;
 
             width: 260px;
             height: 100vh;
@@ -75,8 +73,8 @@
             background:
                 linear-gradient(
                     180deg,
-                    #08783f 0%,
-                    #056333 100%
+                    #08783f,
+                    #045d30
                 );
 
             color: white;
@@ -88,11 +86,11 @@
             flex-direction: column;
 
             box-shadow:
-                4px 0 20px
-                rgba(0, 0, 0, 0.10);
+                5px 0 25px
+                rgba(0,0,0,0.12);
 
             transition:
-                transform 0.3s ease;
+                transform .3s ease;
         }
 
 
@@ -111,16 +109,16 @@
 
             border-bottom:
                 1px solid
-                rgba(255,255,255,0.14);
+                rgba(255,255,255,.15);
         }
 
         .sidebar-logo {
             width: 48px;
             height: 48px;
 
-            border-radius: 50%;
-
             object-fit: cover;
+
+            border-radius: 50%;
 
             background: white;
 
@@ -137,43 +135,40 @@
             font-size: 14px;
 
             line-height: 1.35;
-
-            color: white;
         }
 
         .brand-text p {
-            font-size: 11px;
+            font-size: 10px;
 
-            opacity: 0.78;
+            opacity: .7;
 
             margin-top: 3px;
         }
 
 
         /* =====================================================
-           SIDEBAR NAVIGATION
+           SIDEBAR NAV
         ===================================================== */
 
         .sidebar-nav {
-            padding: 18px 12px;
-
             flex: 1;
 
             overflow-y: auto;
+
+            padding: 18px 12px;
         }
 
         .nav-label {
-            font-size: 10px;
+            font-size: 9px;
 
             text-transform: uppercase;
 
             letter-spacing: 1px;
 
-            opacity: 0.60;
+            opacity: .55;
 
             padding:
-                0 12px
-                9px;
+                0 12px 9px;
         }
 
         .nav-link {
@@ -191,21 +186,22 @@
 
             border-radius: 10px;
 
-            color: rgba(255,255,255,0.86);
+            color:
+                rgba(255,255,255,.86);
 
             text-decoration: none;
 
             font-size: 13px;
 
+            cursor: pointer;
+
             transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                transform 0.2s ease;
+                .2s ease;
         }
 
         .nav-link:hover {
             background:
-                rgba(255,255,255,0.12);
+                rgba(255,255,255,.12);
 
             color: white;
 
@@ -221,16 +217,18 @@
             font-weight: bold;
 
             box-shadow:
-                0 4px 12px
-                rgba(0,0,0,0.10);
+                0 5px 15px
+                rgba(0,0,0,.12);
         }
 
         .nav-icon {
-            width: 27px;
-
-            height: 27px;
+            width: 30px;
+            height: 30px;
 
             border-radius: 8px;
+
+            background:
+                rgba(255,255,255,.10);
 
             display: flex;
 
@@ -238,16 +236,13 @@
 
             justify-content: center;
 
-            background:
-                rgba(255,255,255,0.10);
-
-            font-size: 14px;
+            font-size: 15px;
 
             flex-shrink: 0;
         }
 
         .nav-link.active .nav-icon {
-            background: #e5f5eb;
+            background: #e4f5ea;
         }
 
 
@@ -260,7 +255,7 @@
 
             border-top:
                 1px solid
-                rgba(255,255,255,0.14);
+                rgba(255,255,255,.14);
         }
 
         .principal-mini {
@@ -275,12 +270,12 @@
             border-radius: 10px;
 
             background:
-                rgba(255,255,255,0.08);
+                rgba(255,255,255,.08);
         }
 
         .principal-avatar {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
 
             border-radius: 50%;
 
@@ -295,39 +290,27 @@
             justify-content: center;
 
             font-weight: bold;
-
-            font-size: 14px;
         }
 
-        .principal-mini-text {
-            overflow: hidden;
-        }
-
-        .principal-mini-text strong {
+        .principal-mini strong {
             display: block;
 
             font-size: 12px;
-
-            white-space: nowrap;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
         }
 
-        .principal-mini-text span {
+        .principal-mini span {
             display: block;
 
             font-size: 10px;
 
-            opacity: 0.70;
+            opacity: .7;
 
             margin-top: 2px;
         }
 
 
         /* =====================================================
-           MAIN AREA
+           MAIN
         ===================================================== */
 
         .main-area {
@@ -348,7 +331,7 @@
 
             border-bottom:
                 1px solid
-                #e4ebe6;
+                #e2eae5;
 
             display: flex;
 
@@ -357,7 +340,7 @@
             justify-content: space-between;
 
             padding:
-                0 28px;
+                0 30px;
 
             position: sticky;
 
@@ -377,34 +360,32 @@
         .menu-btn {
             display: none;
 
-            border: none;
-
-            background: #eef6f1;
-
-            color: #08783f;
-
             width: 40px;
             height: 40px;
 
+            border: none;
+
             border-radius: 9px;
 
-            cursor: pointer;
+            background: #eaf5ee;
+
+            color: #08783f;
 
             font-size: 20px;
+
+            cursor: pointer;
         }
 
         .page-heading h1 {
             font-size: 20px;
-
-            color: #18251d;
         }
 
         .page-heading p {
-            color: #75827a;
+            color: #7a857f;
 
-            font-size: 12px;
+            font-size: 11px;
 
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
         .topbar-right {
@@ -412,25 +393,25 @@
 
             align-items: center;
 
-            gap: 12px;
+            gap: 10px;
         }
 
-        .today-badge {
+        .today {
+            background: #f2f7f4;
+
+            color: #66736b;
+
             padding: 9px 12px;
 
             border-radius: 8px;
 
-            background: #f3f8f5;
-
-            color: #5f6d64;
-
-            font-size: 12px;
+            font-size: 11px;
         }
 
-        .top-logout {
+        .logout-btn {
             border: none;
 
-            background: #fff1f1;
+            background: #fff0f0;
 
             color: #b42323;
 
@@ -438,15 +419,15 @@
 
             border-radius: 8px;
 
-            cursor: pointer;
-
-            font-size: 12px;
+            font-size: 11px;
 
             font-weight: bold;
+
+            cursor: pointer;
         }
 
-        .top-logout:hover {
-            background: #ffe2e2;
+        .logout-btn:hover {
+            background: #ffe1e1;
         }
 
 
@@ -457,29 +438,42 @@
         .content {
             max-width: 1600px;
 
-            margin: 0 auto;
+            margin: auto;
 
-            padding: 28px;
+            padding: 30px;
         }
 
 
         /* =====================================================
-           WELCOME BANNER
+           SECTIONS
         ===================================================== */
 
-        .welcome-banner {
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active-section {
+            display: block;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome {
             background:
                 linear-gradient(
                     135deg,
                     #08783f,
-                    #0b9650
+                    #0b9851
                 );
 
             color: white;
 
-            border-radius: 16px;
+            border-radius: 17px;
 
-            padding: 25px 28px;
+            padding: 30px;
 
             display: flex;
 
@@ -489,35 +483,35 @@
 
             gap: 20px;
 
-            margin-bottom: 24px;
+            margin-bottom: 25px;
 
             box-shadow:
-                0 8px 25px
-                rgba(8,120,63,0.15);
+                0 10px 30px
+                rgba(8,120,63,.15);
         }
 
-        .welcome-text h2 {
-            font-size: 23px;
+        .welcome h2 {
+            font-size: 26px;
 
-            margin-bottom: 7px;
+            margin-bottom: 8px;
         }
 
-        .welcome-text p {
+        .welcome p {
             font-size: 13px;
 
-            opacity: 0.88;
+            opacity: .88;
 
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .welcome-icon {
-            width: 68px;
-            height: 68px;
+            width: 70px;
+            height: 70px;
 
-            border-radius: 16px;
+            border-radius: 17px;
 
             background:
-                rgba(255,255,255,0.14);
+                rgba(255,255,255,.14);
 
             display: flex;
 
@@ -532,18 +526,18 @@
 
 
         /* =====================================================
-           STAT CARDS
+           STATS
         ===================================================== */
 
         .stats-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(5, minmax(0, 1fr));
+                repeat(5, 1fr);
 
             gap: 15px;
 
-            margin-bottom: 24px;
+            margin-bottom: 25px;
         }
 
         .stat-card {
@@ -551,7 +545,7 @@
 
             border:
                 1px solid
-                #e4ebe6;
+                #e2eae5;
 
             border-radius: 13px;
 
@@ -564,15 +558,17 @@
             gap: 13px;
 
             box-shadow:
-                0 3px 14px
-                rgba(0,0,0,0.04);
+                0 4px 15px
+                rgba(0,0,0,.04);
         }
 
         .stat-icon {
-            width: 44px;
-            height: 44px;
+            width: 45px;
+            height: 45px;
 
             border-radius: 11px;
+
+            background: #e6f5eb;
 
             display: flex;
 
@@ -580,32 +576,22 @@
 
             justify-content: center;
 
-            background: #e8f6ed;
-
             font-size: 19px;
 
             flex-shrink: 0;
         }
 
-        .stat-info {
-            min-width: 0;
-        }
-
         .stat-info span {
             display: block;
 
-            color: #748078;
+            color: #758078;
 
-            font-size: 11px;
+            font-size: 10px;
 
             margin-bottom: 5px;
         }
 
         .stat-info strong {
-            display: block;
-
-            color: #17231c;
-
             font-size: 24px;
 
             line-height: 1;
@@ -613,19 +599,73 @@
 
 
         /* =====================================================
-           DASHBOARD GRID
+           QUICK ACCESS
         ===================================================== */
 
-        .dashboard-grid {
+        .quick-grid {
             display: grid;
 
             grid-template-columns:
-                minmax(0, 1.55fr)
-                minmax(300px, 0.85fr);
+                repeat(4, 1fr);
 
-            gap: 20px;
+            gap: 15px;
 
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .quick-card {
+            background: white;
+
+            border:
+                1px solid
+                #e2eae5;
+
+            border-radius: 13px;
+
+            padding: 18px;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(0,0,0,.07);
+        }
+
+        .quick-card-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #e6f5eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+            margin-bottom: 12px;
+        }
+
+        .quick-card h3 {
+            font-size: 13px;
+
+            margin-bottom: 4px;
+        }
+
+        .quick-card p {
+            color: #7b877f;
+
+            font-size: 10px;
         }
 
 
@@ -638,19 +678,21 @@
 
             border:
                 1px solid
-                #e4ebe6;
+                #e2eae5;
 
             border-radius: 14px;
 
             box-shadow:
-                0 3px 14px
-                rgba(0,0,0,0.04);
+                0 4px 15px
+                rgba(0,0,0,.04);
 
             overflow: hidden;
+
+            margin-bottom: 20px;
         }
 
         .card-header {
-            padding: 18px 20px;
+            padding: 19px 21px;
 
             border-bottom:
                 1px solid
@@ -662,47 +704,87 @@
 
             align-items: center;
 
-            gap: 12px;
+            gap: 15px;
         }
 
-        .card-title h2 {
-            color: #17231c;
-
+        .card-header h2 {
             font-size: 16px;
         }
 
-        .card-title p {
-            color: #7a857e;
+        .card-header p {
+            color: #7b877f;
 
-            font-size: 11px;
+            font-size: 10px;
 
             margin-top: 4px;
         }
 
-        .view-link {
-            color: #08783f;
-
-            text-decoration: none;
-
-            font-size: 11px;
-
-            font-weight: bold;
-        }
-
-        .view-link:hover {
-            text-decoration: underline;
-        }
-
         .card-body {
-            padding: 18px 20px;
+            padding: 20px;
         }
 
 
         /* =====================================================
-           ATTENDANCE CONTROLS
+           SECTION TITLE
         ===================================================== */
 
-        .attendance-controls {
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 22px;
+
+            margin-bottom: 6px;
+        }
+
+        .section-title p {
+            color: #78847d;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .primary-btn {
+            border: none;
+
+            background: #08783f;
+
+            color: white;
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .primary-btn:hover {
+            background: #056333;
+        }
+
+
+        /* =====================================================
+           CONTROLS
+        ===================================================== */
+
+        .controls {
             display: flex;
 
             align-items: end;
@@ -711,7 +793,7 @@
 
             flex-wrap: wrap;
 
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .field {
@@ -723,9 +805,9 @@
         }
 
         .field label {
-            color: #66736b;
+            color: #657269;
 
-            font-size: 11px;
+            font-size: 10px;
 
             font-weight: bold;
         }
@@ -736,20 +818,19 @@
 
             border:
                 1px solid
-                #d5dfd8;
+                #d4ded7;
 
             border-radius: 8px;
 
-            padding:
-                0 10px;
+            padding: 0 10px;
 
             outline: none;
 
-            background: white;
+            font-size: 11px;
 
             color: #26332b;
 
-            font-size: 12px;
+            background: white;
         }
 
         .field select:focus,
@@ -757,53 +838,28 @@
             border-color: #08783f;
         }
 
-        .primary-btn {
-            height: 38px;
-
-            border: none;
-
-            background: #08783f;
-
-            color: white;
-
-            padding:
-                0 14px;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            font-size: 12px;
-
-            font-weight: bold;
-        }
-
-        .primary-btn:hover {
-            background: #056333;
-        }
-
 
         /* =====================================================
-           ATTENDANCE MINI STATS
+           MINI STATS
         ===================================================== */
 
-        .attendance-mini-grid {
+        .mini-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(5, minmax(0, 1fr));
+                repeat(5, 1fr);
 
-            gap: 8px;
+            gap: 9px;
 
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .mini-stat {
-            background: #f5f8f6;
+            background: #f4f8f5;
 
             border-radius: 9px;
 
-            padding: 10px;
+            padding: 11px;
 
             text-align: center;
         }
@@ -811,17 +867,17 @@
         .mini-stat span {
             display: block;
 
+            color: #78847d;
+
             font-size: 9px;
 
-            color: #77837b;
-
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .mini-stat strong {
             color: #08783f;
 
-            font-size: 17px;
+            font-size: 18px;
         }
 
 
@@ -836,7 +892,7 @@
 
             border:
                 1px solid
-                #e5ebe7;
+                #e1e9e4;
 
             border-radius: 9px;
         }
@@ -846,49 +902,39 @@
 
             border-collapse: collapse;
 
-            min-width: 780px;
+            min-width: 760px;
         }
 
         th {
-            background: #f1f7f3;
+            background: #f0f6f2;
 
             color: #526158;
 
             text-align: left;
 
-            padding:
-                11px 10px;
+            padding: 12px 10px;
 
-            font-size: 10px;
+            font-size: 9px;
 
             text-transform: uppercase;
 
-            letter-spacing: 0.3px;
+            letter-spacing: .3px;
 
             white-space: nowrap;
-
-            border-bottom:
-                1px solid
-                #dfe8e2;
         }
 
         td {
-            padding:
-                11px 10px;
+            padding: 12px 10px;
 
-            border-bottom:
+            border-top:
                 1px solid
                 #edf1ee;
 
-            color: #526058;
+            color: #56635b;
 
-            font-size: 11px;
+            font-size: 10px;
 
             white-space: nowrap;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
         }
 
         tbody tr:hover td {
@@ -903,14 +949,11 @@
         .status {
             display: inline-flex;
 
-            align-items: center;
-
-            padding:
-                4px 8px;
+            padding: 4px 8px;
 
             border-radius: 20px;
 
-            font-size: 9px;
+            font-size: 8px;
 
             font-weight: bold;
         }
@@ -947,28 +990,28 @@
 
 
         /* =====================================================
-           TEACHER CARDS
+           TEACHERS
         ===================================================== */
 
         .teacher-grid {
             display: grid;
 
             grid-template-columns:
-                repeat(2, minmax(0, 1fr));
+                repeat(3, 1fr);
 
-            gap: 10px;
+            gap: 14px;
         }
 
         .teacher-card {
+            background: #fbfdfc;
+
             border:
                 1px solid
-                #e3eae5;
+                #e0e9e3;
 
-            border-radius: 10px;
+            border-radius: 12px;
 
-            padding: 13px;
-
-            background: #fbfdfc;
+            padding: 16px;
         }
 
         .teacher-top {
@@ -976,18 +1019,18 @@
 
             align-items: center;
 
-            gap: 10px;
+            gap: 11px;
 
-            margin-bottom: 10px;
+            margin-bottom: 13px;
         }
 
         .teacher-avatar {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
 
-            border-radius: 10px;
+            border-radius: 11px;
 
-            background: #e4f5ea;
+            background: #e3f4e9;
 
             color: #08783f;
 
@@ -997,19 +1040,17 @@
 
             justify-content: center;
 
-            font-weight: bold;
-
             font-size: 12px;
+
+            font-weight: bold;
         }
 
         .teacher-card h3 {
-            color: #26332b;
-
-            font-size: 12px;
+            font-size: 13px;
         }
 
-        .teacher-card .teacher-role {
-            color: #849088;
+        .teacher-role {
+            color: #87928b;
 
             font-size: 9px;
 
@@ -1017,55 +1058,50 @@
         }
 
         .teacher-detail {
+            border-top:
+                1px solid
+                #e8eee9;
+
+            padding-top: 9px;
+
+            margin-top: 8px;
+
             display: flex;
 
             justify-content: space-between;
 
-            padding-top: 8px;
+            gap: 10px;
 
-            border-top:
-                1px solid
-                #edf1ee;
-
-            font-size: 10px;
+            font-size: 9px;
         }
 
         .teacher-detail span {
-            color: #77837b;
+            color: #7c8880;
         }
 
         .teacher-detail strong {
             color: #08783f;
+            text-align: right;
         }
 
 
         /* =====================================================
-           FULL WIDTH SECTIONS
+           ANNOUNCEMENTS
         ===================================================== */
 
-        .full-section {
-            margin-bottom: 20px;
-        }
-
-
-        /* =====================================================
-           NEWS
-        ===================================================== */
-
-        .announcement-item {
-            padding:
-                13px 0;
+        .announcement {
+            padding: 15px 0;
 
             border-bottom:
                 1px solid
                 #edf1ee;
         }
 
-        .announcement-item:last-child {
+        .announcement:last-child {
             border-bottom: none;
         }
 
-        .announcement-item h3 {
+        .announcement h3 {
             color: #08783f;
 
             font-size: 13px;
@@ -1073,7 +1109,7 @@
             margin-bottom: 5px;
         }
 
-        .announcement-item p {
+        .announcement p {
             color: #68756d;
 
             font-size: 11px;
@@ -1093,17 +1129,115 @@
 
 
         /* =====================================================
-           EMPTY / LOADING
+           PROFILE
+        ===================================================== */
+
+        .profile-box {
+            max-width: 700px;
+
+            background: white;
+
+            border:
+                1px solid
+                #e2eae5;
+
+            border-radius: 15px;
+
+            padding: 25px;
+        }
+
+        .profile-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding-bottom: 20px;
+
+            border-bottom:
+                1px solid
+                #edf1ee;
+
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 50%;
+
+            background: #e3f4e9;
+
+            color: #08783f;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+        .profile-header h2 {
+            font-size: 18px;
+        }
+
+        .profile-header p {
+            color: #78847d;
+
+            font-size: 11px;
+
+            margin-top: 4px;
+        }
+
+        .profile-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 13px 0;
+
+            border-bottom:
+                1px solid
+                #edf1ee;
+
+            font-size: 12px;
+        }
+
+        .profile-row:last-child {
+            border-bottom: none;
+        }
+
+        .profile-row span {
+            color: #7b877f;
+        }
+
+        .profile-row strong {
+            color: #26332b;
+
+            text-align: right;
+        }
+
+
+        /* =====================================================
+           MESSAGE
         ===================================================== */
 
         .message {
             text-align: center;
 
-            color: #7b877f;
+            padding: 30px 15px;
+
+            color: #7a867f;
 
             font-size: 11px;
-
-            padding: 25px 15px;
         }
 
         .loading {
@@ -1125,7 +1259,7 @@
             inset: 0;
 
             background:
-                rgba(0,0,0,0.40);
+                rgba(0,0,0,.45);
 
             z-index: 1500;
         }
@@ -1136,14 +1270,14 @@
         ===================================================== */
 
         footer {
-            padding:
-                20px 28px 30px;
-
             text-align: center;
 
-            color: #87918b;
+            color: #89938d;
 
             font-size: 10px;
+
+            padding:
+                10px 20px 25px;
         }
 
 
@@ -1158,8 +1292,14 @@
                     repeat(3, 1fr);
             }
 
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .quick-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .teacher-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
         }
@@ -1212,36 +1352,37 @@
                 display: none;
             }
 
-            .today-badge {
+            .today {
                 display: none;
             }
 
-            .top-logout {
-                padding:
-                    8px 10px;
-
-                font-size: 10px;
+            .topbar-right .logout-btn {
+                display: none;
             }
 
             .content {
                 padding: 15px;
             }
 
-            .welcome-banner {
-                padding: 20px;
+            .welcome {
+                padding: 21px;
 
                 border-radius: 13px;
             }
 
-            .welcome-text h2 {
-                font-size: 19px;
+            .welcome h2 {
+                font-size: 20px;
+            }
+
+            .welcome p {
+                font-size: 11px;
             }
 
             .welcome-icon {
                 width: 52px;
                 height: 52px;
 
-                font-size: 25px;
+                font-size: 24px;
             }
 
             .stats-grid {
@@ -1253,49 +1394,43 @@
 
             .stat-card {
                 padding: 14px;
-
-                gap: 10px;
-            }
-
-            .stat-icon {
-                width: 38px;
-                height: 38px;
-
-                font-size: 16px;
             }
 
             .stat-info strong {
                 font-size: 20px;
             }
 
-            .card-header {
-                padding: 15px;
-            }
-
-            .card-body {
-                padding: 15px;
-            }
-
-            .attendance-controls {
-                align-items: stretch;
-
-                flex-direction: column;
-            }
-
-            .field,
-            .field select,
-            .field input,
-            .primary-btn {
-                width: 100%;
-            }
-
-            .attendance-mini-grid {
+            .quick-grid {
                 grid-template-columns:
                     repeat(2, 1fr);
             }
 
             .teacher-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .mini-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .controls {
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+            .field,
+            .field select,
+            .field input,
+            .controls .primary-btn {
+                width: 100%;
+            }
+
+            .card-header {
+                align-items: flex-start;
+
+                flex-direction: column;
             }
 
         }
@@ -1315,32 +1450,28 @@
                 grid-template-columns: 1fr;
             }
 
-            .welcome-banner {
-                padding: 17px;
+            .quick-grid {
+                grid-template-columns: 1fr;
             }
 
             .welcome-icon {
                 display: none;
             }
 
-            .card-header {
+            .profile-row {
                 flex-direction: column;
 
-                align-items: flex-start;
+                gap: 5px;
             }
 
-            .attendance-mini-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .topbar-right .top-logout {
-                display: none;
+            .profile-row strong {
+                text-align: left;
             }
 
         }
 
     </style>
+
 </head>
 
 
@@ -1360,8 +1491,8 @@
 
         <img
             src="images/school.jpg"
-            alt="School Logo"
             class="sidebar-logo"
+            alt="School Logo"
         >
 
         <div class="brand-text">
@@ -1396,9 +1527,7 @@
                 🏠
             </span>
 
-            <span>
-                Dashboard
-            </span>
+            Dashboard
 
         </a>
 
@@ -1413,9 +1542,7 @@
                 👨‍🏫
             </span>
 
-            <span>
-                Teachers
-            </span>
+            Teachers
 
         </a>
 
@@ -1430,9 +1557,7 @@
                 👨‍🎓
             </span>
 
-            <span>
-                Students
-            </span>
+            Students
 
         </a>
 
@@ -1447,9 +1572,7 @@
                 📋
             </span>
 
-            <span>
-                Attendance
-            </span>
+            Attendance
 
         </a>
 
@@ -1464,9 +1587,7 @@
                 📰
             </span>
 
-            <span>
-                News & Announcements
-            </span>
+            News & Announcements
 
         </a>
 
@@ -1489,9 +1610,7 @@
                 📊
             </span>
 
-            <span>
-                Teacher Activities
-            </span>
+            Teacher Activities
 
         </a>
 
@@ -1506,9 +1625,7 @@
                 🔐
             </span>
 
-            <span>
-                Login History
-            </span>
+            Login History
 
         </a>
 
@@ -1523,9 +1640,22 @@
                 👤
             </span>
 
-            <span>
-                My Profile
+            My Profile
+
+        </a>
+
+
+        <a
+            href="#"
+            class="nav-link"
+            onclick="logoutPrincipal(); return false;"
+        >
+
+            <span class="nav-icon">
+                🚪
             </span>
+
+            Logout
 
         </a>
 
@@ -1537,17 +1667,17 @@
         <div class="principal-mini">
 
             <div class="principal-avatar">
-                P
+                AT
             </div>
 
-            <div class="principal-mini-text">
+            <div>
 
                 <strong>
-                    Principal
+                    Dr. Ajayi Temitope
                 </strong>
 
                 <span>
-                    Administrator
+                    Principal
                 </span>
 
             </div>
@@ -1583,19 +1713,17 @@
             <button
                 class="menu-btn"
                 id="menuBtn"
-                aria-label="Open menu"
             >
                 ☰
             </button>
 
-
             <div class="page-heading">
 
-                <h1>
+                <h1 id="pageTitle">
                     Principal Dashboard
                 </h1>
 
-                <p>
+                <p id="pageSubtitle">
                     School administration and monitoring
                 </p>
 
@@ -1607,15 +1735,14 @@
         <div class="topbar-right">
 
             <div
-                class="today-badge"
+                class="today"
                 id="todayBadge"
             >
                 Today
             </div>
 
-
             <button
-                class="top-logout"
+                class="logout-btn"
                 onclick="logoutPrincipal()"
             >
                 Logout
@@ -1637,25 +1764,27 @@
              DASHBOARD
         ================================================= -->
 
-        <section id="dashboard">
+        <section
+            id="dashboard"
+            class="page-section active-section"
+        >
 
+            <div class="welcome">
 
-            <div class="welcome-banner">
-
-                <div class="welcome-text">
+                <div>
 
                     <h2>
-                        Welcome, Principal 👋
+                        Welcome, Dr. Ajayi Temitope 👋
                     </h2>
 
                     <p>
-                        Monitor students, teachers,
-                        attendance and important school
-                        information from one place.
+                        Principal, Lagos State Model College Meiran.
+                        <br>
+                        Here's an overview of your school's activities
+                        and attendance.
                     </p>
 
                 </div>
-
 
                 <div class="welcome-icon">
                     🏫
@@ -1663,10 +1792,6 @@
 
             </div>
 
-
-            <!-- =============================================
-                 STATISTICS
-            ============================================== -->
 
             <div class="stats-grid">
 
@@ -1684,6 +1809,27 @@
                         </span>
 
                         <strong id="totalStudents">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👨‍🏫
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Teachers
+                        </span>
+
+                        <strong id="totalTeachers">
                             0
                         </strong>
 
@@ -1754,22 +1900,183 @@
 
                 </div>
 
+            </div>
 
-                <div class="stat-card">
 
-                    <div class="stat-icon">
-                        📝
+            <div class="quick-grid">
+
+
+                <div
+                    class="quick-card"
+                    onclick="showSection('teachers')"
+                >
+
+                    <div class="quick-card-icon">
+                        👨‍🏫
                     </div>
 
-                    <div class="stat-info">
+                    <h3>
+                        Teachers
+                    </h3>
 
-                        <span>
-                            Excused
-                        </span>
+                    <p>
+                        View teacher information and activity.
+                    </p>
 
-                        <strong id="totalExcused">
-                            0
-                        </strong>
+                </div>
+
+
+                <div
+                    class="quick-card"
+                    onclick="showSection('students')"
+                >
+
+                    <div class="quick-card-icon">
+                        👨‍🎓
+                    </div>
+
+                    <h3>
+                        Students
+                    </h3>
+
+                    <p>
+                        View students registered in the system.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="quick-card"
+                    onclick="showSection('attendance')"
+                >
+
+                    <div class="quick-card-icon">
+                        📋
+                    </div>
+
+                    <h3>
+                        Attendance
+                    </h3>
+
+                    <p>
+                        Monitor weekly student attendance.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="quick-card"
+                    onclick="showSection('announcements')"
+                >
+
+                    <div class="quick-card-icon">
+                        📰
+                    </div>
+
+                    <h3>
+                        Announcements
+                    </h3>
+
+                    <p>
+                        Manage school announcements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Principal's Overview
+                        </h2>
+
+                        <p>
+                            Quick access to important school information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <p
+                        style="
+                            color:#68756d;
+                            font-size:12px;
+                            line-height:1.7;
+                        "
+                    >
+                        Use the navigation menu on the left to
+                        manage teachers, students, attendance,
+                        announcements and view teacher activities.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TEACHERS
+        ================================================= -->
+
+        <section
+            id="teachers"
+            class="page-section"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    Teachers
+                </h2>
+
+                <p>
+                    View teachers and their latest activity.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Teacher Overview
+                        </h2>
+
+                        <p>
+                            Class assignment and recent login.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div
+                        id="teachersContainer"
+                        class="teacher-grid"
+                    >
+
+                        <div class="message loading">
+                            Loading teachers...
+                        </div>
 
                     </div>
 
@@ -1777,319 +2084,147 @@
 
             </div>
 
+        </section>
 
-            <!-- =============================================
-                 DASHBOARD TWO COLUMN
-            ============================================== -->
 
-            <div class="dashboard-grid">
+        <!-- =================================================
+             STUDENTS
+        ================================================= -->
 
+        <section
+            id="students"
+            class="page-section"
+        >
 
-                <!-- =========================================
-                     ATTENDANCE
-                ========================================== -->
+            <div class="section-title">
 
-                <section
-                    class="card"
-                    id="attendance"
-                >
+                <h2>
+                    Students
+                </h2>
 
-                    <div class="card-header">
-
-                        <div class="card-title">
-
-                            <h2>
-                                Students & Attendance
-                            </h2>
-
-                            <p>
-                                Weekly attendance monitoring
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-body">
-
-
-                        <div class="attendance-controls">
-
-                            <div class="field">
-
-                                <label for="classFilter">
-                                    Class
-                                </label>
-
-                                <select
-                                    id="classFilter"
-                                >
-
-                                    <option value="ALL">
-                                        All Classes
-                                    </option>
-
-                                    <option value="SS1">
-                                        SS1
-                                    </option>
-
-                                    <option value="SS2">
-                                        SS2
-                                    </option>
-
-                                    <option value="SS3">
-                                        SS3
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="field">
-
-                                <label for="attendanceWeek">
-                                    Week Starting
-                                </label>
-
-                                <input
-                                    type="date"
-                                    id="attendanceWeek"
-                                >
-
-                            </div>
-
-
-                            <button
-                                class="primary-btn"
-                                id="loadAttendanceButton"
-                            >
-                                Load Attendance
-                            </button>
-
-                        </div>
-
-
-                        <div class="attendance-mini-grid">
-
-
-                            <div class="mini-stat">
-
-                                <span>
-                                    Students
-                                </span>
-
-                                <strong
-                                    id="attendanceStudentCount"
-                                >
-                                    0
-                                </strong>
-
-                            </div>
-
-
-                            <div class="mini-stat">
-
-                                <span>
-                                    Marked
-                                </span>
-
-                                <strong
-                                    id="markedCount"
-                                >
-                                    0
-                                </strong>
-
-                            </div>
-
-
-                            <div class="mini-stat">
-
-                                <span>
-                                    Present
-                                </span>
-
-                                <strong
-                                    id="weekPresent"
-                                >
-                                    0
-                                </strong>
-
-                            </div>
-
-
-                            <div class="mini-stat">
-
-                                <span>
-                                    Absent
-                                </span>
-
-                                <strong
-                                    id="weekAbsent"
-                                >
-                                    0
-                                </strong>
-
-                            </div>
-
-
-                            <div class="mini-stat">
-
-                                <span>
-                                    Late / Excused
-                                </span>
-
-                                <strong
-                                    id="weekOther"
-                                >
-                                    0
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            id="attendanceMessage"
-                            class="message"
-                        >
-                            Select a week to view attendance.
-                        </div>
-
-
-                        <div
-                            class="table-wrapper"
-                            id="attendanceTableWrapper"
-                            style="display:none;"
-                        >
-
-                            <table>
-
-                                <thead>
-
-                                    <tr>
-
-                                        <th>
-                                            Student
-                                        </th>
-
-                                        <th>
-                                            Registration No.
-                                        </th>
-
-                                        <th>
-                                            Class
-                                        </th>
-
-                                        <th>
-                                            Class Teacher
-                                        </th>
-
-                                        <th>
-                                            Monday
-                                        </th>
-
-                                        <th>
-                                            Tuesday
-                                        </th>
-
-                                        <th>
-                                            Wednesday
-                                        </th>
-
-                                        <th>
-                                            Thursday
-                                        </th>
-
-                                        <th>
-                                            Friday
-                                        </th>
-
-                                    </tr>
-
-                                </thead>
-
-                                <tbody
-                                    id="attendanceTableBody"
-                                ></tbody>
-
-                            </table>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =========================================
-                     TEACHERS
-                ========================================== -->
-
-                <section
-                    class="card"
-                    id="teachers"
-                >
-
-                    <div class="card-header">
-
-                        <div class="card-title">
-
-                            <h2>
-                                Teacher Overview
-                            </h2>
-
-                            <p>
-                                Staff activity and login status
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-body">
-
-                        <div
-                            id="teachersContainer"
-                            class="teacher-grid"
-                        >
-
-                            <div class="message loading">
-                                Loading teachers...
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </section>
+                <p>
+                    Students currently registered in the school system.
+                </p>
 
             </div>
 
 
-            <!-- =============================================
-                 STUDENTS
-            ============================================== -->
-
-            <section
-                class="card full-section"
-                id="students"
-            >
+            <div class="card">
 
                 <div class="card-header">
 
-                    <div class="card-title">
+                    <div>
 
                         <h2>
-                            Student Attendance Overview
+                            Student Directory
                         </h2>
 
                         <p>
-                            Students currently registered in
-                            the school system
+                            Registered student information.
+                        </p>
+
+                    </div>
+
+                    <span
+                        id="studentDirectoryCount"
+                        style="
+                            font-size:11px;
+                            color:#08783f;
+                            font-weight:bold;
+                        "
+                    >
+                        0 Students
+                    </span>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Student
+                                    </th>
+
+                                    <th>
+                                        Registration No.
+                                    </th>
+
+                                    <th>
+                                        Class
+                                    </th>
+
+                                    <th>
+                                        Class Teacher
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="studentsBody">
+
+                                <tr>
+
+                                    <td colspan="4">
+                                        Loading students...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ATTENDANCE
+        ================================================= -->
+
+        <section
+            id="attendance"
+            class="page-section"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    Attendance
+                </h2>
+
+                <p>
+                    Monitor weekly attendance across all classes.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Weekly Attendance
+                        </h2>
+
+                        <p>
+                            Select a class and week to view attendance.
                         </p>
 
                     </div>
@@ -2099,8 +2234,154 @@
 
                 <div class="card-body">
 
+
+                    <div class="controls">
+
+                        <div class="field">
+
+                            <label>
+                                Class
+                            </label>
+
+                            <select id="classFilter">
+
+                                <option value="ALL">
+                                    All Classes
+                                </option>
+
+                                <option value="SS1">
+                                    SS1
+                                </option>
+
+                                <option value="SS2">
+                                    SS2
+                                </option>
+
+                                <option value="SS3">
+                                    SS3
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Week Starting
+                            </label>
+
+                            <input
+                                type="date"
+                                id="attendanceWeek"
+                            >
+
+                        </div>
+
+
+                        <button
+                            class="primary-btn"
+                            id="loadAttendanceButton"
+                        >
+                            Load Attendance
+                        </button>
+
+                    </div>
+
+
+                    <div class="mini-grid">
+
+
+                        <div class="mini-stat">
+
+                            <span>
+                                Students
+                            </span>
+
+                            <strong
+                                id="attendanceStudentCount"
+                            >
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="mini-stat">
+
+                            <span>
+                                Marked
+                            </span>
+
+                            <strong
+                                id="markedCount"
+                            >
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="mini-stat">
+
+                            <span>
+                                Present
+                            </span>
+
+                            <strong
+                                id="weekPresent"
+                            >
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="mini-stat">
+
+                            <span>
+                                Absent
+                            </span>
+
+                            <strong
+                                id="weekAbsent"
+                            >
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="mini-stat">
+
+                            <span>
+                                Late / Excused
+                            </span>
+
+                            <strong
+                                id="weekOther"
+                            >
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="attendanceMessage"
+                        class="message"
+                    >
+                        Select a week to view attendance.
+                    </div>
+
+
                     <div
                         class="table-wrapper"
+                        id="attendanceTableWrapper"
+                        style="display:none;"
                     >
 
                         <table>
@@ -2149,19 +2430,7 @@
 
                             </thead>
 
-                            <tbody
-                                id="studentsOverviewBody"
-                            >
-
-                                <tr>
-
-                                    <td colspan="9">
-                                        Loading students...
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
+                            <tbody id="attendanceTableBody"></tbody>
 
                         </table>
 
@@ -2169,28 +2438,111 @@
 
                 </div>
 
-            </section>
+            </div>
+
+        </section>
 
 
-            <!-- =============================================
-                 TEACHER ACTIVITIES
-            ============================================== -->
+        <!-- =================================================
+             ANNOUNCEMENTS
+        ================================================= -->
 
-            <section
-                class="card full-section"
-                id="activities"
-            >
+        <section
+            id="announcements"
+            class="page-section"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    News & Announcements
+                </h2>
+
+                <p>
+                    School news and important announcements.
+                </p>
+
+            </div>
+
+
+            <div class="card">
 
                 <div class="card-header">
 
-                    <div class="card-title">
+                    <div>
 
                         <h2>
-                            Teacher Activities
+                            Published Announcements
                         </h2>
 
                         <p>
-                            Recent actions performed by teachers
+                            Recent information published by the school.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="manage-announcements.html"
+                        class="primary-btn"
+                    >
+                        + Upload Announcement
+                    </a>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div id="newsContainer">
+
+                        <div class="message loading">
+                            Loading announcements...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TEACHER ACTIVITIES
+        ================================================= -->
+
+        <section
+            id="activities"
+            class="page-section"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    Teacher Activities
+                </h2>
+
+                <p>
+                    Monitor recent actions performed by teachers.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Activity Log
+                        </h2>
+
+                        <p>
+                            Recent teacher actions.
                         </p>
 
                     </div>
@@ -2232,9 +2584,7 @@
 
                             </thead>
 
-                            <tbody
-                                id="teacherActivityBody"
-                            >
+                            <tbody id="teacherActivityBody">
 
                                 <tr>
 
@@ -2252,28 +2602,45 @@
 
                 </div>
 
-            </section>
+            </div>
+
+        </section>
 
 
-            <!-- =============================================
-                 LOGIN HISTORY
-            ============================================== -->
+        <!-- =================================================
+             LOGIN HISTORY
+        ================================================= -->
 
-            <section
-                class="card full-section"
-                id="login-history"
-            >
+        <section
+            id="login-history"
+            class="page-section"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    Login History
+                </h2>
+
+                <p>
+                    Monitor teacher sign-in activity.
+                </p>
+
+            </div>
+
+
+            <div class="card">
 
                 <div class="card-header">
 
-                    <div class="card-title">
+                    <div>
 
                         <h2>
                             Teacher Login History
                         </h2>
 
                         <p>
-                            Recent teacher sign-in activity
+                            Recent teacher sign-ins.
                         </p>
 
                     </div>
@@ -2311,9 +2678,7 @@
 
                             </thead>
 
-                            <tbody
-                                id="loginHistoryBody"
-                            >
+                            <tbody id="loginHistoryBody">
 
                                 <tr>
 
@@ -2331,155 +2696,123 @@
 
                 </div>
 
-            </section>
-
-
-            <!-- =============================================
-                 NEWS & ANNOUNCEMENTS
-            ============================================== -->
-
-            <section
-                class="card full-section"
-                id="announcements"
-            >
-
-                <div class="card-header">
-
-                    <div class="card-title">
-
-                        <h2>
-                            News & Announcements
-                        </h2>
-
-                        <p>
-                            School information and announcements
-                        </p>
-
-                    </div>
-
-
-                    <a
-                        href="manage-announcements.html"
-                        class="primary-btn"
-                        style="
-                            text-decoration:none;
-                            display:inline-flex;
-                            align-items:center;
-                        "
-                    >
-                        + Upload Announcement
-                    </a>
-
-                </div>
-
-
-                <div class="card-body">
-
-                    <div
-                        id="newsContainer"
-                    >
-
-                        <div class="message loading">
-                            Loading announcements...
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =============================================
-                 PROFILE
-            ============================================== -->
-
-            <section
-                class="card full-section"
-                id="profile"
-            >
-
-                <div class="card-header">
-
-                    <div class="card-title">
-
-                        <h2>
-                            My Profile
-                        </h2>
-
-                        <p>
-                            Principal account information
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="card-body">
-
-                    <div class="teacher-card">
-
-                        <div class="teacher-top">
-
-                            <div class="teacher-avatar">
-                                P
-                            </div>
-
-                            <div>
-
-                                <h3>
-                                    Principal
-                                </h3>
-
-                                <div
-                                    class="teacher-role"
-                                >
-                                    School Administrator
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="teacher-detail">
-
-                            <span>
-                                Role
-                            </span>
-
-                            <strong>
-                                Principal
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
+            </div>
 
         </section>
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================= -->
+
+        <section
+            id="profile"
+            class="page-section"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    My Profile
+                </h2>
+
+                <p>
+                    Principal account information.
+                </p>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <div class="profile-header">
+
+                    <div class="profile-avatar">
+                        AT
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Dr. Ajayi Temitope
+                        </h2>
+
+                        <p>
+                            Principal · Lagos State Model College Meiran
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Full Name
+                    </span>
+
+                    <strong>
+                        Dr. Ajayi Temitope
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Position
+                    </span>
+
+                    <strong>
+                        Principal
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Role
+                    </span>
+
+                    <strong>
+                        School Administrator
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        School
+                    </span>
+
+                    <strong>
+                        Lagos State Model College Meiran
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
 
     </main>
 
 
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
-
     <footer>
 
         Lagos State Model College Meiran
-
         <br>
-
         Principal Administration Portal
 
     </footer>
+
 
 </div>
 
@@ -2505,39 +2838,225 @@
         document.getElementById("menuBtn");
 
     const sidebarOverlay =
-        document.getElementById(
-            "sidebarOverlay"
-        );
+        document.getElementById("sidebarOverlay");
 
 
     const classFilter =
-        document.getElementById(
-            "classFilter"
-        );
+        document.getElementById("classFilter");
 
     const attendanceWeek =
-        document.getElementById(
-            "attendanceWeek"
-        );
+        document.getElementById("attendanceWeek");
 
     const loadAttendanceButton =
         document.getElementById(
             "loadAttendanceButton"
         );
 
-    const attendanceTableBody =
-        document.getElementById(
-            "attendanceTableBody"
+
+    /* =====================================================
+       PAGE NAVIGATION
+    ===================================================== */
+
+    const sectionTitles = {
+
+        dashboard: [
+            "Principal Dashboard",
+            "School administration and monitoring"
+        ],
+
+        teachers: [
+            "Teachers",
+            "Teacher information and activity"
+        ],
+
+        students: [
+            "Students",
+            "Student management and information"
+        ],
+
+        attendance: [
+            "Attendance",
+            "Weekly student attendance"
+        ],
+
+        announcements: [
+            "News & Announcements",
+            "School news and information"
+        ],
+
+        activities: [
+            "Teacher Activities",
+            "Teacher activity monitoring"
+        ],
+
+        "login-history": [
+            "Login History",
+            "Teacher sign-in activity"
+        ],
+
+        profile: [
+            "My Profile",
+            "Principal account information"
+        ]
+
+    };
+
+
+    function showSection(sectionId) {
+
+        document
+            .querySelectorAll(".page-section")
+            .forEach(
+                section => {
+
+                    section.classList.remove(
+                        "active-section"
+                    );
+
+                }
+            );
+
+
+        const section =
+            document.getElementById(
+                sectionId
+            );
+
+
+        if (!section) return;
+
+
+        section.classList.add(
+            "active-section"
         );
 
-    const attendanceMessage =
-        document.getElementById(
-            "attendanceMessage"
-        );
 
-    const attendanceTableWrapper =
-        document.getElementById(
-            "attendanceTableWrapper"
+        document
+            .querySelectorAll(".nav-link")
+            .forEach(
+                link => {
+
+                    link.classList.remove(
+                        "active"
+                    );
+
+
+                    if (
+                        link.dataset.section ===
+                        sectionId
+                    ) {
+
+                        link.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+
+        const title =
+            sectionTitles[sectionId];
+
+
+        if (title) {
+
+            document.getElementById(
+                "pageTitle"
+            ).textContent =
+                title[0];
+
+
+            document.getElementById(
+                "pageSubtitle"
+            ).textContent =
+                title[1];
+
+        }
+
+
+        closeSidebar();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+        if (
+            sectionId === "students"
+        ) {
+
+            loadStudentDirectory();
+
+        }
+
+        if (
+            sectionId === "teachers"
+        ) {
+
+            loadTeachers();
+
+        }
+
+        if (
+            sectionId === "attendance"
+        ) {
+
+            loadPrincipalAttendance();
+
+        }
+
+        if (
+            sectionId === "activities"
+        ) {
+
+            loadTeacherActivities();
+
+        }
+
+        if (
+            sectionId === "login-history"
+        ) {
+
+            loadLoginHistory();
+
+        }
+
+        if (
+            sectionId === "announcements"
+        ) {
+
+            loadNews();
+
+        }
+
+    }
+
+
+    document
+        .querySelectorAll(
+            ".nav-link[data-section]"
+        )
+        .forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.preventDefault();
+
+                        showSection(
+                            this.dataset.section
+                        );
+
+                    }
+                );
+
+            }
         );
 
 
@@ -2549,7 +3068,9 @@
 
         sidebar.classList.add("open");
 
-        sidebarOverlay.classList.add("active");
+        sidebarOverlay.classList.add(
+            "active"
+        );
 
     }
 
@@ -2558,7 +3079,9 @@
 
         sidebar.classList.remove("open");
 
-        sidebarOverlay.classList.remove("active");
+        sidebarOverlay.classList.remove(
+            "active"
+        );
 
     }
 
@@ -2581,39 +3104,6 @@
         );
 
     }
-
-
-    document
-        .querySelectorAll(".nav-link")
-        .forEach(
-            link => {
-
-                link.addEventListener(
-                    "click",
-                    function () {
-
-                        document
-                            .querySelectorAll(
-                                ".nav-link"
-                            )
-                            .forEach(
-                                item =>
-                                    item.classList.remove(
-                                        "active"
-                                    )
-                            );
-
-                        this.classList.add(
-                            "active"
-                        );
-
-                        closeSidebar();
-
-                    }
-                );
-
-            }
-        );
 
 
     /* =====================================================
@@ -2698,13 +3188,10 @@
             );
 
         date.setDate(
-            date.getDate() +
-            days
+            date.getDate() + days
         );
 
-        return formatDate(
-            date
-        );
+        return formatDate(date);
 
     }
 
@@ -2776,6 +3263,155 @@
 
 
     /* =====================================================
+       STUDENT DIRECTORY
+    ===================================================== */
+
+    async function loadStudentDirectory() {
+
+        const body =
+            document.getElementById(
+                "studentsBody"
+            );
+
+
+        try {
+
+            const students =
+                await getStudents();
+
+
+            document.getElementById(
+                "studentDirectoryCount"
+            ).textContent =
+                `${students.length} Student${students.length === 1 ? "" : "s"}`;
+
+
+            if (
+                students.length === 0
+            ) {
+
+                body.innerHTML = `
+                    <tr>
+                        <td colspan="4">
+                            No students registered yet.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+
+            const sortedStudents =
+                [...students].sort(
+                    (a, b) => {
+
+                        const nameA =
+                            String(
+                                a.student_name ||
+                                a.full_name ||
+                                ""
+                            );
+
+                        const nameB =
+                            String(
+                                b.student_name ||
+                                b.full_name ||
+                                ""
+                            );
+
+                        return nameA.localeCompare(
+                            nameB
+                        );
+
+                    }
+                );
+
+
+            body.innerHTML =
+                sortedStudents
+                    .map(
+                        student => {
+
+                            const name =
+                                student.student_name ||
+                                student.full_name ||
+                                "Unknown Student";
+
+
+                            const registration =
+                                student.registration_number ||
+                                student.admission_number ||
+                                "—";
+
+
+                            const studentClass =
+                                student.student_class ||
+                                student.class ||
+                                "—";
+
+
+                            const teacher =
+                                student.teacher_name ||
+                                student.class_teacher ||
+                                "—";
+
+
+                            return `
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            ${escapeHTML(name)}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(registration)}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(studentClass)}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(teacher)}
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Student directory error:",
+                error
+            );
+
+
+            body.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        Unable to load students.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+    }
+
+
+    /* =====================================================
        PRINCIPAL ATTENDANCE
     ===================================================== */
 
@@ -2804,14 +3440,26 @@
         }
 
 
-        attendanceMessage.style.display =
+        const message =
+            document.getElementById(
+                "attendanceMessage"
+            );
+
+
+        const wrapper =
+            document.getElementById(
+                "attendanceTableWrapper"
+            );
+
+
+        message.style.display =
             "block";
 
-        attendanceMessage.textContent =
+        message.textContent =
             "Loading attendance...";
 
 
-        attendanceTableWrapper.style.display =
+        wrapper.style.display =
             "none";
 
 
@@ -2827,12 +3475,8 @@
 
                     fetch(
                         `${API_URL}/api/principal/attendance?` +
-                        `studentClass=${encodeURIComponent(
-                            selectedClass
-                        )}` +
-                        `&weekStart=${encodeURIComponent(
-                            weekStart
-                        )}`
+                        `studentClass=${encodeURIComponent(selectedClass)}` +
+                        `&weekStart=${encodeURIComponent(weekStart)}`
                     )
 
                 ]);
@@ -2865,17 +3509,26 @@
 
                 filteredStudents =
                     filteredStudents.filter(
-                        student =>
-                            String(
-                                student.student_class ||
-                                ""
-                            )
-                            .trim()
-                            .toLowerCase()
-                            ===
-                            selectedClass
+                        student => {
+
+                            const studentClass =
+                                String(
+                                    student.student_class ||
+                                    student.class ||
+                                    ""
+                                )
                                 .trim()
-                                .toLowerCase()
+                                .toLowerCase();
+
+
+                            return (
+                                studentClass ===
+                                selectedClass
+                                    .trim()
+                                    .toLowerCase()
+                            );
+
+                        }
                     );
 
             }
@@ -2931,245 +3584,228 @@
             );
 
 
-            filteredStudents.sort(
-                (a, b) => {
-
-                    const nameA =
-                        String(
-                            a.student_name ||
-                            a.full_name ||
-                            ""
-                        );
-
-
-                    const nameB =
-                        String(
-                            b.student_name ||
-                            b.full_name ||
-                            ""
-                        );
-
-
-                    return nameA.localeCompare(
-                        nameB
-                    );
-
-                }
-            );
-
-
-            attendanceTableBody.innerHTML =
-                "";
-
-
             let marked = 0;
-
             let present = 0;
-
             let absent = 0;
-
             let late = 0;
-
             let excused = 0;
 
 
-            filteredStudents.forEach(
-                student => {
-
-                    const studentId =
-                        String(
-                            student.id
-                        );
+            const body =
+                document.getElementById(
+                    "attendanceTableBody"
+                );
 
 
-                    const records =
-                        attendanceMap.get(
-                            studentId
-                        ) || {};
+            body.innerHTML = "";
 
 
-                    const weekRecords =
-                        [];
+            filteredStudents
+                .sort(
+                    (a, b) => {
 
-
-                    for (
-                        let day = 0;
-                        day < 5;
-                        day++
-                    ) {
-
-                        const date =
-                            addDays(
-                                weekStart,
-                                day
+                        const nameA =
+                            String(
+                                a.student_name ||
+                                a.full_name ||
+                                ""
                             );
 
+                        const nameB =
+                            String(
+                                b.student_name ||
+                                b.full_name ||
+                                ""
+                            );
 
-                        const record =
-                            records[date];
-
-
-                        weekRecords.push(
-                            record
+                        return nameA.localeCompare(
+                            nameB
                         );
-
-
-                        if (record) {
-
-                            marked++;
-
-
-                            if (
-                                record.status ===
-                                "Present"
-                            ) {
-
-                                present++;
-
-                            }
-
-                            else if (
-                                record.status ===
-                                "Absent"
-                            ) {
-
-                                absent++;
-
-                            }
-
-                            else if (
-                                record.status ===
-                                "Late"
-                            ) {
-
-                                late++;
-
-                            }
-
-                            else if (
-                                record.status ===
-                                "Excused"
-                            ) {
-
-                                excused++;
-
-                            }
-
-                        }
 
                     }
+                )
+                .forEach(
+                    student => {
 
-
-                    let teacherName =
-                        student.teacher_name ||
-                        student.class_teacher ||
-                        "";
-
-
-                    if (!teacherName) {
-
-                        const teacherRecord =
-                            weekRecords.find(
-                                record =>
-                                    record &&
-                                    record.teacher_name
+                        const studentId =
+                            String(
+                                student.id
                             );
 
 
-                        if (
-                            teacherRecord
+                        const records =
+                            attendanceMap.get(
+                                studentId
+                            ) || {};
+
+
+                        const weekRecords =
+                            [];
+
+
+                        for (
+                            let day = 0;
+                            day < 5;
+                            day++
                         ) {
 
-                            teacherName =
-                                teacherRecord.teacher_name;
+                            const date =
+                                addDays(
+                                    weekStart,
+                                    day
+                                );
+
+
+                            const record =
+                                records[date];
+
+
+                            weekRecords.push(
+                                record
+                            );
+
+
+                            if (record) {
+
+                                marked++;
+
+
+                                if (
+                                    record.status ===
+                                    "Present"
+                                ) {
+
+                                    present++;
+
+                                }
+
+                                else if (
+                                    record.status ===
+                                    "Absent"
+                                ) {
+
+                                    absent++;
+
+                                }
+
+                                else if (
+                                    record.status ===
+                                    "Late"
+                                ) {
+
+                                    late++;
+
+                                }
+
+                                else if (
+                                    record.status ===
+                                    "Excused"
+                                ) {
+
+                                    excused++;
+
+                                }
+
+                            }
 
                         }
 
-                    }
+
+                        let teacherName =
+                            student.teacher_name ||
+                            student.class_teacher ||
+                            "";
 
 
-                    if (!teacherName) {
+                        if (!teacherName) {
 
-                        teacherName =
+                            const record =
+                                weekRecords.find(
+                                    item =>
+                                        item &&
+                                        item.teacher_name
+                                );
+
+
+                            if (record) {
+
+                                teacherName =
+                                    record.teacher_name;
+
+                            }
+
+                        }
+
+
+                        if (!teacherName) {
+
+                            teacherName =
+                                "—";
+
+                        }
+
+
+                        const name =
+                            student.student_name ||
+                            student.full_name ||
+                            "Unknown Student";
+
+
+                        const registration =
+                            student.registration_number ||
+                            student.admission_number ||
                             "—";
 
+
+                        const studentClass =
+                            student.student_class ||
+                            student.class ||
+                            "—";
+
+
+                        const row =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        row.innerHTML = `
+
+                            <td>
+                                <strong>
+                                    ${escapeHTML(name)}
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${escapeHTML(registration)}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(studentClass)}
+                            </td>
+
+                            <td>
+                                ${escapeHTML(teacherName)}
+                            </td>
+
+                            ${weekRecords
+                                .map(
+                                    record => `
+                                        <td>
+                                            ${statusHTML(record)}
+                                        </td>
+                                    `
+                                )
+                                .join("")}
+
+                        `;
+
+
+                        body.appendChild(row);
+
                     }
-
-
-                    const studentName =
-                        student.student_name ||
-                        student.full_name ||
-                        "Unknown Student";
-
-
-                    const registrationNumber =
-                        student.registration_number ||
-                        student.admission_number ||
-                        "—";
-
-
-                    const studentClass =
-                        student.student_class ||
-                        student.class ||
-                        "—";
-
-
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    row.innerHTML = `
-
-                        <td>
-                            <strong>
-                                ${escapeHTML(
-                                    studentName
-                                )}
-                            </strong>
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                registrationNumber
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                studentClass
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHTML(
-                                teacherName
-                            )}
-                        </td>
-
-                        ${weekRecords
-                            .map(
-                                record =>
-                                    `
-                                    <td>
-                                        ${statusHTML(
-                                            record
-                                        )}
-                                    </td>
-                                    `
-                            )
-                            .join("")}
-
-                    `;
-
-
-                    attendanceTableBody.appendChild(
-                        row
-                    );
-
-                }
-            );
+                );
 
 
             document.getElementById(
@@ -3205,7 +3841,7 @@
             document.getElementById(
                 "totalStudents"
             ).textContent =
-                filteredStudents.length;
+                students.length;
 
 
             document.getElementById(
@@ -3226,27 +3862,14 @@
                 late;
 
 
-            document.getElementById(
-                "totalExcused"
-            ).textContent =
-                excused;
-
-
-            updateStudentsOverview(
-                filteredStudents,
-                attendanceMap,
-                weekStart
-            );
-
-
             if (
                 filteredStudents.length === 0
             ) {
 
-                attendanceMessage.style.display =
+                message.style.display =
                     "block";
 
-                attendanceMessage.textContent =
+                message.textContent =
                     "No students found for this class.";
 
                 return;
@@ -3254,10 +3877,10 @@
             }
 
 
-            attendanceMessage.style.display =
+            message.style.display =
                 "none";
 
-            attendanceTableWrapper.style.display =
+            wrapper.style.display =
                 "block";
 
         }
@@ -3270,13 +3893,13 @@
             );
 
 
-            attendanceMessage.style.display =
+            message.style.display =
                 "block";
 
-            attendanceMessage.textContent =
+            message.textContent =
                 "Unable to load attendance. Please try again.";
 
-            attendanceTableWrapper.style.display =
+            wrapper.style.display =
                 "none";
 
         }
@@ -3285,178 +3908,7 @@
 
 
     /* =====================================================
-       STUDENT OVERVIEW
-    ===================================================== */
-
-    function updateStudentsOverview(
-        students,
-        attendanceMap,
-        weekStart
-    ) {
-
-        const body =
-            document.getElementById(
-                "studentsOverviewBody"
-            );
-
-
-        if (
-            !students ||
-            students.length === 0
-        ) {
-
-            body.innerHTML = `
-                <tr>
-                    <td colspan="9">
-                        No students found.
-                    </td>
-                </tr>
-            `;
-
-            return;
-
-        }
-
-
-        body.innerHTML =
-            students
-                .map(
-                    student => {
-
-                        const studentId =
-                            String(
-                                student.id
-                            );
-
-
-                        const records =
-                            attendanceMap.get(
-                                studentId
-                            ) || {};
-
-
-                        const weekRecords =
-                            [];
-
-
-                        for (
-                            let day = 0;
-                            day < 5;
-                            day++
-                        ) {
-
-                            const date =
-                                addDays(
-                                    weekStart,
-                                    day
-                                );
-
-
-                            weekRecords.push(
-                                records[date]
-                            );
-
-                        }
-
-
-                        const name =
-                            student.student_name ||
-                            student.full_name ||
-                            "Unknown Student";
-
-
-                        const registration =
-                            student.registration_number ||
-                            student.admission_number ||
-                            "—";
-
-
-                        const studentClass =
-                            student.student_class ||
-                            student.class ||
-                            "—";
-
-
-                        let teacher =
-                            student.teacher_name ||
-                            student.class_teacher ||
-                            "";
-
-
-                        if (!teacher) {
-
-                            const record =
-                                weekRecords.find(
-                                    item =>
-                                        item &&
-                                        item.teacher_name
-                                );
-
-
-                            teacher =
-                                record
-                                    ? record.teacher_name
-                                    : "—";
-
-                        }
-
-
-                        return `
-
-                            <tr>
-
-                                <td>
-                                    <strong>
-                                        ${escapeHTML(
-                                            name
-                                        )}
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    ${escapeHTML(
-                                        registration
-                                    )}
-                                </td>
-
-                                <td>
-                                    ${escapeHTML(
-                                        studentClass
-                                    )}
-                                </td>
-
-                                <td>
-                                    ${escapeHTML(
-                                        teacher || "—"
-                                    )}
-                                </td>
-
-                                ${weekRecords
-                                    .map(
-                                        record =>
-                                            `
-                                            <td>
-                                                ${statusHTML(
-                                                    record
-                                                )}
-                                            </td>
-                                            `
-                                    )
-                                    .join("")}
-
-                            </tr>
-
-                        `;
-
-                    }
-                )
-                .join("");
-
-    }
-
-
-    /* =====================================================
-       STATUS HTML
+       STATUS
     ===================================================== */
 
     function statusHTML(record) {
@@ -3464,10 +3916,7 @@
         if (!record) {
 
             return `
-                <span class="
-                    status
-                    status-not-marked
-                ">
+                <span class="status status-not-marked">
                     Not marked
                 </span>
             `;
@@ -3523,14 +3972,8 @@
 
 
         return `
-            <span class="
-                status
-                ${className}
-            ">
-                ${escapeHTML(
-                    status ||
-                    "Not marked"
-                )}
+            <span class="status ${className}">
+                ${escapeHTML(status || "Not marked")}
             </span>
         `;
 
@@ -3596,7 +4039,7 @@
 
             body.innerHTML =
                 activities
-                    .slice(0, 50)
+                    .slice(0, 100)
                     .map(
                         activity => {
 
@@ -3622,43 +4065,31 @@
                                 "—";
 
 
-                            const date =
-                                formatDateTime(
-                                    activity.created_at
-                                );
-
-
                             return `
 
                                 <tr>
 
                                     <td>
-                                        ${escapeHTML(
-                                            teacher
-                                        )}
+                                        ${escapeHTML(teacher)}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(activityType)}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(student)}
+                                    </td>
+
+                                    <td>
+                                        ${escapeHTML(studentClass)}
                                     </td>
 
                                     <td>
                                         ${escapeHTML(
-                                            activityType
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            student
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            studentClass
-                                        )}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHTML(
-                                            date
+                                            formatDateTime(
+                                                activity.created_at
+                                            )
                                         )}
                                     </td>
 
@@ -3752,7 +4183,7 @@
 
             body.innerHTML =
                 history
-                    .slice(0, 50)
+                    .slice(0, 100)
                     .map(
                         login => `
 
@@ -3819,7 +4250,7 @@
 
 
     /* =====================================================
-       TEACHER OVERVIEW
+       TEACHERS
     ===================================================== */
 
     async function loadTeachers() {
@@ -3864,7 +4295,8 @@
             (
                 activityData.activities ||
                 []
-            ).forEach(
+            )
+            .forEach(
                 activity => {
 
                     const name =
@@ -3900,7 +4332,8 @@
             (
                 loginData.history ||
                 []
-            ).forEach(
+            )
+            .forEach(
                 login => {
 
                     const name =
@@ -3916,9 +4349,7 @@
 
 
                     const existing =
-                        teachers.get(
-                            key
-                        ) ||
+                        teachers.get(key) ||
                         {
                             name: name,
 
@@ -3973,9 +4404,19 @@
                     </div>
                 `;
 
+                document.getElementById(
+                    "totalTeachers"
+                ).textContent = "0";
+
                 return;
 
             }
+
+
+            document.getElementById(
+                "totalTeachers"
+            ).textContent =
+                teachers.size;
 
 
             container.innerHTML =
@@ -4004,9 +4445,7 @@
                                 <div class="teacher-top">
 
                                     <div class="teacher-avatar">
-                                        ${escapeHTML(
-                                            initials
-                                        )}
+                                        ${escapeHTML(initials)}
                                     </div>
 
                                     <div>
@@ -4041,12 +4480,7 @@
                                 </div>
 
 
-                                <div
-                                    class="teacher-detail"
-                                    style="
-                                        margin-top:8px;
-                                    "
-                                >
+                                <div class="teacher-detail">
 
                                     <span>
                                         Last Login
@@ -4080,6 +4514,11 @@
             );
 
 
+            document.getElementById(
+                "totalTeachers"
+            ).textContent = "0";
+
+
             container.innerHTML = `
                 <div class="message">
                     Unable to load teacher information.
@@ -4092,7 +4531,7 @@
 
 
     /* =====================================================
-       NEWS & ANNOUNCEMENTS
+       NEWS
     ===================================================== */
 
     async function loadNews() {
@@ -4149,13 +4588,11 @@
 
             container.innerHTML =
                 announcements
-                    .slice(0, 10)
+                    .slice(0, 20)
                     .map(
                         announcement => `
 
-                            <div
-                                class="announcement-item"
-                            >
+                            <div class="announcement">
 
                                 <h3>
                                     ${escapeHTML(
@@ -4169,9 +4606,7 @@
                                     )}
                                 </p>
 
-                                <span
-                                    class="announcement-date"
-                                >
+                                <span class="announcement-date">
                                     ${escapeHTML(
                                         formatDateTime(
                                             announcement.created_at
@@ -4207,7 +4642,7 @@
 
 
     /* =====================================================
-       FORMAT DATE
+       DATE FORMAT
     ===================================================== */
 
     function formatDateTime(value) {
@@ -4322,6 +4757,7 @@
             "staffUser"
         );
 
+        sessionStorage.clear();
 
         window.location.href =
             "admin-login.html";
@@ -4352,18 +4788,43 @@
 
 
     /* =====================================================
-       INITIAL LOAD
+       INITIAL DASHBOARD LOAD
     ===================================================== */
 
-    loadPrincipalAttendance();
+    async function initializeDashboard() {
 
-    loadTeacherActivities();
+        try {
 
-    loadLoginHistory();
+            const students =
+                await getStudents();
 
-    loadTeachers();
 
-    loadNews();
+            document.getElementById(
+                "totalStudents"
+            ).textContent =
+                students.length;
+
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Initial student loading error:",
+                error
+            );
+
+        }
+
+
+        loadTeachers();
+
+        loadPrincipalAttendance();
+
+    }
+
+
+    initializeDashboard();
 
 </script>
 

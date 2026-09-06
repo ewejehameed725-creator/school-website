@@ -213,12 +213,12 @@ if (adminLoginForm) {
 
                     localStorage.setItem(
                         "teacherName",
-                        data.user.name
+                        data.user.full_name
                     );
 
                     localStorage.setItem(
                         "teacherClass",
-                        data.user.class
+                        data.user.assigned_class
                     );
 
                     window.location.href =

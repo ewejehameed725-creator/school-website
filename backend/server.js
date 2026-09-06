@@ -1620,6 +1620,17 @@ app.post(
 
 
                 savedCount++;
+                                // Record teacher activity
+                await logTeacherActivity({
+                    teacherId: teacherId,
+                    teacherName: teacherName,
+                    teacherClass: studentClass,
+                    activityType: "Attendance",
+                    description:
+                        `Marked ${status} attendance for ${studentName} on ${attendanceDate}.`,
+                    studentName: studentName,
+                    studentAdmissionNumber: registrationNumber
+                });
 
             }
 

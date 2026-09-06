@@ -201,47 +201,59 @@ if (adminLoginForm) {
 
                     return;
                 }
-
-
                 // =================================
-                // CLASS TEACHER
-                // =================================
+// CLASS TEACHER
+// =================================
 
-                if (
-                    data.user.role === "teacher"
-                ) {
+if (data.user.role === "teacher") {
 
-                    localStorage.setItem(
-                        "teacherName",
-                        data.user.full_name
-                    );
+    // Get teacher information directly
+    // from the backend login response
+    const teacherName =
+        data.user.fullName || "";
 
-                    localStorage.setItem(
-                        "teacherClass",
-                        data.user.assigned_class
-                    );
+    const teacherClass =
+        data.user.assignedClass || "";
 
-                    window.location.href =
-                        "teacher-dashboard.html";
+    const teacherId =
+        data.user.id || "";
 
-                    return;
-                }
+    // Save teacher information
+    // so the dashboard can read it
+    localStorage.setItem(
+        "teacherName",
+        teacherName
+    );
 
+    localStorage.setItem(
+        "teacherClass",
+        teacherClass
+    );
 
-                alert(
-                    "Your account role is not recognized."
-                );
+    localStorage.setItem(
+        "teacherId",
+        teacherId
+    );
 
-            } catch (error) {
+    // Also save a clean staffUser object
+    localStorage.setItem(
+        "staffUser",
+        JSON.stringify({
+            id: teacherId,
+            name: teacherName,
+            username: data.user.username,
+            role: data.user.role,
+            class: teacherClass,
+            phone: data.user.phone || ""
+        })
+    );
 
-                console.error(
-                    "Staff login error:",
-                    error
-                );
+    // Open teacher dashboard
+    window.location.href =
+        "teacher-dashboard.html";
 
-                alert(
-                    "Unable to connect to the school server."
-                );
+    return;
+}
 
             } finally {
 

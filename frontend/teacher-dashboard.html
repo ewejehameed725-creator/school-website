@@ -454,192 +454,317 @@
                 </button>
 
             </div>
+            <!-- ========================= -->
+<!-- ADD STUDENT FORM -->
+<!-- ========================= -->
 
+<div
+id="studentFormContainer"
+class="student-form-container"
+style="display:none;"
+>
 
-            <!-- ADD STUDENT FORM -->
+<div class="student-form-header">
 
-            <div
-                id="studentFormContainer"
-                style="display:none;"
-            >
+    <div>
 
-                <form id="studentForm">
+        <p class="section-label">
+            STUDENT REGISTRATION
+        </p>
 
-                    <input
-                        type="hidden"
-                        id="studentId"
-                    >
+        <h2>
+            Add Student
+        </h2>
 
+        <p>
+            Enter the student's information below.
+        </p>
 
-                    <div class="form-group">
+    </div>
 
-                        <label for="studentName">
-                            Student Name
-                        </label>
+</div>
 
-                        <input
-                            type="text"
-                            id="studentName"
-                            required
-                        >
 
-                    </div>
+<form id="studentForm">
 
+    <input
+        type="hidden"
+        id="studentId"
+    >
 
-                    <div class="form-group">
 
-                        <label for="registrationNumber">
-                            Registration Number
-                        </label>
+    <!-- STUDENT INFORMATION -->
 
-                        <input
-                            type="text"
-                            id="registrationNumber"
-                            required
-                        >
+    <div class="student-form-section">
 
-                    </div>
+        <div class="student-form-section-title">
 
+            <span>
+                👨‍🎓
+            </span>
 
-                    <div class="form-group">
+            <div>
 
-                        <label for="serialNumber">
-                            Serial Number
-                        </label>
+                <h3>
+                    Student Information
+                </h3>
 
-                        <input
-                            type="number"
-                            id="serialNumber"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="studentSex">
-                            Sex
-                        </label>
-
-                        <select id="studentSex">
-
-                            <option value="">
-                                Select Sex
-                            </option>
-
-                            <option value="Male">
-                                Male
-                            </option>
-
-                            <option value="Female">
-                                Female
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="studentDob">
-                            Date of Birth
-                        </label>
-
-                        <input
-                            type="date"
-                            id="studentDob"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="studentAddress">
-                            Home Address
-                        </label>
-
-                        <textarea
-                            id="studentAddress"
-                            rows="3"
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="guardianName">
-                            Parent / Guardian Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="guardianName"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="parentPhone">
-                            Parent / Guardian Phone
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="parentPhone"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Class
-                        </label>
-
-                        <input
-                            type="text"
-                            id="studentClass"
-                            readonly
-                        >
-
-                    </div>
-
-
-                    <div style="display:flex; gap:10px;">
-
-                        <button
-                            type="submit"
-                            class="btn"
-                            id="saveStudentButton"
-                        >
-
-                            Save Student
-
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="btn"
-                            id="cancelStudentButton"
-                        >
-
-                            Cancel
-
-                        </button>
-
-                    </div>
-
-                </form>
+                <p>
+                    Basic information about the student
+                </p>
 
             </div>
 
+        </div>
+
+
+        <div class="student-form-grid">
+
+
+            <!-- STUDENT NAME -->
+
+            <div class="student-form-group">
+
+                <label for="studentName">
+                    Student Name
+                    <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student's full name"
+                    autocomplete="name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- REGISTRATION NUMBER -->
+
+            <div class="student-form-group">
+
+                <label for="registrationNumber">
+                    Registration Number
+                    <span>*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="registrationNumber"
+                    placeholder="Enter registration number"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SERIAL NUMBER -->
+
+            <div class="student-form-group">
+
+                <label for="serialNumber">
+                    Serial Number
+                </label>
+
+                <input
+                    type="number"
+                    id="serialNumber"
+                    placeholder="Enter serial number"
+                    min="1"
+                >
+
+            </div>
+
+
+            <!-- SEX -->
+
+            <div class="student-form-group">
+
+                <label for="studentSex">
+                    Sex
+                </label>
+
+                <select id="studentSex">
+
+                    <option value="">
+                        Select Sex
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DATE OF BIRTH -->
+
+            <div class="student-form-group">
+
+                <label for="studentDob">
+                    Date of Birth
+                </label>
+
+                <input
+                    type="date"
+                    id="studentDob"
+                >
+
+            </div>
+
+
+            <!-- CLASS -->
+
+            <div class="student-form-group">
+
+                <label for="studentClass">
+                    Assigned Class
+                </label>
+
+                <input
+                    type="text"
+                    id="studentClass"
+                    readonly
+                >
+
+                <small>
+                    Automatically assigned to your class.
+                </small>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTACT INFORMATION -->
+
+    <div class="student-form-section">
+
+        <div class="student-form-section-title">
+
+            <span>
+                🏠
+            </span>
+
+            <div>
+
+                <h3>
+                    Contact Information
+                </h3>
+
+                <p>
+                    Student's home and guardian information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="student-form-grid">
+
+
+            <!-- HOME ADDRESS -->
+
+            <div
+                class="student-form-group student-form-full"
+            >
+
+                <label for="studentAddress">
+                    Home Address
+                </label>
+
+                <textarea
+                    id="studentAddress"
+                    rows="3"
+                    placeholder="Enter student's home address"
+                ></textarea>
+
+            </div>
+
+
+            <!-- GUARDIAN NAME -->
+
+            <div class="student-form-group">
+
+                <label for="guardianName">
+                    Parent / Guardian Name
+                </label>
+
+                <input
+                    type="text"
+                    id="guardianName"
+                    placeholder="Enter parent or guardian name"
+                >
+
+            </div>
+
+
+            <!-- GUARDIAN PHONE -->
+
+            <div class="student-form-group">
+
+                <label for="parentPhone">
+                    Parent / Guardian Phone
+                </label>
+
+                <input
+                    type="tel"
+                    id="parentPhone"
+                    placeholder="Enter phone number"
+                >
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- FORM ACTIONS -->
+
+    <div class="student-form-actions">
+
+        <button
+            type="submit"
+            class="btn student-save-button"
+            id="saveStudentButton"
+        >
+
+            💾
+            Save Student
+
+        </button>
+
+
+        <button
+            type="button"
+            class="student-cancel-button"
+            id="cancelStudentButton"
+        >
+
+            Cancel
+
+        </button>
+
+    </div>
+
+</form>
+
+</div>
+            
 
             <!-- STUDENT TABLE -->
 

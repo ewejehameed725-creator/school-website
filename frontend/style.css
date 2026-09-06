@@ -2056,3 +2056,208 @@ footer{
     }
 
 }
+/* =========================================
+   STUDENT FORM
+========================================= */
+
+.student-form-container {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    margin: 24px 0;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.student-form-header {
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.student-form-header h2 {
+    margin: 4px 0 6px;
+    font-size: 24px;
+}
+
+.student-form-header p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.student-form-section {
+    background: #f8faf9;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.student-form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.student-form-section-title > span {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8f5e9;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.student-form-section-title h3 {
+    margin: 0 0 3px;
+    font-size: 17px;
+}
+
+.student-form-section-title p {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.student-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.student-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.student-form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.student-form-group label span {
+    color: #dc2626;
+    margin-left: 2px;
+}
+
+.student-form-group input,
+.student-form-group select,
+.student-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    padding: 12px 13px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #ffffff;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.student-form-group input,
+.student-form-group select {
+    height: 46px;
+}
+
+.student-form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.student-form-group input:focus,
+.student-form-group select:focus,
+.student-form-group textarea:focus {
+    border-color: #15803d;
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.10);
+}
+
+.student-form-group input[readonly] {
+    background: #f1f5f3;
+    cursor: not-allowed;
+}
+
+.student-form-group small {
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.student-form-full {
+    grid-column: 1 / -1;
+}
+
+.student-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.student-save-button {
+    min-width: 150px;
+}
+
+.student-cancel-button {
+    min-width: 100px;
+    padding: 12px 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #374151;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.student-cancel-button:hover {
+    background: #f3f4f6;
+}
+
+
+/* =========================================
+   MOBILE STUDENT FORM
+========================================= */
+
+@media (max-width: 768px) {
+
+    .student-form-container {
+        padding: 18px;
+        border-radius: 12px;
+        margin: 18px 0;
+    }
+
+    .student-form-section {
+        padding: 16px;
+    }
+
+    .student-form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .student-form-full {
+        grid-column: auto;
+    }
+
+    .student-form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .student-save-button,
+    .student-cancel-button {
+        width: 100%;
+    }
+
+}

@@ -1937,7 +1937,7 @@ async function logTeacherActivity(data) {
 }
 
 // =====================================================
-// TEACHER LOGIN HISTORY
+// GET TEACHER LOGIN HISTORY
 // =====================================================
 
 app.get(
@@ -1946,9 +1946,8 @@ app.get(
 
         try {
 
-            // Make sure the table exists
+            // Make sure the table exists before querying it
             await ensureLoginHistoryTable();
-
 
             const result = await pool.query(`
                 SELECT
@@ -1965,42 +1964,25 @@ app.get(
                 LIMIT 200
             `);
 
-
             res.json({
-
                 success: true,
-
                 history: result.rows
-
             });
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(
-                "Teacher login history error:",
-                error
+                "Get teacher login history error:",
+                error.message
             );
 
-
             res.status(500).json({
-
                 success: false,
-
-                message:
-                    "Unable to load teacher login history.",
-
-                error:
-                    error.message
-
+                message: "Unable to load teacher login history."
             });
-
         }
-
     }
 );
-
 // =====================================================
 // GET TEACHER ACTIVITIES
 // =====================================================

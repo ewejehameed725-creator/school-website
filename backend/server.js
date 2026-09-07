@@ -266,6 +266,57 @@ function verifyPassword(
 // =====================================================
 // STAFF / TEACHERS
 // =====================================================
+// =====================================================
+// GET REGISTERED TEACHERS
+// =====================================================
+
+app.get(
+    "/api/teachers",
+    async function (req, res) {
+        try {
+
+            const result =
+                await pool.query(
+                    `
+                    SELECT
+                        id,
+                        full_name,
+                        username,
+                        assigned_class,
+                        phone,
+                        role,
+                        created_at
+                    FROM staff
+                    WHERE role = 'teacher'
+                    ORDER BY
+                        full_name ASC
+                    `
+                );
+
+
+            res.json({
+                success: true,
+                teachers: result.rows
+            });
+
+        }
+        catch (error) {
+
+            console.error(
+                "Get teachers error:",
+                error.message
+            );
+
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "Unable to load registered teachers."
+            });
+
+        }
+    }
+);
 
 
 // =====================================================

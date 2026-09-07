@@ -2846,528 +2846,891 @@
             );
 
 
-        /* ==============================
-           ATTENDANCE
-        ============================== */
+/* ==============================
+   ATTENDANCE
+============================== */
 
-        let attendanceData = [];
+let attendanceData = [];
 
 
-        function getMonday(date) {
+/* ==============================
+   GET MONDAY
+============================== */
 
-            const d =
-                new Date(date);
+function getMonday(date) {
 
-            const day =
-                d.getDay();
+    const d = new Date(date);
 
-            const difference =
-                day === 0
-                    ? -6
-                    : 1 - day;
+    const day = d.getDay();
 
-            d.setDate(
-                d.getDate() +
-                difference
-            );
+    const difference =
+        day === 0
+            ? -6
+            : 1 - day;
 
-            return d;
+    d.setDate(
+        d.getDate() + difference
+    );
+
+    d.setHours(0, 0, 0, 0);
+
+    return d;
+}
+
+
+/* ==============================
+   FORMAT DATE
+============================== */
+
+function formatDateInput(date) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* ==============================
+   NORMALIZE ATTENDANCE DATE
+============================== */
+
+function normalizeAttendanceDate(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    const text =
+        String(value);
+
+    /*
+       PostgreSQL DATE normally comes as:
+
+       YYYY-MM-DD
+
+       But this also safely handles
+       timestamps such as:
+
+       YYYY-MM-DDTHH:mm:ss...
+    */
+
+    if (
+        /^\d{4}-\d{2}-\d{2}/.test(text)
+    ) {
+
+        return text.substring(
+            0,
+            10
+        );
+
+    }
+
+    const date =
+        new Date(value);
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+
+    }
+
+    return formatDateInput(date);
+}
+
+
+/* ==============================
+   ATTENDANCE WEEK INPUT
+============================== */
+
+const attendanceWeek =
+    document.getElementById(
+        "attendanceWeek"
+    );
+
+
+attendanceWeek.value =
+    formatDateInput(
+        getMonday(
+            new Date()
+        )
+    );
+
+
+/* ==============================
+   LOAD ATTENDANCE
+============================== */
+
+async function loadAttendance() {
+
+    const tbody =
+        document.getElementById(
+            "attendanceTableBody"
+        );
+
+    try {
+
+        const weekStart =
+            attendanceWeek.value;
+
+
+        const classFilter =
+            document.getElementById(
+                "attendanceClassFilter"
+            ).value;
+
+
+        if (!weekStart) {
+
+            return;
 
         }
 
 
-        function formatDateInput(date) {
+        const params =
+            new URLSearchParams();
 
-            const year =
-                date.getFullYear();
 
-            const month =
-                String(
-                    date.getMonth() + 1
-                ).padStart(2, "0");
-
-            const day =
-                String(
-                    date.getDate()
-                ).padStart(2, "0");
-
-            return `${year}-${month}-${day}`;
-
-        }
-
-
-        const attendanceWeek =
-            document.getElementById(
-                "attendanceWeek"
-            );
-
-
-        attendanceWeek.value =
-            formatDateInput(
-                getMonday(new Date())
-            );
-
-
-        async function loadAttendance() {
-
-            try {
-
-                const weekStart =
-                    attendanceWeek.value;
-
-
-                const classFilter =
-                    document.getElementById(
-                        "attendanceClassFilter"
-                    ).value;
-
-
-                const params =
-                    new URLSearchParams();
-
-                params.set(
-                    "weekStart",
-                    weekStart
-                );
-
-
-                if (
-                    classFilter &&
-                    classFilter !== "ALL"
-                ) {
-
-                    params.set(
-                        "studentClass",
-                        classFilter
-                    );
-
-                }
-
-
-                const response =
-                    await fetch(
-                        `${API_URL}/api/principal/attendance?${params.toString()}`
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        data.message ||
-                        "Unable to load attendance."
-                    );
-
-                }
-
-
-                attendanceData =
-                    data.attendance ||
-                    [];
-
-
-                populateAttendanceClasses();
-
-                renderAttendance();
-
-            }
-            catch (error) {
-
-                console.error(
-                    "Attendance error:",
-                    error
-                );
-
-
-                document.getElementById(
-                    "attendanceTableBody"
-                ).innerHTML = `
-
-                    <tr>
-
-                        <td
-                            colspan="8"
-                            style="text-align:center;"
-                        >
-                            Unable to load attendance.
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-            }
-
-        }
-
-
-        function populateAttendanceClasses() {
-
-            const select =
-                document.getElementById(
-                    "attendanceClassFilter"
-                );
-
-
-            const currentValue =
-                select.value;
-
-
-            const classes =
-                [
-                    ...new Set(
-                        attendanceData
-                            .map(
-                                item =>
-                                    item.student_class ||
-                                    item.studentClass ||
-                                    ""
-                            )
-                            .filter(Boolean)
-                    )
-                ]
-                .sort();
-
-
-            select.innerHTML =
-                `<option value="ALL">
-                    All Classes
-                </option>`;
-
-
-            classes.forEach(
-                function(className) {
-
-                    const option =
-                        document.createElement(
-                            "option"
-                        );
-
-                    option.value =
-                        className;
-
-                    option.textContent =
-                        className;
-
-                    select.appendChild(
-                        option
-                    );
-
-                }
-            );
-
-
-            if (
-                classes.includes(currentValue)
-            ) {
-
-                select.value =
-                    currentValue;
-
-            }
-
-        }
-
-
-        function renderAttendance() {
-
-            const tbody =
-                document.getElementById(
-                    "attendanceTableBody"
-                );
-
-
-            const selectedClass =
-                document.getElementById(
-                    "attendanceClassFilter"
-                ).value;
-
-
-            const filtered =
-                attendanceData.filter(
-                    function(item) {
-
-                        const itemClass =
-                            item.student_class ||
-                            item.studentClass ||
-                            "";
-
-
-                        return (
-                            selectedClass === "ALL" ||
-                            itemClass === selectedClass
-                        );
-
-                    }
-                );
-
-
-            let present = 0;
-            let absent = 0;
-            let late = 0;
-
-
-            filtered.forEach(
-                function(item) {
-
-                    const status =
-                        String(
-                            item.status ||
-                            ""
-                        ).toLowerCase();
-
-
-                    if (
-                        status === "present"
-                    ) present++;
-
-                    if (
-                        status === "absent"
-                    ) absent++;
-
-                    if (
-                        status === "late"
-                    ) late++;
-
-                }
-            );
-
-
-            document.getElementById(
-                "attendancePresent"
-            ).textContent =
-                present;
-
-
-            document.getElementById(
-                "attendanceAbsent"
-            ).textContent =
-                absent;
-
-
-            document.getElementById(
-                "attendanceLate"
-            ).textContent =
-                late;
-
-
-            document.getElementById(
-                "totalPresent"
-            ).textContent =
-                present;
-
-
-            document.getElementById(
-                "totalAbsent"
-            ).textContent =
-                absent;
-
-
-            document.getElementById(
-                "totalLate"
-            ).textContent =
-                late;
-
-
-            if (!filtered.length) {
-
-                tbody.innerHTML = `
-
-                    <tr>
-
-                        <td
-                            colspan="8"
-                            style="text-align:center;"
-                        >
-                            No attendance records found
-                            for this week.
-
-                        </td>
-
-                    </tr>
-
-                `;
-
-                return;
-
-            }
-
-
-            const students = {};
-
-
-            filtered.forEach(
-                function(item) {
-
-                    const id =
-                        item.student_id ||
-                        item.registration_number ||
-                        item.student_name;
-
-
-                    if (!students[id]) {
-
-                        students[id] = {
-                            name:
-                                item.student_name ||
-                                "Unknown",
-
-                            registration:
-                                item.registration_number ||
-                                "—",
-
-                            className:
-                                item.student_class ||
-                                "—",
-
-                            days: {}
-
-                        };
-
-                    }
-
-
-                    students[id].days[
-                        item.attendance_date
-                    ] =
-                        item.status;
-
-                }
-            );
-
-
-            const weekStart =
-                new Date(
-                    attendanceWeek.value +
-                    "T00:00:00"
-                );
-
-
-            const days = [];
-
-
-            for (
-                let i = 0;
-                i < 5;
-                i++
-            ) {
-
-                const date =
-                    new Date(weekStart);
-
-                date.setDate(
-                    date.getDate() + i
-                );
-
-                days.push(
-                    formatDateInput(date)
-                );
-
-            }
-
-
-            tbody.innerHTML =
-                Object.values(students)
-                    .map(
-                        function(student) {
-
-                            return `
-
-                                <tr>
-
-                                    <td>
-                                        <strong>
-                                            ${escapeHtml(student.name)}
-                                        </strong>
-                                    </td>
-
-                                    <td>
-                                        ${escapeHtml(student.registration)}
-                                    </td>
-
-                                    <td>
-                                        ${escapeHtml(student.className)}
-                                    </td>
-
-                                    ${days.map(
-                                        function(day) {
-
-                                            return `
-                                                <td>
-                                                    ${attendanceStatus(
-                                                        student.days[day]
-                                                    )}
-                                                </td>
-                                            `;
-
-                                        }
-                                    ).join("")}
-
-                                </tr>
-
-                            `;
-
-                        }
-                    ).join("");
-
-        }
-
-
-        function attendanceStatus(status) {
-
-            if (!status) {
-                return "—";
-            }
-
-
-            const clean =
-                String(status)
-                    .toLowerCase();
-
-
-            let className =
-                "present";
-
-
-            if (clean === "absent") {
-                className = "absent";
-            }
-
-            if (clean === "late") {
-                className = "late";
-            }
-
-
-            return `
-
-                <span class="status ${className}">
-                    ${escapeHtml(status)}
-                </span>
-
-            `;
-
-        }
-
-
-        attendanceWeek.addEventListener(
-            "change",
-            loadAttendance
+        params.set(
+            "weekStart",
+            weekStart
         );
 
 
-        document
-            .getElementById(
-                "attendanceClassFilter"
-            )
-            .addEventListener(
-                "change",
-                renderAttendance
+        if (
+            classFilter &&
+            classFilter !== "ALL"
+        ) {
+
+            params.set(
+                "studentClass",
+                classFilter
             );
 
+        }
+
+
+        const response =
+            await fetch(
+                `${API_URL}/api/principal/attendance?${params.toString()}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load attendance."
+            );
+
+        }
+
+
+        attendanceData =
+            Array.isArray(
+                data.attendance
+            )
+                ? data.attendance
+                : [];
+
+
+        console.log(
+            "Principal attendance:",
+            attendanceData
+        );
+
+
+        populateAttendanceClasses();
+
+        renderAttendance();
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Attendance error:",
+            error
+        );
+
+
+        document.getElementById(
+            "attendancePresent"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "attendanceAbsent"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "attendanceLate"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "totalPresent"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "totalAbsent"
+        ).textContent = "0";
+
+
+        document.getElementById(
+            "totalLate"
+        ).textContent = "0";
+
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="text-align:center;"
+                >
+
+                    Unable to load attendance.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* ==============================
+   POPULATE ATTENDANCE CLASSES
+============================== */
+
+function populateAttendanceClasses() {
+
+    const select =
+        document.getElementById(
+            "attendanceClassFilter"
+        );
+
+
+    const currentValue =
+        select.value;
+
+
+    const classes =
+        [
+            ...new Set(
+                attendanceData
+                    .map(
+                        function(item) {
+
+                            return (
+                                item.student_class ||
+                                item.studentClass ||
+                                ""
+                            );
+
+                        }
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+
+    select.innerHTML = `
+
+        <option value="ALL">
+            All Classes
+        </option>
+
+    `;
+
+
+    classes.forEach(
+        function(className) {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                className;
+
+
+            option.textContent =
+                className;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if (
+        classes.includes(
+            currentValue
+        )
+    ) {
+
+        select.value =
+            currentValue;
+
+    }
+
+}
+
+
+/* ==============================
+   RENDER ATTENDANCE
+============================== */
+
+function renderAttendance() {
+
+    const tbody =
+        document.getElementById(
+            "attendanceTableBody"
+        );
+
+
+    const selectedClass =
+        document.getElementById(
+            "attendanceClassFilter"
+        ).value;
+
+
+    /*
+       Filter selected class
+    */
+
+    const filtered =
+        attendanceData.filter(
+            function(item) {
+
+                const itemClass =
+                    String(
+                        item.student_class ||
+                        item.studentClass ||
+                        ""
+                    ).trim();
+
+
+                return (
+                    selectedClass === "ALL" ||
+                    itemClass.toLowerCase() ===
+                    selectedClass.toLowerCase()
+                );
+
+            }
+        );
+
+
+    /*
+       ============================
+       CALCULATE ATTENDANCE TOTALS
+       ============================
+    */
+
+    let present = 0;
+
+    let absent = 0;
+
+    let late = 0;
+
+    let excused = 0;
+
+    let marked = 0;
+
+
+    filtered.forEach(
+        function(item) {
+
+            const status =
+                String(
+                    item.status ||
+                    ""
+                )
+                .trim()
+                .toLowerCase();
+
+
+            if (!status) {
+                return;
+            }
+
+
+            /*
+               Every valid attendance
+               status counts as MARKED.
+            */
+
+            if (
+                [
+                    "present",
+                    "absent",
+                    "late",
+                    "excused"
+                ].includes(status)
+            ) {
+
+                marked++;
+
+            }
+
+
+            if (
+                status === "present"
+            ) {
+
+                present++;
+
+            }
+
+
+            if (
+                status === "absent"
+            ) {
+
+                absent++;
+
+            }
+
+
+            if (
+                status === "late"
+            ) {
+
+                late++;
+
+            }
+
+
+            if (
+                status === "excused"
+            ) {
+
+                excused++;
+
+            }
+
+        }
+    );
+
+
+    /*
+       ============================
+       UPDATE ATTENDANCE CARDS
+       ============================
+    */
+
+    document.getElementById(
+        "attendancePresent"
+    ).textContent =
+        present;
+
+
+    document.getElementById(
+        "attendanceAbsent"
+    ).textContent =
+        absent;
+
+
+    document.getElementById(
+        "attendanceLate"
+    ).textContent =
+        late;
+
+
+    /*
+       Dashboard cards
+    */
+
+    document.getElementById(
+        "totalPresent"
+    ).textContent =
+        present;
+
+
+    document.getElementById(
+        "totalAbsent"
+    ).textContent =
+        absent;
+
+
+    document.getElementById(
+        "totalLate"
+    ).textContent =
+        late;
+
+
+    /*
+       ============================
+       NO RECORDS
+       ============================
+    */
+
+    if (
+        !filtered.length
+    ) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="text-align:center;"
+                >
+
+                    No attendance records found
+                    for this week.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+       ============================
+       GROUP STUDENTS
+       ============================
+    */
+
+    const students = {};
+
+
+    filtered.forEach(
+        function(item) {
+
+            const id =
+                item.student_id ||
+                item.registration_number ||
+                item.student_name;
+
+
+            if (
+                !students[id]
+            ) {
+
+                students[id] = {
+
+                    name:
+                        item.student_name ||
+                        item.studentName ||
+                        "Unknown Student",
+
+
+                    registration:
+                        item.registration_number ||
+                        item.registrationNumber ||
+                        "—",
+
+
+                    className:
+                        item.student_class ||
+                        item.studentClass ||
+                        "—",
+
+
+                    days: {}
+
+                };
+
+            }
+
+
+            /*
+               IMPORTANT FIX:
+
+               Normalize PostgreSQL
+               attendance date before
+               using it as an object key.
+            */
+
+            const attendanceDate =
+                normalizeAttendanceDate(
+                    item.attendance_date ||
+                    item.attendanceDate
+                );
+
+
+            if (
+                attendanceDate
+            ) {
+
+                students[id].days[
+                    attendanceDate
+                ] =
+                    item.status;
+
+            }
+
+        }
+    );
+
+
+    /*
+       ============================
+       CREATE MONDAY-FRIDAY DATES
+       ============================
+    */
+
+    const weekStart =
+        new Date(
+            attendanceWeek.value +
+            "T00:00:00"
+        );
+
+
+    const days = [];
+
+
+    for (
+        let i = 0;
+        i < 5;
+        i++
+    ) {
+
+        const date =
+            new Date(
+                weekStart
+            );
+
+
+        date.setDate(
+            date.getDate() + i
+        );
+
+
+        days.push(
+            formatDateInput(date)
+        );
+
+    }
+
+
+    /*
+       ============================
+       BUILD TABLE
+       ============================
+    */
+
+    tbody.innerHTML =
+        Object.values(
+            students
+        )
+        .map(
+            function(student) {
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                ${escapeHtml(
+                                    student.name
+                                )}
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                student.registration
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                student.className
+                            )}
+                        </td>
+
+
+                        ${days.map(
+                            function(day) {
+
+                                return `
+
+                                    <td>
+
+                                        ${attendanceStatus(
+                                            student.days[day]
+                                        )}
+
+                                    </td>
+
+                                `;
+
+                            }
+                        ).join("")}
+
+                    </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* ==============================
+   ATTENDANCE STATUS
+============================== */
+
+function attendanceStatus(status) {
+
+    if (
+        !status
+    ) {
+
+        return `
+            <span
+                style="
+                    color:#9ca3af;
+                    font-weight:600;
+                "
+            >
+                Not Marked
+            </span>
+        `;
+
+    }
+
+
+    const clean =
+        String(status)
+            .trim()
+            .toLowerCase();
+
+
+    let className =
+        "present";
+
+
+    if (
+        clean === "absent"
+    ) {
+
+        className =
+            "absent";
+
+    }
+
+
+    if (
+        clean === "late"
+    ) {
+
+        className =
+            "late";
+
+    }
+
+
+    if (
+        clean === "excused"
+    ) {
+
+        className =
+            "late";
+
+    }
+
+
+    const displayStatus =
+        clean.charAt(0).toUpperCase() +
+        clean.slice(1);
+
+
+    return `
+
+        <span
+            class="status ${className}"
+        >
+
+            ${escapeHtml(
+                displayStatus
+            )}
+
+        </span>
+
+    `;
+
+}
+
+
+/* ==============================
+   ATTENDANCE EVENTS
+============================== */
+
+attendanceWeek.addEventListener(
+    "change",
+    function() {
+
+        loadAttendance();
+
+    }
+);
+
+
+document
+    .getElementById(
+        "attendanceClassFilter"
+    )
+    .addEventListener(
+        "change",
+        function() {
+
+            /*
+               Re-render immediately after
+               changing the class.
+            */
+
+            renderAttendance();
+
+        }
+    );
 
         /* ==============================
            ANNOUNCEMENTS

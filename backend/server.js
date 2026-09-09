@@ -809,53 +809,78 @@ async function ensureStudentColumns() {
 app.get(
     "/api/students",
     async function (req, res) {
-
         try {
 
             const {
                 studentClass
             } = req.query;
 
-
             let result;
 
+            // =============================================
+            // LOAD STUDENTS FOR A SPECIFIC CLASS
+            // Case-insensitive + ignores extra spaces
+            // =============================================
 
             if (studentClass) {
 
+                const className =
+                    String(studentClass)
+                        .trim();
+
                 result =
                     await pool.query(
-                        `SELECT *
-                         FROM students
-                         WHERE student_class = $1
-                         ORDER BY
-                             CASE
-                                 WHEN serial_number ~ '^[0-9]+$'
-                                 THEN serial_number::INTEGER
-                                 ELSE 999999
-                             END,
-                             student_name ASC`,
+                        `
+                        SELECT *
+                        FROM students
+                        WHERE LOWER(TRIM(student_class))
+                            = LOWER(TRIM($1))
+                        ORDER BY
+                            CASE
+                                WHEN serial_number ~ '^[0-9]+$'
+                                THEN serial_number::INTEGER
+                                ELSE 999999
+                            END,
+                            student_name ASC
+                        `,
                         [
-                            studentClass
+                            className
                         ]
                     );
 
             }
 
+            // =============================================
+            // LOAD ALL STUDENTS
+            // =============================================
+
             else {
 
                 result =
                     await pool.query(
-                        `SELECT *
-                         FROM students
-                         ORDER BY student_name ASC`
+                        `
+                        SELECT *
+                        FROM students
+                        ORDER BY
+                            CASE
+                                WHEN serial_number ~ '^[0-9]+$'
+                                THEN serial_number::INTEGER
+                                ELSE 999999
+                            END,
+                            student_name ASC
+                        `
                     );
 
             }
 
+            // =============================================
+            // RETURN STUDENTS
+            // =============================================
 
-            res.json(
-                result.rows
-            );
+            res.json({
+                success: true,
+                students: result.rows
+            });
 
         }
 
@@ -866,18 +891,15 @@ app.get(
                 error.message
             );
 
-
             res.status(500).json({
-
                 success: false,
-
                 message:
-                    "Unable to load students."
-
+                    "Unable to load students.",
+                error:
+                    error.message
             });
 
         }
-
     }
 );
 

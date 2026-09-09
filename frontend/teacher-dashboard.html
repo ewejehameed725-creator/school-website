@@ -5,313 +5,3144 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Teacher Dashboard | Lagos State Model College Meiran</title>
-
-    <link
-        rel="icon"
-        type="image/jpg"
-        href="images/school.jpg"
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
     >
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <title>
+        Teacher Dashboard | Lagos State Model College Meiran
+    </title>
 
     <style>
-        /* =========================================
-           MOBILE RESPONSIVE DESIGN
-           TEACHER DASHBOARD
-        ========================================= */
-        
+
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        
-        html,
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #f4f7f5;
+
+            color:
+                #1f2937;
+
+            min-height:
+                100vh;
         }
-        
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        
+
         button,
         input,
         select,
-        textarea,
-        a {
-            max-width: 100%;
+        textarea {
+            font-family:
+                inherit;
         }
-        
+
+        button {
+            cursor:
+                pointer;
+        }
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .teacher-sidebar {
+
+            position:
+                fixed;
+
+            top:
+                0;
+
+            left:
+                0;
+
+            bottom:
+                0;
+
+            width:
+                270px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #075b36 0%,
+                    #087f49 50%,
+                    #056b3d 100%
+                );
+
+            color:
+                white;
+
+            z-index:
+                9999;
+
+            overflow-y:
+                auto;
+
+            box-shadow:
+                5px 0 20px rgba(
+                    0,
+                    0,
+                    0,
+                    .12
+                );
+        }
+
+        .teacher-sidebar-header {
+
+            padding:
+                25px 20px;
+
+            text-align:
+                center;
+
+            border-bottom:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+        }
+
+        .teacher-logo {
+
+            width:
+                70px;
+
+            height:
+                70px;
+
+            object-fit:
+                cover;
+
+            border-radius:
+                50%;
+
+            background:
+                white;
+
+            padding:
+                4px;
+
+            margin-bottom:
+                12px;
+        }
+
+        .teacher-sidebar-header h2 {
+
+            font-size:
+                17px;
+
+            line-height:
+                1.35;
+
+            margin-bottom:
+                5px;
+        }
+
+        .teacher-sidebar-header p {
+
+            font-size:
+                12px;
+
+            opacity:
+                .8;
+        }
+
+        .teacher-nav {
+
+            padding:
+                18px 12px;
+        }
+
+        .teacher-nav-link {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            width:
+                100%;
+
+            padding:
+                13px 15px;
+
+            margin-bottom:
+                5px;
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .88
+                );
+
+            text-decoration:
+                none;
+
+            border-radius:
+                10px;
+
+            font-size:
+                14px;
+
+            transition:
+                .25s ease;
+        }
+
+        .teacher-nav-link:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+
+            color:
+                white;
+
+            transform:
+                translateX(2px);
+        }
+
+        .teacher-nav-link.active {
+
+            background:
+                white;
+
+            color:
+                #087f49;
+
+            font-weight:
+                700;
+
+            box-shadow:
+                0 5px 15px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .1
+                );
+        }
+
+        .teacher-nav-link span {
+
+            flex:
+                1;
+        }
+
+        .teacher-sidebar-footer {
+
+            padding:
+                15px;
+
+            margin-top:
+                20px;
+
+            border-top:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+        }
+
+        .teacher-logout {
+
+            width:
+                100%;
+
+            border:
+                0;
+
+            padding:
+                12px;
+
+            border-radius:
+                9px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+
+            color:
+                white;
+
+            font-size:
+                14px;
+        }
+
+        .teacher-logout:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .2
+                );
+        }
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .teacher-main {
+
+            margin-left:
+                270px;
+
+            min-height:
+                100vh;
+        }
+
+        .teacher-topbar {
+
+            min-height:
+                78px;
+
+            background:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            padding:
+                15px 25px;
+
+            border-bottom:
+                1px solid
+                #e5e7eb;
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                1000;
+
+            box-shadow:
+                0 2px 10px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .04
+                );
+        }
+
+        .teacher-menu-button {
+
+            display:
+                none;
+
+            border:
+                0;
+
+            background:
+                #087f49;
+
+            color:
+                white;
+
+            width:
+                44px;
+
+            height:
+                44px;
+
+            border-radius:
+                10px;
+
+            font-size:
+                22px;
+        }
+
+        .teacher-topbar-title {
+
+            flex:
+                1;
+        }
+
+        .teacher-topbar-title h2 {
+
+            font-size:
+                21px;
+
+            color:
+                #12372a;
+        }
+
+        .teacher-topbar-title p {
+
+            font-size:
+                12px;
+
+            color:
+                #6b7280;
+
+            margin-top:
+                4px;
+        }
+
+        .teacher-user {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+        }
+
+        .teacher-user-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #e5f5ed;
+
+            color:
+                #087f49;
+
+            font-size:
+                20px;
+        }
+
+        .teacher-user strong {
+
+            display:
+                block;
+
+            font-size:
+                13px;
+
+            color:
+                #1f2937;
+        }
+
+        .teacher-user small {
+
+            display:
+                block;
+
+            font-size:
+                11px;
+
+            color:
+                #6b7280;
+
+            margin-top:
+                3px;
+        }
+
+        /* =====================================================
+           SECTIONS
+           ===================================================== */
+
+        .teacher-section {
+
+            display:
+                none;
+
+            padding:
+                30px;
+        }
+
+        .teacher-section.active {
+
+            display:
+                block;
+        }
+
+        .teacher-welcome {
+
+            margin-bottom:
+                25px;
+        }
+
+        .section-label {
+
+            color:
+                #087f49;
+
+            font-weight:
+                700;
+
+            font-size:
+                12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1px;
+        }
+
+        .teacher-welcome h1,
+        .teacher-section-heading h1 {
+
+            font-size:
+                30px;
+
+            color:
+                #12372a;
+
+            margin:
+                7px 0 8px;
+        }
+
+        .teacher-welcome p,
+        .teacher-section-heading p {
+
+            color:
+                #6b7280;
+
+            font-size:
+                14px;
+
+            line-height:
+                1.6;
+        }
+
+        /* =====================================================
+           STATISTICS
+           ===================================================== */
+
+        .teacher-stat-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap:
+                15px;
+
+            margin-top:
+                25px;
+        }
+
+        .teacher-stat-card {
+
+            background:
+                white;
+
+            border-radius:
+                14px;
+
+            padding:
+                18px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                13px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .06
+                );
+
+            border:
+                1px solid
+                #edf0ee;
+        }
+
+        .teacher-stat-icon {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            min-width:
+                48px;
+
+            border-radius:
+                12px;
+
+            background:
+                #e7f6ee;
+
+            color:
+                #087f49;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                21px;
+        }
+
+        .teacher-stat-card span {
+
+            display:
+                block;
+
+            color:
+                #6b7280;
+
+            font-size:
+                12px;
+        }
+
+        .teacher-stat-card strong {
+
+            display:
+                block;
+
+            color:
+                #12372a;
+
+            font-size:
+                24px;
+
+            margin-top:
+                4px;
+        }
+
+        /* =====================================================
+           DASHBOARD PANELS
+           ===================================================== */
+
+        .teacher-dashboard-panel {
+
+            background:
+                white;
+
+            border-radius:
+                15px;
+
+            padding:
+                22px;
+
+            margin-top:
+                20px;
+
+            border:
+                1px solid
+                #edf0ee;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .05
+                );
+        }
+
+        .teacher-dashboard-panel h2 {
+
+            color:
+                #12372a;
+
+            font-size:
+                20px;
+
+            margin-bottom:
+                8px;
+        }
+
+        .teacher-dashboard-panel p {
+
+            color:
+                #6b7280;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+        }
+
+        /* =====================================================
+           QUICK ACTIONS
+           ===================================================== */
+
+        .teacher-quick-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap:
+                12px;
+
+            margin-top:
+                18px;
+        }
+
+        .teacher-quick-actions button,
+        .teacher-quick-actions a {
+
+            min-height:
+                58px;
+
+            border:
+                1px solid
+                #dce9e2;
+
+            border-radius:
+                11px;
+
+            background:
+                #f7fbf8;
+
+            color:
+                #087f49;
+
+            text-decoration:
+                none;
+
+            padding:
+                12px 15px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+
+            transition:
+                .2s ease;
+        }
+
+        .teacher-quick-actions button:hover,
+        .teacher-quick-actions a:hover {
+
+            background:
+                #087f49;
+
+            color:
+                white;
+        }
+
+        /* =====================================================
+           MANAGEMENT TOOLBAR
+           ===================================================== */
+
+        .teacher-management-toolbar {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            margin-bottom:
+                18px;
+        }
+
+        .btn {
+
+            border:
+                0;
+
+            border-radius:
+                8px;
+
+            padding:
+                10px 14px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+            transition:
+                .2s ease;
+        }
+
+        .btn-primary {
+
+            background:
+                #087f49;
+
+            color:
+                white;
+        }
+
+        .btn-primary:hover {
+
+            background:
+                #056638;
+        }
+
+        .btn-secondary {
+
+            background:
+                #eef2f1;
+
+            color:
+                #374151;
+        }
+
+        .btn-secondary:hover {
+
+            background:
+                #dfe6e2;
+        }
+
+        .btn-danger {
+
+            background:
+                #fee2e2;
+
+            color:
+                #b91c1c;
+        }
+
+        .btn-danger:hover {
+
+            background:
+                #fecaca;
+        }
+
+        .btn-warning {
+
+            background:
+                #fff7d6;
+
+            color:
+                #8a6200;
+        }
+
+        .btn-warning:hover {
+
+            background:
+                #ffefad;
+        }
+
+        .btn-success {
+
+            background:
+                #dcfce7;
+
+            color:
+                #166534;
+        }
+
+        .btn-success:hover {
+
+            background:
+                #bbf7d0;
+        }
+
+        /* =====================================================
+           STUDENT FORM
+           ===================================================== */
+
+        .student-form-container {
+
+            display:
+                none;
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #e5ebe7;
+
+            border-radius:
+                15px;
+
+            padding:
+                22px;
+
+            margin-bottom:
+                20px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .05
+                );
+        }
+
+        .student-form-header {
+
+            margin-bottom:
+                20px;
+        }
+
+        .student-form-header h2 {
+
+            color:
+                #12372a;
+
+            font-size:
+                21px;
+
+            margin-bottom:
+                5px;
+        }
+
+        .student-form-header p {
+
+            color:
+                #6b7280;
+
+            font-size:
+                13px;
+        }
+
+        .student-form-section {
+
+            background:
+                #f8faf9;
+
+            border:
+                1px solid
+                #e5ebe7;
+
+            border-radius:
+                12px;
+
+            padding:
+                17px;
+
+            margin-bottom:
+                15px;
+        }
+
+        .student-form-section-title {
+
+            margin-bottom:
+                15px;
+        }
+
+        .student-form-section-title h3 {
+
+            font-size:
+                16px;
+
+            color:
+                #12372a;
+        }
+
+        .student-form-section-title p {
+
+            font-size:
+                11px;
+
+            color:
+                #6b7280;
+
+            margin-top:
+                3px;
+        }
+
+        .student-form-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap:
+                14px;
+        }
+
+        .student-form-group label {
+
+            display:
+                block;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+            color:
+                #374151;
+
+            margin-bottom:
+                6px;
+        }
+
+        .student-form-group input,
+        .student-form-group select,
+        .student-form-group textarea {
+
+            width:
+                100%;
+
+            border:
+                1px solid
+                #d1d5db;
+
+            border-radius:
+                8px;
+
+            padding:
+                11px;
+
+            background:
+                white;
+
+            outline:
+                none;
+
+            font-size:
+                14px;
+        }
+
+        .student-form-group input:focus,
+        .student-form-group select:focus,
+        .student-form-group textarea:focus {
+
+            border-color:
+                #087f49;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    8,
+                    127,
+                    73,
+                    .1
+                );
+        }
+
+        .student-form-group textarea {
+
+            min-height:
+                95px;
+
+            resize:
+                vertical;
+        }
+
+        .student-form-actions {
+
+            display:
+                flex;
+
+            justify-content:
+                flex-end;
+
+            gap:
+                10px;
+
+            margin-top:
+                15px;
+        }
+
+        /* =====================================================
+           TABLE
+           ===================================================== */
+
+        .teacher-table-container {
+
+            width:
+                100%;
+
+            overflow-x:
+                auto;
+
+            background:
+                white;
+
+            border-radius:
+                13px;
+
+            border:
+                1px solid
+                #e5ebe7;
+        }
+
+        .teacher-table {
+
+            width:
+                100%;
+
+            min-width:
+                760px;
+
+            border-collapse:
+                collapse;
+        }
+
+        .teacher-table th {
+
+            background:
+                #f1f7f3;
+
+            color:
+                #12372a;
+
+            text-align:
+                left;
+
+            padding:
+                13px;
+
+            font-size:
+                12px;
+
+            white-space:
+                nowrap;
+        }
+
+        .teacher-table td {
+
+            padding:
+                12px;
+
+            border-top:
+                1px solid
+                #edf0ee;
+
+            font-size:
+                13px;
+
+            color:
+                #374151;
+
+            vertical-align:
+                middle;
+        }
+
+        .teacher-table tr:hover td {
+
+            background:
+                #fbfdfc;
+        }
+
+        .table-actions {
+
+            display:
+                flex;
+
+            gap:
+                6px;
+
+            flex-wrap:
+                wrap;
+        }
+
+        /* =====================================================
+           RESULT MANAGEMENT
+           ===================================================== */
+
+        .result-management-card {
+
+            background:
+                white;
+
+            border:
+                1px solid
+                #e5ebe7;
+
+            border-radius:
+                15px;
+
+            padding:
+                22px;
+
+            margin-top:
+                20px;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .05
+                );
+        }
+
+        .result-management-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                flex-start;
+
+            gap:
+                15px;
+
+            margin-bottom:
+                20px;
+        }
+
+        .result-management-header h2 {
+
+            color:
+                #12372a;
+
+            font-size:
+                22px;
+
+            margin-bottom:
+                5px;
+        }
+
+        .result-management-header p {
+
+            color:
+                #6b7280;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+        }
+
+        .result-upload-form {
+
+            background:
+                #f8fbf9;
+
+            border:
+                1px solid
+                #dfeae3;
+
+            border-radius:
+                13px;
+
+            padding:
+                20px;
+
+            margin-bottom:
+                25px;
+        }
+
+        .result-upload-form h3 {
+
+            color:
+                #12372a;
+
+            font-size:
+                18px;
+
+            margin-bottom:
+                15px;
+        }
+
+        .result-form-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap:
+                14px;
+
+            margin-bottom:
+                15px;
+        }
+
+        .result-form-group {
+
+            min-width:
+                0;
+        }
+
+        .result-form-group label {
+
+            display:
+                block;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+            color:
+                #374151;
+
+            margin-bottom:
+                6px;
+        }
+
+        .result-form-group input,
+        .result-form-group select {
+
+            width:
+                100%;
+
+            min-height:
+                45px;
+
+            border:
+                1px solid
+                #d1d5db;
+
+            border-radius:
+                8px;
+
+            padding:
+                10px 11px;
+
+            background:
+                white;
+
+            font-size:
+                14px;
+
+            outline:
+                none;
+        }
+
+        .result-form-group input:focus,
+        .result-form-group select:focus {
+
+            border-color:
+                #087f49;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    8,
+                    127,
+                    73,
+                    .1
+                );
+        }
+
+        .result-form-group input[readonly] {
+
+            background:
+                #eef3f0;
+
+            color:
+                #4b5563;
+        }
+
+        .result-file-group {
+
+            margin-top:
+                5px;
+        }
+
+        .result-file-group input {
+
+            padding:
+                9px;
+
+            cursor:
+                pointer;
+        }
+
+        .result-file-help {
+
+            color:
+                #6b7280;
+
+            font-size:
+                11px;
+
+            margin-top:
+                5px;
+        }
+
+        .result-form-actions {
+
+            display:
+                flex;
+
+            justify-content:
+                flex-end;
+
+            gap:
+                10px;
+
+            margin-top:
+                18px;
+        }
+
+        .result-list-title {
+
+            color:
+                #12372a;
+
+            font-size:
+                18px;
+
+            margin:
+                25px 0 12px;
+        }
+
+        .result-status-badge {
+
+            display:
+                inline-block;
+
+            padding:
+                5px 9px;
+
+            border-radius:
+                20px;
+
+            background:
+                #e7f6ee;
+
+            color:
+                #087f49;
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+        }
+
+        .result-deleted-section {
+
+            margin-top:
+                30px;
+
+            padding-top:
+                25px;
+
+            border-top:
+                1px solid
+                #e5ebe7;
+        }
+
+        .result-deleted-section h3 {
+
+            color:
+                #7f1d1d;
+
+            font-size:
+                18px;
+
+            margin-bottom:
+                12px;
+        }
+
+        .empty-result-message {
+
+            padding:
+                25px;
+
+            text-align:
+                center;
+
+            color:
+                #6b7280;
+
+            background:
+                #f8faf9;
+
+            border-radius:
+                10px;
+
+            font-size:
+                13px;
+        }
+
+        /* =====================================================
+           ATTENDANCE
+           ===================================================== */
+
+        .attendance-controls {
+
+            display:
+                flex;
+
+            align-items:
+                flex-end;
+
+            gap:
+                12px;
+
+            margin:
+                20px 0;
+        }
+
+        .attendance-controls > div {
+
+            min-width:
+                200px;
+        }
+
+        .attendance-controls label {
+
+            display:
+                block;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+            color:
+                #374151;
+
+            margin-bottom:
+                6px;
+        }
+
+        #attendanceWeek {
+
+            width:
+                100%;
+
+            min-height:
+                43px;
+
+            padding:
+                9px;
+
+            border:
+                1px solid
+                #d1d5db;
+
+            border-radius:
+                8px;
+        }
+
+        .attendance-status {
+
+            border:
+                1px solid
+                #d1d5db;
+
+            border-radius:
+                7px;
+
+            padding:
+                7px;
+
+            min-width:
+                100px;
+        }
+
+        .attendance-save-btn {
+
+            margin-top:
+                15px;
+        }
+
+        /* =====================================================
+           PROFILE
+           ===================================================== */
+
+        .teacher-profile-card {
+
+            background:
+                white;
+
+            border-radius:
+                15px;
+
+            padding:
+                30px;
+
+            border:
+                1px solid
+                #e5ebe7;
+
+            box-shadow:
+                0 4px 18px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .05
+                );
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                25px;
+        }
+
+        .profile-avatar {
+
+            width:
+                90px;
+
+            height:
+                90px;
+
+            min-width:
+                90px;
+
+            border-radius:
+                50%;
+
+            background:
+                #e7f6ee;
+
+            color:
+                #087f49;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                42px;
+        }
+
+        .profile-details {
+
+            flex:
+                1;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap:
+                12px;
+        }
+
+        .profile-details > div {
+
+            background:
+                #f8faf9;
+
+            padding:
+                13px;
+
+            border-radius:
+                9px;
+        }
+
+        .profile-details span {
+
+            display:
+                block;
+
+            font-size:
+                11px;
+
+            color:
+                #6b7280;
+
+            margin-bottom:
+                4px;
+        }
+
+        .profile-details strong {
+
+            font-size:
+                14px;
+
+            color:
+                #12372a;
+        }
+
+        /* =====================================================
+           OVERLAY
+           ===================================================== */
+
+        .teacher-overlay {
+
+            display:
+                none;
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .45
+                );
+
+            z-index:
+                9998;
+        }
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .teacher-sidebar {
+
+                width:
+                    250px;
+            }
+
+            .teacher-main {
+
+                margin-left:
+                    250px;
+            }
+
+            .teacher-stat-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+            }
+
+            .result-form-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
         @media (max-width: 768px) {
-        
+
+            html,
             body {
-                font-size: 14px;
+
+                width:
+                    100%;
+
+                max-width:
+                    100%;
+
+                overflow-x:
+                    hidden !important;
             }
-        
-            /* HEADER */
-            header,
-            .topbar,
-            .header {
-                width: 100%;
-                padding: 12px 15px !important;
+
+            body {
+
+                margin:
+                    0;
+
+                padding:
+                    0;
             }
-        
-            .header-content,
-            .topbar-content {
-                flex-wrap: wrap;
-                gap: 10px;
+
+            .teacher-sidebar {
+
+                position:
+                    fixed !important;
+
+                top:
+                    0;
+
+                left:
+                    0;
+
+                bottom:
+                    0;
+
+                width:
+                    280px !important;
+
+                max-width:
+                    85vw;
+
+                transform:
+                    translateX(-100%);
+
+                transition:
+                    transform .3s ease;
+
+                z-index:
+                    9999;
+
+                overflow-y:
+                    auto;
+
+                overflow-x:
+                    hidden;
             }
-        
-            .school-logo,
-            header img {
-                width: 42px !important;
-                height: 42px !important;
-                object-fit: contain;
+
+            .teacher-sidebar.open {
+
+                transform:
+                    translateX(0);
             }
-        
-            /* SIDEBAR */
-            .sidebar {
-                width: 280px;
-                max-width: 85vw;
+
+            .teacher-overlay {
+
+                display:
+                    block;
+
+                opacity:
+                    0;
+
+                visibility:
+                    hidden;
+
+                transition:
+                    .3s ease;
             }
-        
-            /* MAIN CONTENT */
-            main,
-            .main-content,
-            .content,
-            .dashboard-content {
-                width: 100% !important;
-                max-width: 100% !important;
-                margin: 0 !important;
-                padding: 15px !important;
+
+            .teacher-overlay.active {
+
+                opacity:
+                    1;
+
+                visibility:
+                    visible;
             }
-        
-            /* HEADINGS */
-            h1 {
-                font-size: 22px !important;
-                line-height: 1.25;
+
+            .teacher-main {
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                margin-left:
+                    0 !important;
+
+                padding:
+                    0 !important;
+
+                overflow-x:
+                    hidden !important;
             }
-        
-            h2 {
-                font-size: 19px !important;
+
+            .teacher-topbar {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    70px;
+
+                padding:
+                    12px 15px !important;
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center !important;
+
+                gap:
+                    10px;
+
+                position:
+                    sticky;
+
+                top:
+                    0;
+
+                z-index:
+                    1000;
             }
-        
-            h3 {
-                font-size: 17px !important;
+
+            .teacher-menu-button {
+
+                display:
+                    flex !important;
+
+                width:
+                    44px !important;
+
+                height:
+                    44px !important;
+
+                min-width:
+                    44px !important;
+
+                min-height:
+                    44px !important;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                padding:
+                    0 !important;
+
+                font-size:
+                    23px;
+
+                border-radius:
+                    10px;
+
+                flex-shrink:
+                    0;
             }
-        
-            /* DASHBOARD CARDS */
-            .stats-grid,
-            .summary-grid,
-            .dashboard-cards,
-            .stat-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-                gap: 10px !important;
+
+            .teacher-topbar-title {
+
+                min-width:
+                    0;
+
+                flex:
+                    1;
             }
-        
-            .stat-card,
-            .summary-card,
-            .dashboard-card {
-                width: 100% !important;
-                min-width: 0 !important;
-                padding: 15px !important;
+
+            .teacher-topbar-title h2 {
+
+                margin:
+                    0 !important;
+
+                font-size:
+                    18px !important;
+
+                line-height:
+                    1.2;
+
+                white-space:
+                    nowrap;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
             }
-        
-            .stat-card h3,
-            .summary-card h3 {
-                font-size: 13px !important;
+
+            .teacher-topbar-title p {
+
+                margin:
+                    4px 0 0 !important;
+
+                font-size:
+                    11px !important;
+
+                white-space:
+                    nowrap;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
             }
-        
-            .stat-card strong,
-            .summary-card strong,
-            .stat-number {
-                font-size: 24px !important;
+
+            .teacher-user {
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center;
+
+                gap:
+                    7px;
+
+                min-width:
+                    0;
+
+                max-width:
+                    125px;
             }
-        
-            /* SECTIONS */
-            .section,
-            .card,
-            .dashboard-section,
-            .student-section,
-            .attendance-section,
-            .profile-section {
-                width: 100% !important;
-                max-width: 100% !important;
-                overflow: hidden;
+
+            .teacher-user-icon {
+
+                width:
+                    38px !important;
+
+                height:
+                    38px !important;
+
+                min-width:
+                    38px !important;
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                border-radius:
+                    50%;
+
+                font-size:
+                    18px;
             }
-        
-            .section-header {
-                flex-direction: column !important;
-                align-items: stretch !important;
-                gap: 12px;
+
+            .teacher-user strong {
+
+                display:
+                    block;
+
+                max-width:
+                    75px;
+
+                font-size:
+                    11px !important;
+
+                white-space:
+                    nowrap;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
             }
-        
-            /* FORMS */
-            .form-row,
-            .form-group-row,
-            .student-form,
-            .attendance-controls,
-            .control-row {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
-                gap: 10px !important;
+
+            .teacher-user small {
+
+                display:
+                    block;
+
+                font-size:
+                    9px !important;
+
+                white-space:
+                    nowrap;
+
+                overflow:
+                    hidden;
+
+                text-overflow:
+                    ellipsis;
             }
-        
-            .form-row > *,
-            .form-group-row > *,
-            .student-form > *,
-            .attendance-controls > *,
-            .control-row > * {
-                width: 100% !important;
-                min-width: 0 !important;
+
+            .teacher-section {
+
+                width:
+                    100% !important;
+
+                padding:
+                    18px 14px !important;
+
+                overflow-x:
+                    hidden;
             }
-        
-            input,
-            select,
-            textarea {
-                width: 100% !important;
-                max-width: 100% !important;
-                min-height: 44px;
-                font-size: 16px !important;
+
+            .teacher-welcome,
+            .teacher-section-heading {
+
+                width:
+                    100% !important;
+
+                margin-bottom:
+                    18px !important;
             }
-        
-            textarea {
-                min-height: 120px;
+
+            .teacher-welcome h1,
+            .teacher-section-heading h1 {
+
+                font-size:
+                    23px !important;
+
+                line-height:
+                    1.25;
+
+                margin-top:
+                    5px;
+
+                margin-bottom:
+                    8px;
             }
-        
-            button,
-            .btn,
-            .primary-btn,
-            .secondary-btn {
-                min-height: 44px;
+
+            .teacher-welcome p,
+            .teacher-section-heading p {
+
+                font-size:
+                    13px !important;
+
+                line-height:
+                    1.6;
             }
-        
-            /* TABLES */
-            .table-container,
-            .table-wrapper,
-            .attendance-table-container,
-            .student-table-container {
-                width: 100%;
-                max-width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+
+            .section-label {
+
+                font-size:
+                    11px !important;
+
+                letter-spacing:
+                    .8px;
             }
-        
-            table {
-                min-width: 700px;
+
+            .teacher-stat-grid {
+
+                width:
+                    100% !important;
+
+                display:
+                    grid !important;
+
+                grid-template-columns:
+                    1fr 1fr !important;
+
+                gap:
+                    10px !important;
+
+                margin-top:
+                    15px;
             }
-        
-            th,
-            td {
-                white-space: nowrap;
-                padding: 9px 10px !important;
-                font-size: 12px !important;
+
+            .teacher-stat-card {
+
+                width:
+                    100% !important;
+
+                min-width:
+                    0 !important;
+
+                padding:
+                    14px !important;
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center;
+
+                gap:
+                    10px;
+
+                overflow:
+                    hidden;
             }
-        
-            /* STUDENT MANAGEMENT */
-            .student-management,
-            .student-list,
-            .students-section {
-                width: 100% !important;
-                max-width: 100% !important;
-                overflow: hidden;
+
+            .teacher-stat-icon {
+
+                width:
+                    40px !important;
+
+                height:
+                    40px !important;
+
+                min-width:
+                    40px !important;
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                font-size:
+                    18px;
             }
-        
-            /* ATTENDANCE */
-            .attendance-card,
-            .attendance-section {
-                width: 100% !important;
-                max-width: 100% !important;
-                overflow: hidden;
+
+            .teacher-stat-card span {
+
+                display:
+                    block;
+
+                font-size:
+                    10px !important;
+
+                white-space:
+                    normal;
             }
-        
-            /* PROFILE */
-            .profile-card,
-            .profile-grid {
-                width: 100% !important;
-                max-width: 100% !important;
+
+            .teacher-stat-card strong {
+
+                display:
+                    block;
+
+                font-size:
+                    20px !important;
+
+                line-height:
+                    1.2;
+
+                margin-top:
+                    3px;
+
+                word-break:
+                    break-word;
             }
-        
-            /* QUICK ACTIONS */
-            .quick-actions,
-            .action-grid {
-                grid-template-columns: 1fr !important;
-                width: 100% !important;
+
+            .teacher-dashboard-panel {
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                padding:
+                    16px !important;
+
+                margin-top:
+                    18px !important;
+
+                overflow:
+                    hidden;
             }
-        
-            /* MOBILE TEXT */
-            .page-title,
-            .section-title {
-                word-break: break-word;
+
+            .teacher-dashboard-panel h2 {
+
+                font-size:
+                    18px !important;
+
+                margin-bottom:
+                    8px;
             }
+
+            .teacher-dashboard-panel h3 {
+
+                font-size:
+                    16px !important;
+            }
+
+            .teacher-dashboard-panel p {
+
+                font-size:
+                    13px !important;
+
+                line-height:
+                    1.5;
+            }
+
+            .teacher-quick-actions {
+
+                width:
+                    100% !important;
+
+                display:
+                    grid !important;
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    10px !important;
+
+                margin-top:
+                    12px;
+            }
+
+            .teacher-quick-actions button,
+            .teacher-quick-actions a {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    52px !important;
+
+                padding:
+                    13px 15px !important;
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    flex-start;
+
+                gap:
+                    10px;
+
+                font-size:
+                    14px;
+            }
+
+            .teacher-management-toolbar {
+
+                width:
+                    100% !important;
+
+                display:
+                    flex !important;
+
+                flex-direction:
+                    column !important;
+
+                gap:
+                    10px;
+
+                margin-bottom:
+                    15px;
+            }
+
+            .teacher-management-toolbar button {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    48px !important;
+            }
+
+            .student-form-container {
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                padding:
+                    15px !important;
+
+                margin-bottom:
+                    18px;
+
+                overflow:
+                    hidden;
+            }
+
+            .student-form-header h2 {
+
+                font-size:
+                    20px !important;
+            }
+
+            .student-form-header p {
+
+                font-size:
+                    12px !important;
+
+                line-height:
+                    1.5;
+            }
+
+            .student-form-section {
+
+                width:
+                    100% !important;
+
+                padding:
+                    14px !important;
+
+                margin-bottom:
+                    14px !important;
+
+                overflow:
+                    hidden;
+            }
+
+            .student-form-section-title {
+
+                display:
+                    flex !important;
+
+                align-items:
+                    flex-start;
+
+                gap:
+                    10px;
+
+                margin-bottom:
+                    15px;
+            }
+
+            .student-form-section-title h3 {
+
+                font-size:
+                    16px !important;
+
+                margin:
+                    0;
+            }
+
+            .student-form-section-title p {
+
+                font-size:
+                    11px !important;
+
+                margin-top:
+                    3px;
+            }
+
+            .student-form-grid {
+
+                width:
+                    100% !important;
+
+                display:
+                    grid !important;
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    13px !important;
+            }
+
+            .student-form-group {
+
+                width:
+                    100% !important;
+
+                min-width:
+                    0 !important;
+            }
+
+            .student-form-group label {
+
+                display:
+                    block;
+
+                margin-bottom:
+                    6px;
+
+                font-size:
+                    12px !important;
+            }
+
+            .student-form-group input,
+            .student-form-group select,
+            .student-form-group textarea {
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                min-height:
+                    46px !important;
+
+                font-size:
+                    16px !important;
+
+                padding:
+                    11px !important;
+            }
+
+            .student-form-group textarea {
+
+                min-height:
+                    100px !important;
+            }
+
+            .student-form-actions {
+
+                width:
+                    100% !important;
+
+                display:
+                    flex !important;
+
+                flex-direction:
+                    column !important;
+
+                gap:
+                    10px !important;
+
+                margin-top:
+                    15px;
+            }
+
+            .student-form-actions button {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    48px !important;
+            }
+
+            .teacher-table-container {
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                overflow-x:
+                    auto !important;
+
+                -webkit-overflow-scrolling:
+                    touch;
+
+                border-radius:
+                    10px;
+            }
+
+            .teacher-table {
+
+                min-width:
+                    900px !important;
+
+                width:
+                    900px !important;
+            }
+
+            .teacher-table th,
+            .teacher-table td {
+
+                padding:
+                    10px 9px !important;
+
+                font-size:
+                    12px !important;
+
+                white-space:
+                    nowrap;
+            }
+
+            /* RESULT MOBILE */
+
+            .result-management-card {
+
+                width:
+                    100% !important;
+
+                padding:
+                    15px !important;
+
+                margin-top:
+                    15px !important;
+
+                overflow:
+                    hidden;
+            }
+
+            .result-management-header {
+
+                display:
+                    flex;
+
+                flex-direction:
+                    column;
+
+                gap:
+                    10px;
+
+                margin-bottom:
+                    18px;
+            }
+
+            .result-management-header h2 {
+
+                font-size:
+                    20px;
+            }
+
+            .result-management-header p {
+
+                font-size:
+                    12px;
+            }
+
+            .result-upload-form {
+
+                width:
+                    100%;
+
+                padding:
+                    14px;
+
+                overflow:
+                    hidden;
+            }
+
+            .result-form-grid {
+
+                width:
+                    100%;
+
+                display:
+                    grid;
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    12px;
+            }
+
+            .result-form-group input,
+            .result-form-group select {
+
+                min-height:
+                    46px;
+
+                font-size:
+                    16px;
+            }
+
+            .result-form-actions {
+
+                display:
+                    flex;
+
+                flex-direction:
+                    column;
+
+                gap:
+                    10px;
+            }
+
+            .result-form-actions button {
+
+                width:
+                    100%;
+
+                min-height:
+                    48px;
+            }
+
+            #teacherResultsTableBody,
+            #deletedTeacherResultsTableBody {
+
+                white-space:
+                    nowrap;
+            }
+
+            .attendance-controls {
+
+                width:
+                    100% !important;
+
+                display:
+                    flex !important;
+
+                flex-direction:
+                    column !important;
+
+                align-items:
+                    stretch !important;
+
+                gap:
+                    10px !important;
+            }
+
+            .attendance-controls > div {
+
+                width:
+                    100% !important;
+            }
+
+            .attendance-controls label {
+
+                font-size:
+                    12px !important;
+            }
+
+            #attendanceWeek {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    46px !important;
+
+                font-size:
+                    16px !important;
+            }
+
+            #loadAttendanceButton {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    48px !important;
+            }
+
+            #weeklyAttendanceTable {
+
+                min-width:
+                    900px !important;
+
+                width:
+                    900px !important;
+            }
+
+            #weeklyAttendanceTable th,
+            #weeklyAttendanceTable td {
+
+                padding:
+                    9px 8px !important;
+
+                font-size:
+                    12px !important;
+            }
+
+            #weeklyAttendanceTable select,
+            .attendance-status {
+
+                min-width:
+                    105px !important;
+
+                min-height:
+                    42px !important;
+
+                font-size:
+                    14px !important;
+
+                padding:
+                    7px !important;
+            }
+
+            .attendance-save-btn {
+
+                width:
+                    100% !important;
+
+                min-height:
+                    50px !important;
+
+                font-size:
+                    14px !important;
+            }
+
+            .teacher-profile-card {
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                padding:
+                    20px 15px !important;
+
+                display:
+                    flex !important;
+
+                flex-direction:
+                    column !important;
+
+                align-items:
+                    center !important;
+
+                text-align:
+                    center;
+
+                gap:
+                    18px;
+
+                overflow:
+                    hidden;
+            }
+
+            .profile-avatar {
+
+                width:
+                    75px !important;
+
+                height:
+                    75px !important;
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                font-size:
+                    35px;
+            }
+
+            .profile-details {
+
+                width:
+                    100% !important;
+
+                display:
+                    grid !important;
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    12px !important;
+            }
+
+            .profile-details > div {
+
+                width:
+                    100% !important;
+
+                padding:
+                    12px;
+
+                border-radius:
+                    10px;
+
+                text-align:
+                    left;
+            }
+
+            .profile-details span {
+
+                display:
+                    block;
+
+                font-size:
+                    11px !important;
+
+                margin-bottom:
+                    4px;
+            }
+
+            .profile-details strong {
+
+                display:
+                    block;
+
+                font-size:
+                    14px !important;
+
+                word-break:
+                    break-word;
+            }
+
+            .btn {
+
+                min-height:
+                    46px !important;
+
+                font-size:
+                    14px !important;
+            }
+
         }
-        
+
         @media (max-width: 480px) {
-        
-            main,
-            .main-content,
-            .content,
-            .dashboard-content {
-                padding: 10px !important;
+
+            .teacher-topbar {
+
+                min-height:
+                    64px;
+
+                padding:
+                    10px !important;
             }
-        
-            .stats-grid,
-            .summary-grid,
-            .dashboard-cards,
-            .stat-grid {
-                grid-template-columns: 1fr !important;
+
+            .teacher-menu-button {
+
+                width:
+                    42px !important;
+
+                height:
+                    42px !important;
+
+                min-width:
+                    42px !important;
             }
-        
-            h1 {
-                font-size: 20px !important;
+
+            .teacher-topbar-title h2 {
+
+                font-size:
+                    16px !important;
             }
-        
-            h2 {
-                font-size: 18px !important;
+
+            .teacher-topbar-title p {
+
+                font-size:
+                    9px !important;
             }
-        
-            .stat-card,
-            .summary-card,
-            .dashboard-card {
-                padding: 13px !important;
+
+            .teacher-user {
+
+                max-width:
+                    90px;
             }
-        
-            table {
-                min-width: 650px;
+
+            .teacher-user-icon {
+
+                width:
+                    34px !important;
+
+                height:
+                    34px !important;
+
+                min-width:
+                    34px !important;
+
+                font-size:
+                    16px;
             }
-        
-            th,
-            td {
-                font-size: 11px !important;
-                padding: 8px !important;
+
+            .teacher-user strong {
+
+                max-width:
+                    50px;
+
+                font-size:
+                    9px !important;
             }
+
+            .teacher-user small {
+
+                display:
+                    none;
+            }
+
+            .teacher-section {
+
+                padding:
+                    15px 10px !important;
+            }
+
+            .teacher-welcome h1,
+            .teacher-section-heading h1 {
+
+                font-size:
+                    21px !important;
+            }
+
+            .teacher-stat-grid {
+
+                grid-template-columns:
+                    1fr !important;
+
+                gap:
+                    10px !important;
+            }
+
+            .teacher-stat-card {
+
+                min-height:
+                    70px;
+
+                padding:
+                    13px !important;
+            }
+
+            .teacher-stat-icon {
+
+                width:
+                    38px !important;
+
+                height:
+                    38px !important;
+
+                min-width:
+                    38px !important;
+            }
+
+            .teacher-stat-card strong {
+
+                font-size:
+                    20px !important;
+            }
+
+            .teacher-dashboard-panel {
+
+                padding:
+                    14px !important;
+            }
+
+            .teacher-quick-actions button,
+            .teacher-quick-actions a {
+
+                min-height:
+                    50px !important;
+            }
+
+            .student-form-container {
+
+                padding:
+                    12px !important;
+            }
+
+            .student-form-section {
+
+                padding:
+                    12px !important;
+            }
+
+            .result-management-card {
+
+                padding:
+                    10px !important;
+            }
+
+            .result-upload-form {
+
+                padding:
+                    12px !important;
+            }
+
+            #weeklyAttendanceTable {
+
+                min-width:
+                    850px !important;
+
+                width:
+                    850px !important;
+            }
+
+            #weeklyAttendanceTable select,
+            .attendance-status {
+
+                min-width:
+                    95px !important;
+
+                font-size:
+                    13px !important;
+            }
+
         }
-        
-        </style>
+
+    </style>
 
 </head>
 
 <body>
 
-    <!-- PAGE LOADER -->
+    <!-- =====================================================
+         MOBILE OVERLAY
+         ===================================================== -->
 
-    <div id="pageLoader">
+    <div
+        class="teacher-overlay"
+        id="teacherOverlay"
+    ></div>
 
-        <div class="loader-content">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside
+        class="teacher-sidebar"
+        id="teacherSidebar"
+    >
+
+        <div class="teacher-sidebar-header">
 
             <img
-                src="images/school.jpg"
+                src="school.jpg"
                 alt="School Logo"
-                class="loader-logo"
+                class="teacher-logo"
+                onerror="this.style.display='none'"
             >
 
             <h2>
@@ -319,48 +3150,8 @@
             </h2>
 
             <p>
-                Loading teacher portal...
+                Teacher Portal
             </p>
-
-            <div class="loader-spinner"></div>
-
-        </div>
-
-    </div>
-
-
-    <!-- MOBILE OVERLAY -->
-
-    <div
-        class="teacher-overlay"
-        id="teacherOverlay">
-    </div>
-
-
-    <!-- SIDEBAR -->
-
-    <aside
-        class="teacher-sidebar"
-        id="teacherSidebar">
-
-        <div class="teacher-sidebar-header">
-
-            <img
-                src="images/school.jpg"
-                alt="School Logo"
-            >
-
-            <div>
-
-                <h3>
-                    Teacher Portal
-                </h3>
-
-                <span>
-                    Class Teacher
-                </span>
-
-            </div>
 
         </div>
 
@@ -370,15 +3161,12 @@
             <a
                 href="#"
                 class="teacher-nav-link active"
-                data-section="teacherDashboard"
+                data-section="dashboard"
             >
-
                 🏠
-
                 <span>
                     Dashboard
                 </span>
-
             </a>
 
 
@@ -387,13 +3175,22 @@
                 class="teacher-nav-link"
                 data-section="studentManagement"
             >
-
                 👨‍🎓
-
                 <span>
                     Student Management
                 </span>
+            </a>
 
+
+            <a
+                href="#"
+                class="teacher-nav-link"
+                data-section="resultManagement"
+            >
+                📊
+                <span>
+                    Upload Result Screen
+                </span>
             </a>
 
 
@@ -402,84 +3199,62 @@
                 class="teacher-nav-link"
                 data-section="attendance"
             >
-
-                📅
-
+                📝
                 <span>
                     Attendance
                 </span>
-
-            </a>
-
-
-            <a
-                href="manage result.html"
-                class="teacher-nav-link"
-            >
-
-                📊
-
-                <span>
-                    Upload Results
-                </span>
-
             </a>
 
 
             <a
                 href="#"
                 class="teacher-nav-link"
-                data-section="teacherProfile"
+                data-section="profile"
             >
-
                 👤
-
                 <span>
                     My Profile
                 </span>
-
             </a>
 
         </nav>
 
 
-        <div class="teacher-sidebar-bottom">
+        <div class="teacher-sidebar-footer">
 
-            <a
-                href="index.html"
+            <button
+                type="button"
                 class="teacher-logout"
+                id="teacherLogoutButton"
             >
-
-                🚪
-
-                <span>
-                    Logout
-                </span>
-
-            </a>
+                🚪 Logout
+            </button>
 
         </div>
 
     </aside>
 
 
-    <!-- MAIN CONTENT -->
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
 
     <main class="teacher-main">
 
 
-        <!-- TOP BAR -->
+        <!-- =================================================
+             TOPBAR
+             ================================================= -->
 
         <header class="teacher-topbar">
 
             <button
                 type="button"
-                id="teacherMenuButton"
                 class="teacher-menu-button"
+                id="teacherMenuButton"
+                aria-label="Open menu"
             >
-
                 ☰
-
             </button>
 
 
@@ -504,12 +3279,19 @@
 
                 <div>
 
-                    <strong id="teacherDisplayName">
+                    <strong
+                        id="teacherDisplayName"
+                    >
                         Class Teacher
                     </strong>
 
-                    <small id="teacherDisplayClass">
-                        Class
+                    <small>
+                        Class:
+                        <span
+                            id="teacherDisplayClass"
+                        >
+                            —
+                        </span>
                     </small>
 
                 </div>
@@ -519,37 +3301,39 @@
         </header>
 
 
-        <!-- ========================= -->
-        <!-- DASHBOARD -->
-        <!-- ========================= -->
+        <!-- =================================================
+             DASHBOARD
+             ================================================= -->
 
         <section
-            id="teacherDashboard"
             class="teacher-section active"
+            id="dashboard"
         >
 
             <div class="teacher-welcome">
 
-                <p class="section-label">
-                    TEACHER PORTAL
-                </p>
+                <span class="section-label">
+                    Teacher Portal
+                </span>
 
                 <h1>
-                    Welcome, Class Teacher
+                    Welcome,
+                    <span id="teacherWelcomeName">
+                        Teacher
+                    </span>
+                    👋
                 </h1>
 
                 <p>
-                    Manage your class, students, attendance
-                    and student results from your teacher portal.
+                    Manage your students, upload results,
+                    record weekly attendance and view your
+                    teacher profile from one place.
                 </p>
 
             </div>
 
 
-            <!-- STAT CARDS -->
-
             <div class="teacher-stat-grid">
-
 
                 <div class="teacher-stat-card">
 
@@ -560,31 +3344,12 @@
                     <div>
 
                         <span>
-                            Students
+                            Total Students
                         </span>
 
-                        <strong id="totalStudents">
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="teacher-stat-card">
-
-                    <div class="teacher-stat-icon">
-                        📅
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Today's Attendance
-                        </span>
-
-                        <strong id="todayAttendance">
+                        <strong
+                            id="totalStudents"
+                        >
                             0
                         </strong>
 
@@ -602,10 +3367,12 @@
                     <div>
 
                         <span>
-                            Results Uploaded
+                            Uploaded Results
                         </span>
 
-                        <strong id="teacherResults">
+                        <strong
+                            id="totalTeacherResults"
+                        >
                             0
                         </strong>
 
@@ -617,17 +3384,42 @@
                 <div class="teacher-stat-card">
 
                     <div class="teacher-stat-icon">
-                        🏫
+                        ✅
                     </div>
 
                     <div>
 
                         <span>
-                            My Class
+                            Present
                         </span>
 
-                        <strong id="teacherClass">
-                            —
+                        <strong
+                            id="totalPresent"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teacher-stat-card">
+
+                    <div class="teacher-stat-icon">
+                        ❌
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Absent
+                        </span>
+
+                        <strong
+                            id="totalAbsent"
+                        >
+                            0
                         </strong>
 
                     </div>
@@ -636,8 +3428,6 @@
 
             </div>
 
-
-            <!-- QUICK ACTIONS -->
 
             <div class="teacher-dashboard-panel">
 
@@ -645,20 +3435,33 @@
                     Quick Actions
                 </h2>
 
-                <div class="teacher-quick-actions">
+                <p>
+                    Quickly access the most important
+                    teacher functions.
+                </p>
 
+
+                <div class="teacher-quick-actions">
 
                     <button
                         type="button"
                         data-section="studentManagement"
                     >
-
                         👨‍🎓
-
                         <span>
                             Manage Students
                         </span>
+                    </button>
 
+
+                    <button
+                        type="button"
+                        data-section="resultManagement"
+                    >
+                        📤
+                        <span>
+                            Upload Result
+                        </span>
                     </button>
 
 
@@ -666,25 +3469,11 @@
                         type="button"
                         data-section="attendance"
                     >
-
-                        📅
-
+                        📝
                         <span>
-                            Take Attendance
+                            Record Attendance
                         </span>
-
                     </button>
-
-
-                    <a href="manage result.html">
-
-                        📊
-
-                        <span>
-                            Upload Result
-                        </span>
-
-                    </a>
 
                 </div>
 
@@ -693,27 +3482,28 @@
         </section>
 
 
-        <!-- ========================= -->
-        <!-- STUDENT MANAGEMENT -->
-        <!-- ========================= -->
+        <!-- =================================================
+             STUDENT MANAGEMENT
+             ================================================= -->
 
         <section
-            id="studentManagement"
             class="teacher-section"
+            id="studentManagement"
         >
 
             <div class="teacher-section-heading">
 
-                <p class="section-label">
-                    STUDENT MANAGEMENT
-                </p>
+                <span class="section-label">
+                    Students
+                </span>
 
                 <h1>
-                    My Class Students
+                    Student Management
                 </h1>
 
                 <p>
-                    Add and manage students belonging to your class.
+                    Add, edit, delete and upload results
+                    for students assigned to your class.
                 </p>
 
             </div>
@@ -723,448 +3513,808 @@
 
                 <button
                     type="button"
-                    class="btn"
+                    class="btn btn-primary"
                     id="addStudentButton"
                 >
-
-                    + Add Student
-
+                    ➕ Add Student
                 </button>
 
             </div>
-            <!-- ========================= -->
-<!-- ADD STUDENT FORM -->
-<!-- ========================= -->
 
-<div
-id="studentFormContainer"
-class="student-form-container"
-style="display:none;"
->
 
-<div class="student-form-header">
-
-    <div>
-
-        <p class="section-label">
-            STUDENT REGISTRATION
-        </p>
-
-        <h2>
-            Add Student
-        </h2>
-
-        <p>
-            Enter the student's information below.
-        </p>
-
-    </div>
-
-</div>
-
-
-<form id="studentForm">
-
-    <input
-        type="hidden"
-        id="studentId"
-    >
-
-
-    <!-- STUDENT INFORMATION -->
-
-    <div class="student-form-section">
-
-        <div class="student-form-section-title">
-
-            <span>
-                👨‍🎓
-            </span>
-
-            <div>
-
-                <h3>
-                    Student Information
-                </h3>
-
-                <p>
-                    Basic information about the student
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="student-form-grid">
-
-
-            <!-- STUDENT NAME -->
-
-            <div class="student-form-group">
-
-                <label for="studentName">
-                    Student Name
-                    <span>*</span>
-                </label>
-
-                <input
-                    type="text"
-                    id="studentName"
-                    placeholder="Enter student's full name"
-                    autocomplete="name"
-                    required
-                >
-
-            </div>
-
-
-            <!-- REGISTRATION NUMBER -->
-
-            <div class="student-form-group">
-
-                <label for="registrationNumber">
-                    Registration Number
-                    <span>*</span>
-                </label>
-
-                <input
-                    type="text"
-                    id="registrationNumber"
-                    placeholder="Enter registration number"
-                    required
-                >
-
-            </div>
-
-
-            <!-- SERIAL NUMBER -->
-
-            <div class="student-form-group">
-
-                <label for="serialNumber">
-                    Serial Number
-                </label>
-
-                <input
-                    type="number"
-                    id="serialNumber"
-                    placeholder="Enter serial number"
-                    min="1"
-                >
-
-            </div>
-
-
-            <!-- SEX -->
-
-            <div class="student-form-group">
-
-                <label for="studentSex">
-                    Sex
-                </label>
-
-                <select id="studentSex">
-
-                    <option value="">
-                        Select Sex
-                    </option>
-
-                    <option value="Male">
-                        Male
-                    </option>
-
-                    <option value="Female">
-                        Female
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- DATE OF BIRTH -->
-
-            <div class="student-form-group">
-
-                <label for="studentDob">
-                    Date of Birth
-                </label>
-
-                <input
-                    type="date"
-                    id="studentDob"
-                >
-
-            </div>
-
-
-            <!-- CLASS -->
-
-            <div class="student-form-group">
-
-                <label for="studentClass">
-                    Assigned Class
-                </label>
-
-                <input
-                    type="text"
-                    id="studentClass"
-                    readonly
-                >
-
-                <small>
-                    Automatically assigned to your class.
-                </small>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-    <!-- CONTACT INFORMATION -->
-
-    <div class="student-form-section">
-
-        <div class="student-form-section-title">
-
-            <span>
-                🏠
-            </span>
-
-            <div>
-
-                <h3>
-                    Contact Information
-                </h3>
-
-                <p>
-                    Student's home and guardian information
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="student-form-grid">
-
-
-            <!-- HOME ADDRESS -->
+            <!-- STUDENT FORM -->
 
             <div
-                class="student-form-group student-form-full"
+                class="student-form-container"
+                id="studentFormContainer"
             >
 
-                <label for="studentAddress">
-                    Home Address
-                </label>
+                <div class="student-form-header">
 
-                <textarea
-                    id="studentAddress"
-                    rows="3"
-                    placeholder="Enter student's home address"
-                ></textarea>
+                    <h2>
+                        Student Information
+                    </h2>
 
-            </div>
+                    <p>
+                        Enter the student's information
+                        below.
+                    </p>
+
+                </div>
 
 
-            <!-- GUARDIAN NAME -->
-
-            <div class="student-form-group">
-
-                <label for="guardianName">
-                    Parent / Guardian Name
-                </label>
-
-                <input
-                    type="text"
-                    id="guardianName"
-                    placeholder="Enter parent or guardian name"
+                <form
+                    id="studentForm"
+                    class="student-form"
                 >
 
+                    <input
+                        type="hidden"
+                        id="studentId"
+                    >
+
+
+                    <div class="student-form-section">
+
+                        <div
+                            class="student-form-section-title"
+                        >
+
+                            <h3>
+                                Basic Information
+                            </h3>
+
+                            <p>
+                                Student identification
+                                details
+                            </p>
+
+                        </div>
+
+
+                        <div class="student-form-grid">
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="studentName"
+                                >
+                                    Student Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="studentName"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="registrationNumber"
+                                >
+                                    Registration Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="registrationNumber"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="serialNumber"
+                                >
+                                    Serial Number
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="serialNumber"
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="studentClass"
+                                >
+                                    Class
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="studentClass"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="studentSex"
+                                >
+                                    Sex
+                                </label>
+
+                                <select
+                                    id="studentSex"
+                                >
+
+                                    <option value="">
+                                        Select Sex
+                                    </option>
+
+                                    <option value="Male">
+                                        Male
+                                    </option>
+
+                                    <option value="Female">
+                                        Female
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="studentDob"
+                                >
+                                    Date of Birth
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="studentDob"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="student-form-section">
+
+                        <div
+                            class="student-form-section-title"
+                        >
+
+                            <h3>
+                                Parent / Guardian
+                            </h3>
+
+                            <p>
+                                Contact information
+                            </p>
+
+                        </div>
+
+
+                        <div class="student-form-grid">
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="guardianName"
+                                >
+                                    Guardian Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="guardianName"
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                            >
+
+                                <label
+                                    for="parentPhone"
+                                >
+                                    Parent Phone
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="parentPhone"
+                                >
+
+                            </div>
+
+
+                            <div
+                                class="student-form-group"
+                                style="grid-column:1/-1;"
+                            >
+
+                                <label
+                                    for="studentAddress"
+                                >
+                                    Address
+                                </label>
+
+                                <textarea
+                                    id="studentAddress"
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="student-form-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="cancelStudentButton"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="saveStudentButton"
+                        >
+                            Save Student
+                        </button>
+
+                    </div>
+
+                </form>
+
             </div>
 
-
-            <!-- GUARDIAN PHONE -->
-
-            <div class="student-form-group">
-
-                <label for="parentPhone">
-                    Parent / Guardian Phone
-                </label>
-
-                <input
-                    type="tel"
-                    id="parentPhone"
-                    placeholder="Enter phone number"
-                >
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-    <!-- FORM ACTIONS -->
-
-    <div class="student-form-actions">
-
-        <button
-            type="submit"
-            class="btn student-save-button"
-            id="saveStudentButton"
-        >
-
-            💾
-            Save Student
-
-        </button>
-
-
-        <button
-            type="button"
-            class="student-cancel-button"
-            id="cancelStudentButton"
-        >
-
-            Cancel
-
-        </button>
-
-    </div>
-
-</form>
-
-</div>
-            
 
             <!-- STUDENT TABLE -->
 
-            <div class="teacher-table-container">
+            <div class="teacher-dashboard-panel">
 
-                <table class="teacher-table">
+                <h2>
+                    Students in
+                    <span id="teacherClass">
+                        —
+                    </span>
+                </h2>
 
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                S/N
-                            </th>
-
-                            <th>
-                                Student Name
-                            </th>
-
-                            <th>
-                                Registration Number
-                            </th>
-
-                            <th>
-                                Sex
-                            </th>
-
-                            <th>
-                                Date of Birth
-                            </th>
-
-                            <th>
-                                Actions
-                            </th>
-
-                        </tr>
-
-                    </thead>
+                <p>
+                    Select Upload Result beside a student
+                    to automatically prepare their result
+                    upload.
+                </p>
 
 
-                    <tbody id="studentTableBody">
+                <div
+                    class="teacher-table-container"
+                    style="margin-top:18px;"
+                >
 
-                        <tr>
+                    <table
+                        class="teacher-table"
+                        id="studentTable"
+                    >
 
-                            <td
-                                colspan="6"
-                                style="text-align:center;"
-                            >
+                        <thead>
 
-                                Loading students...
+                            <tr>
 
-                            </td>
+                                <th>
+                                    S/N
+                                </th>
 
-                        </tr>
+                                <th>
+                                    Student Name
+                                </th>
 
-                    </tbody>
+                                <th>
+                                    Registration Number
+                                </th>
 
-                </table>
+                                <th>
+                                    Sex
+                                </th>
+
+                                <th>
+                                    Date of Birth
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="studentTableBody"
+                        >
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    style="text-align:center;"
+                                >
+                                    Loading students...
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <!-- ========================= -->
-        <!-- WEEKLY ATTENDANCE -->
-        <!-- ========================= -->
+        <!-- =================================================
+             UPLOAD RESULT SCREEN
+             ================================================= -->
 
         <section
-            id="attendance"
             class="teacher-section"
+            id="resultManagement"
         >
 
             <div class="teacher-section-heading">
 
-                <p class="section-label">
-                    ATTENDANCE
-                </p>
+                <span class="section-label">
+                    Results
+                </span>
 
                 <h1>
-                    Weekly Class Attendance
+                    Upload Result Screen
                 </h1>
 
                 <p>
-                    Record attendance for your students from Monday to Friday.
+                    Upload, view, replace, delete and restore
+                    results for students in your class.
                 </p>
 
             </div>
 
 
-            <!-- ATTENDANCE INFORMATION -->
+            <div class="result-management-card">
 
-            <div class="teacher-dashboard-panel">
+                <div class="result-management-header">
 
-                <div style="margin-bottom:20px;">
+                    <div>
 
-                    <h2>
-                        Attendance Week
-                    </h2>
+                        <h2>
+                            Result Upload
+                        </h2>
 
-                    <p>
-                        Select the Monday of the school week you want to record.
-                    </p>
+                        <p>
+                            Student information is filled
+                            automatically when you choose
+                            Upload Result from Student
+                            Management.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="refreshTeacherResultsButton"
+                    >
+                        🔄 Refresh
+                    </button>
 
                 </div>
 
 
-                <div
-                    class="attendance-controls"
-                    style="
-                        display:flex;
-                        flex-wrap:wrap;
-                        gap:15px;
-                        align-items:end;
-                    "
+                <!-- RESULT FORM -->
+
+                <form
+                    id="teacherResultForm"
+                    class="result-upload-form"
                 >
+
+                    <h3>
+                        Upload Student Result
+                    </h3>
+
+
+                    <input
+                        type="hidden"
+                        id="teacherResultStudentId"
+                    >
+
+
+                    <div class="result-form-grid">
+
+                        <div class="result-form-group">
+
+                            <label
+                                for="teacherResultStudentName"
+                            >
+                                Student Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="teacherResultStudentName"
+                                readonly
+                                placeholder="Select a student"
+                            >
+
+                        </div>
+
+
+                        <div class="result-form-group">
+
+                            <label
+                                for="teacherResultRegistrationNumber"
+                            >
+                                Registration Number
+                            </label>
+
+                            <input
+                                type="text"
+                                id="teacherResultRegistrationNumber"
+                                readonly
+                                placeholder="Automatic"
+                            >
+
+                        </div>
+
+
+                        <div class="result-form-group">
+
+                            <label
+                                for="teacherResultClass"
+                            >
+                                Class
+                            </label>
+
+                            <input
+                                type="text"
+                                id="teacherResultClass"
+                                readonly
+                                placeholder="Automatic"
+                            >
+
+                        </div>
+
+
+                        <div class="result-form-group">
+
+                            <label
+                                for="teacherResultTerm"
+                            >
+                                Term
+                            </label>
+
+                            <select
+                                id="teacherResultTerm"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Term
+                                </option>
+
+                                <option value="First Term">
+                                    First Term
+                                </option>
+
+                                <option value="Second Term">
+                                    Second Term
+                                </option>
+
+                                <option value="Third Term">
+                                    Third Term
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div
+                            class="result-form-group result-file-group"
+                            style="grid-column:span 2;"
+                        >
+
+                            <label
+                                for="teacherResultFile"
+                            >
+                                Result File
+                            </label>
+
+                            <input
+                                type="file"
+                                id="teacherResultFile"
+                                accept=".pdf,.jpg,.jpeg,.png,.webp"
+                                required
+                            >
+
+                            <div class="result-file-help">
+                                Accepted: PDF, JPG, JPEG, PNG or WEBP.
+                                Maximum file size: 10MB.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-form-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="cancelTeacherResultButton"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="teacherUploadResultButton"
+                        >
+                            📤 Upload Result
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- ACTIVE RESULTS -->
+
+                <h3 class="result-list-title">
+                    My Uploaded Results
+                </h3>
+
+
+                <div
+                    class="teacher-table-container"
+                >
+
+                    <table
+                        class="teacher-table"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    S/N
+                                </th>
+
+                                <th>
+                                    Student Name
+                                </th>
+
+                                <th>
+                                    Registration Number
+                                </th>
+
+                                <th>
+                                    Class
+                                </th>
+
+                                <th>
+                                    Term
+                                </th>
+
+                                <th>
+                                    Result File
+                                </th>
+
+                                <th>
+                                    Uploaded
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody
+                            id="teacherResultsTableBody"
+                        >
+
+                            <tr>
+
+                                <td
+                                    colspan="8"
+                                    style="text-align:center;"
+                                >
+                                    Open the Upload Result Screen
+                                    to load results.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- DELETED RESULTS -->
+
+                <div
+                    class="result-deleted-section"
+                >
+
+                    <h3>
+                        🗑 Deleted Results
+                    </h3>
+
+                    <p
+                        style="
+                            color:#6b7280;
+                            font-size:13px;
+                            margin-bottom:12px;
+                        "
+                    >
+                        Deleted results remain here so that
+                        you can restore them if necessary.
+                    </p>
+
+
+                    <div
+                        class="teacher-table-container"
+                    >
+
+                        <table
+                            class="teacher-table"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        S/N
+                                    </th>
+
+                                    <th>
+                                        Student Name
+                                    </th>
+
+                                    <th>
+                                        Registration Number
+                                    </th>
+
+                                    <th>
+                                        Class
+                                    </th>
+
+                                    <th>
+                                        Term
+                                    </th>
+
+                                    <th>
+                                        Deleted
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody
+                                id="deletedTeacherResultsTableBody"
+                            >
+
+                                <tr>
+
+                                    <td
+                                        colspan="7"
+                                        style="text-align:center;"
+                                    >
+                                        No deleted results.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ATTENDANCE
+             ================================================= -->
+
+        <section
+            class="teacher-section"
+            id="attendance"
+        >
+
+            <div class="teacher-section-heading">
+
+                <span class="section-label">
+                    Attendance
+                </span>
+
+                <h1>
+                    Weekly Attendance
+                </h1>
+
+                <p>
+                    Record attendance for Monday to Friday.
+                </p>
+
+            </div>
+
+
+            <div class="teacher-dashboard-panel">
+
+                <div class="attendance-controls">
 
                     <div>
 
                         <label
                             for="attendanceWeek"
-                            style="display:block; margin-bottom:6px;"
                         >
                             Week Starting
                         </label>
@@ -1179,231 +4329,129 @@ style="display:none;"
 
                     <button
                         type="button"
-                        class="btn"
+                        class="btn btn-primary"
                         id="loadAttendanceButton"
                     >
-
                         Load Attendance
-
                     </button>
 
                 </div>
 
-            </div>
+
+                <p
+                    id="attendanceWeekLabel"
+                    style="margin-bottom:15px;"
+                >
+                    Select a week to load attendance.
+                </p>
 
 
-            <!-- WEEK SUMMARY -->
-
-            <div
-                class="teacher-stat-grid"
-                style="margin-top:20px;"
-            >
-
-                <div class="teacher-stat-card">
-
-                    <div class="teacher-stat-icon">
-                        📅
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Week
-                        </span>
-
-                        <strong id="attendanceWeekLabel">
-                            —
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <div class="teacher-stat-card">
-
-                    <div class="teacher-stat-icon">
-                        👨‍🎓
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Students
-                        </span>
-
-                        <strong id="attendanceStudentCount">
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ATTENDANCE TABLE -->
-
-            <div
-                class="teacher-table-container"
-                style="margin-top:20px;"
-            >
-
-                <table
-                    class="teacher-table"
-                    id="weeklyAttendanceTable"
+                <div
+                    class="teacher-table-container"
                 >
 
-                    <thead>
+                    <table
+                        class="teacher-table"
+                        id="weeklyAttendanceTable"
+                    >
 
-                        <tr>
+                        <thead>
 
-                            <th rowspan="2">
-                                S/N
-                            </th>
+                            <tr>
 
-                            <th rowspan="2">
-                                Student Name
-                            </th>
+                                <th>
+                                    S/N
+                                </th>
 
-                            <th rowspan="2">
-                                Registration Number
-                            </th>
+                                <th>
+                                    Student Name
+                                </th>
 
-                            <th colspan="5">
-                                School Week
-                            </th>
+                                <th>
+                                    Registration Number
+                                </th>
 
-                        </tr>
+                                <th>
+                                    Monday
+                                </th>
 
+                                <th>
+                                    Tuesday
+                                </th>
 
-                        <tr>
+                                <th>
+                                    Wednesday
+                                </th>
 
-                            <th>
-                                Monday
-                            </th>
+                                <th>
+                                    Thursday
+                                </th>
 
-                            <th>
-                                Tuesday
-                            </th>
+                                <th>
+                                    Friday
+                                </th>
 
-                            <th>
-                                Wednesday
-                            </th>
+                            </tr>
 
-                            <th>
-                                Thursday
-                            </th>
-
-                            <th>
-                                Friday
-                            </th>
-
-                        </tr>
-
-                    </thead>
+                        </thead>
 
 
-                    <tbody id="attendanceTableBody">
+                        <tbody
+                            id="attendanceTableBody"
+                        >
 
-                        <tr>
+                            <tr>
 
-                            <td
-                                colspan="8"
-                                style="text-align:center;"
-                            >
+                                <td
+                                    colspan="8"
+                                    style="text-align:center;"
+                                >
+                                    Load attendance to begin.
+                                </td>
 
-                                Select a week to load students.
+                            </tr>
 
-                            </td>
+                        </tbody>
 
-                        </tr>
+                    </table>
 
-                    </tbody>
+                </div>
 
-                </table>
-
-            </div>
-
-
-            <!-- SAVE ATTENDANCE -->
-
-            <div
-                style="
-                    margin-top:20px;
-                    display:flex;
-                    gap:10px;
-                    flex-wrap:wrap;
-                "
-            >
 
                 <button
                     type="button"
-                    class="btn attendance-save-btn"
+                    class="btn btn-primary attendance-save-btn"
                     id="saveAttendanceButton"
                 >
-
                     💾 Save Weekly Attendance
-
                 </button>
-
-            </div>
-
-
-            <!-- ATTENDANCE NOTE -->
-
-            <div
-                class="teacher-dashboard-panel"
-                style="margin-top:20px;"
-            >
-
-                <h3>
-                    Attendance Status
-                </h3>
-
-                <p>
-                    <strong>Present</strong> — Student attended school.
-                </p>
-
-                <p>
-                    <strong>Absent</strong> — Student was not present.
-                </p>
-
-                <p>
-                    <strong>Late</strong> — Student arrived late.
-                </p>
-
-                <p>
-                    <strong>Excused</strong> — Absence was officially excused.
-                </p>
 
             </div>
 
         </section>
 
 
-        <!-- ========================= -->
-        <!-- PROFILE -->
-        <!-- ========================= -->
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
 
         <section
-            id="teacherProfile"
             class="teacher-section"
+            id="profile"
         >
 
             <div class="teacher-section-heading">
 
-                <p class="section-label">
-                    TEACHER PROFILE
-                </p>
+                <span class="section-label">
+                    Account
+                </span>
 
                 <h1>
                     My Profile
                 </h1>
 
                 <p>
-                    View your teacher account information.
+                    Your teacher account information.
                 </p>
 
             </div>
@@ -1412,9 +4460,7 @@ style="display:none;"
             <div class="teacher-profile-card">
 
                 <div class="profile-avatar">
-
                     👨‍🏫
-
                 </div>
 
 
@@ -1423,23 +4469,12 @@ style="display:none;"
                     <div>
 
                         <span>
-                            Teacher Name
+                            Full Name
                         </span>
 
-                        <strong id="profileTeacherName">
-                            Class Teacher
-                        </strong>
-
-                    </div>
-
-
-                    <div>
-
-                        <span>
-                            Role
-                        </span>
-
-                        <strong>
+                        <strong
+                            id="profileTeacherName"
+                        >
                             Class Teacher
                         </strong>
 
@@ -1452,8 +4487,38 @@ style="display:none;"
                             Assigned Class
                         </span>
 
-                        <strong id="profileTeacherClass">
-                            Class
+                        <strong
+                            id="profileTeacherClass"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Username
+                        </span>
+
+                        <strong
+                            id="profileTeacherUsername"
+                        >
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Role
+                        </span>
+
+                        <strong>
+                            Teacher
                         </strong>
 
                     </div>
@@ -1464,9 +4529,12 @@ style="display:none;"
 
         </section>
 
-
     </main>
 
+
+    <!-- =====================================================
+         SCRIPTS
+         ===================================================== -->
 
     <script src="teacher-dashboard.js"></script>
 

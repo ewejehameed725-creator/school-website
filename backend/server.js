@@ -2098,12 +2098,46 @@ app.get(
 
 
 // =====================================================
+// ENSURE RESULTS TABLE COLUMNS
+// =====================================================
+
+async function ensureResultColumns() {
+    try {
+        await pool.query(`
+            ALTER TABLE results
+            ADD COLUMN IF NOT EXISTS teacher_id BIGINT
+        `);
+
+        await pool.query(`
+            ALTER TABLE results
+            ADD COLUMN IF NOT EXISTS teacher_name TEXT
+        `);
+
+        await pool.query(`
+            ALTER TABLE results
+            ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ
+        `);
+
+        console.log(
+            "Result table columns checked successfully."
+        );
+
+    } catch (error) {
+        console.error(
+            "Result table setup error:",
+            error.message
+        );
+    }
+}
+
+
+// =====================================================
 // RESULTS
 // =====================================================
 
 
 // =====================================================
-// GET ALL RESULTS
+// GET ALL ACTIVE RESULTS
 // =====================================================
 
 app.get(
@@ -2114,42 +2148,73 @@ app.get(
 
             const result =
                 await pool.query(
-                    `SELECT *
-                     FROM results
-                     ORDER BY uploaded_at DESC`
+                    `
+                    SELECT *
+                    FROM results
+                    WHERE deleted_at IS NULL
+                    ORDER BY uploaded_at DESC
+                    `
                 );
 
-
             res.json({
-
                 success: true,
-
-                results:
-                    result.rows
-
+                results: result.rows
             });
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(
                 "Get results error:",
                 error.message
             );
 
-
             res.status(500).json({
-
                 success: false,
-
                 message:
                     "Unable to get results."
+            });
+        }
+    }
+);
 
+
+// =====================================================
+// GET ALL RESULTS INCLUDING DELETED
+// =====================================================
+
+app.get(
+    "/api/results/manage",
+    async function (req, res) {
+
+        try {
+
+            const result =
+                await pool.query(
+                    `
+                    SELECT *
+                    FROM results
+                    ORDER BY uploaded_at DESC
+                    `
+                );
+
+            res.json({
+                success: true,
+                results: result.rows
             });
 
-        }
+        } catch (error) {
 
+            console.error(
+                "Get managed results error:",
+                error.message
+            );
+
+            res.status(500).json({
+                success: false,
+                message:
+                    "Unable to load result management data."
+            });
+        }
     }
 );
 
@@ -2169,74 +2234,59 @@ app.get(
                 term
             } = req.params;
 
-
             const result =
                 await pool.query(
-                    `SELECT *
-                     FROM results
-                     WHERE LOWER(admission_number)
-                         = LOWER($1)
-                     AND term = $2
-                     LIMIT 1`,
+                    `
+                    SELECT *
+                    FROM results
+                    WHERE LOWER(admission_number)
+                        = LOWER($1)
+                    AND term = $2
+                    AND deleted_at IS NULL
+                    LIMIT 1
+                    `,
                     [
                         admissionNumber,
                         term
                     ]
                 );
 
-
             if (
                 result.rows.length === 0
             ) {
 
                 return res.status(404).json({
-
                     success: false,
-
                     message:
                         "Result not found."
-
                 });
-
             }
 
-
             res.json({
-
                 success: true,
-
                 result:
                     result.rows[0]
-
             });
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(
                 "Get student result error:",
                 error.message
             );
 
-
             res.status(500).json({
-
                 success: false,
-
                 message:
                     "Unable to get student result."
-
             });
-
         }
-
     }
 );
 
 
 // =====================================================
-// UPLOAD RESULT
+// UPLOAD / REPLACE RESULT
 // =====================================================
 
 app.post(
@@ -2253,7 +2303,6 @@ app.post(
                 fileName,
                 fileType,
                 fileData,
-
                 teacherId,
                 teacherName
             } = req.body;
@@ -2269,26 +2318,57 @@ app.post(
             ) {
 
                 return res.status(400).json({
-
                     success: false,
-
                     message:
                         "Please provide all result information."
-
                 });
-
             }
 
 
+            // ---------------------------------------------
+            // NORMALIZE TEACHER ID
+            // ---------------------------------------------
+
+            let validTeacherId = null;
+
+            if (
+                teacherId !== null &&
+                teacherId !== undefined &&
+                teacherId !== ""
+            ) {
+
+                const parsedTeacherId =
+                    Number(teacherId);
+
+                if (
+                    Number.isInteger(
+                        parsedTeacherId
+                    ) &&
+                    parsedTeacherId > 0
+                ) {
+
+                    validTeacherId =
+                        parsedTeacherId;
+                }
+            }
+
+
+            // ---------------------------------------------
+            // CHECK EXISTING RESULT
+            // ---------------------------------------------
+
             const existing =
                 await pool.query(
-                    `SELECT id
-                     FROM results
-                     WHERE LOWER(admission_number)
-                         = LOWER($1)
-                     AND term = $2`,
+                    `
+                    SELECT id
+                    FROM results
+                    WHERE LOWER(admission_number)
+                        = LOWER($1)
+                    AND term = $2
+                    LIMIT 1
+                    `,
                     [
-                        admissionNumber,
+                        admissionNumber.trim(),
                         term
                     ]
                 );
@@ -2297,39 +2377,59 @@ app.post(
             let result;
 
 
+            // ---------------------------------------------
+            // REPLACE EXISTING RESULT
+            // ---------------------------------------------
+
             if (
                 existing.rows.length > 0
             ) {
 
                 result =
                     await pool.query(
-                        `UPDATE results
-                         SET
-                             student_name = $1,
-                             student_class = $2,
-                             file_name = $3,
-                             file_type = $4,
-                             file_data = $5,
-                             uploaded_at = NOW()
-                         WHERE id = $6
-                         RETURNING *`,
+                        `
+                        UPDATE results
+                        SET
+                            student_name = $1,
+                            admission_number = $2,
+                            student_class = $3,
+                            term = $4,
+                            file_name = $5,
+                            file_type = $6,
+                            file_data = $7,
+                            teacher_id = $8,
+                            teacher_name = $9,
+                            deleted_at = NULL,
+                            uploaded_at = NOW()
+                        WHERE id = $10
+                        RETURNING *
+                        `,
                         [
-                            studentName,
-                            studentClass,
+                            studentName.trim(),
+                            admissionNumber.trim(),
+                            studentClass.trim(),
+                            term,
                             fileName,
                             fileType || null,
                             fileData,
+                            validTeacherId,
+                            teacherName || null,
                             existing.rows[0].id
                         ]
                     );
 
             }
 
+            // ---------------------------------------------
+            // CREATE NEW RESULT
+            // ---------------------------------------------
+
             else {
 
                 result =
                     await pool.query(
-                        `INSERT INTO results
+                        `
+                        INSERT INTO results
                         (
                             student_name,
                             admission_number,
@@ -2337,59 +2437,40 @@ app.post(
                             term,
                             file_name,
                             file_type,
-                            file_data
+                            file_data,
+                            teacher_id,
+                            teacher_name,
+                            deleted_at,
+                            uploaded_at
                         )
                         VALUES
-                        ($1, $2, $3, $4, $5, $6, $7)
-                        RETURNING *`,
+                        (
+                            $1,
+                            $2,
+                            $3,
+                            $4,
+                            $5,
+                            $6,
+                            $7,
+                            $8,
+                            $9,
+                            NULL,
+                            NOW()
+                        )
+                        RETURNING *
+                        `,
                         [
-                            studentName,
-                            admissionNumber,
-                            studentClass,
+                            studentName.trim(),
+                            admissionNumber.trim(),
+                            studentClass.trim(),
                             term,
                             fileName,
                             fileType || null,
-                            fileData
+                            fileData,
+                            validTeacherId,
+                            teacherName || null
                         ]
                     );
-
-            }
-
-
-            // Record teacher activity if teacher
-            // information was supplied.
-
-            if (
-                teacherName ||
-                teacherId
-            ) {
-
-                await logTeacherActivity({
-
-                    teacherId:
-                        teacherId,
-
-                    teacherName:
-                        teacherName ||
-                        "Teacher",
-
-                    teacherClass:
-                        studentClass,
-
-                    activityType:
-                        "Result Upload",
-
-                    description:
-                        `Uploaded ${term} result for ${studentName}.`,
-
-                    studentName:
-                        studentName,
-
-                    studentAdmissionNumber:
-                        admissionNumber
-
-                });
-
             }
 
 
@@ -2398,40 +2479,39 @@ app.post(
                 success: true,
 
                 message:
-                    "Result uploaded successfully!",
+                    existing.rows.length > 0
+                        ? "Result replaced successfully!"
+                        : "Result uploaded successfully!",
 
                 result:
                     result.rows[0]
-
             });
 
-        }
 
-        catch (error) {
+        } catch (error) {
 
             console.error(
                 "Upload result error:",
                 error.message
             );
 
-
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to upload result."
+                    "Unable to upload result.",
 
+                error:
+                    error.message
             });
-
         }
-
     }
 );
 
 
 // =====================================================
-// DELETE RESULT
+// DELETE RESULT / MOVE TO TRASH
 // =====================================================
 
 app.delete(
@@ -2447,12 +2527,14 @@ app.delete(
 
             const result =
                 await pool.query(
-                    `DELETE FROM results
-                     WHERE id = $1
-                     RETURNING id`,
-                    [
-                        id
-                    ]
+                    `
+                    UPDATE results
+                    SET deleted_at = NOW()
+                    WHERE id = $1
+                    AND deleted_at IS NULL
+                    RETURNING *
+                    `,
+                    [id]
                 );
 
 
@@ -2461,14 +2543,10 @@ app.delete(
             ) {
 
                 return res.status(404).json({
-
                     success: false,
-
                     message:
-                        "Result not found."
-
+                        "Active result not found."
                 });
-
             }
 
 
@@ -2477,31 +2555,175 @@ app.delete(
                 success: true,
 
                 message:
-                    "Result deleted successfully."
+                    "Result moved to deleted results.",
 
+                result:
+                    result.rows[0]
             });
 
-        }
 
-        catch (error) {
+        } catch (error) {
 
             console.error(
                 "Delete result error:",
                 error.message
             );
 
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to delete result.",
+
+                error:
+                    error.message
+            });
+        }
+    }
+);
+
+
+// =====================================================
+// RESTORE DELETED RESULT
+// =====================================================
+
+app.put(
+    "/api/results/:id/restore",
+    async function (req, res) {
+
+        try {
+
+            const {
+                id
+            } = req.params;
+
+
+            const result =
+                await pool.query(
+                    `
+                    UPDATE results
+                    SET deleted_at = NULL
+                    WHERE id = $1
+                    AND deleted_at IS NOT NULL
+                    RETURNING *
+                    `,
+                    [id]
+                );
+
+
+            if (
+                result.rows.length === 0
+            ) {
+
+                return res.status(404).json({
+                    success: false,
+                    message:
+                        "Deleted result not found."
+                });
+            }
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Result restored successfully!",
+
+                result:
+                    result.rows[0]
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Restore result error:",
+                error.message
+            );
 
             res.status(500).json({
 
                 success: false,
 
                 message:
-                    "Unable to delete result."
+                    "Unable to restore result.",
 
+                error:
+                    error.message
+            });
+        }
+    }
+);
+
+
+// =====================================================
+// PERMANENTLY DELETE RESULT
+// =====================================================
+
+app.delete(
+    "/api/results/:id/permanent",
+    async function (req, res) {
+
+        try {
+
+            const {
+                id
+            } = req.params;
+
+
+            const result =
+                await pool.query(
+                    `
+                    DELETE FROM results
+                    WHERE id = $1
+                    AND deleted_at IS NOT NULL
+                    RETURNING id
+                    `,
+                    [id]
+                );
+
+
+            if (
+                result.rows.length === 0
+            ) {
+
+                return res.status(404).json({
+                    success: false,
+                    message:
+                        "Deleted result not found."
+                });
+            }
+
+
+            res.json({
+
+                success: true,
+
+                message:
+                    "Result permanently deleted."
             });
 
-        }
 
+        } catch (error) {
+
+            console.error(
+                "Permanent result delete error:",
+                error.message
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to permanently delete result.",
+
+                error:
+                    error.message
+            });
+        }
     }
 );
 
@@ -2899,6 +3121,8 @@ async function initializeDatabase() {
         await ensureStudentColumns();
 
         await ensureAttendanceTable();
+
+        await ensureResultColumns();
 
 
         // ---------------------------------------------

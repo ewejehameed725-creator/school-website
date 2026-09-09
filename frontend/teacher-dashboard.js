@@ -1,24 +1,48 @@
-// =====================================================
-// TEACHER DASHBOARD
-// Lagos State Model College Meiran
-// =====================================================
-
 document.addEventListener("DOMContentLoaded", function () {
-
-    // =====================================================
-    // BACKEND URL
-    // =====================================================
 
     const API_URL =
         "https://lagos-state-model-college-backend.onrender.com";
 
 
-    // =====================================================
-    // ELEMENTS
-    // =====================================================
+    /* =========================================================
+       TEACHER IDENTITY
+       ========================================================= */
 
-    const menuButton =
-        document.getElementById("teacherMenuButton");
+    let savedStaffUser = null;
+
+    try {
+        savedStaffUser =
+            JSON.parse(
+                localStorage.getItem("staffUser") || "null"
+            );
+    } catch (error) {
+        savedStaffUser = null;
+    }
+
+
+    const teacherName =
+        localStorage.getItem("teacherName") ||
+        savedStaffUser?.name ||
+        savedStaffUser?.full_name ||
+        "Class Teacher";
+
+
+    const teacherClass =
+        localStorage.getItem("teacherClass") ||
+        savedStaffUser?.class ||
+        savedStaffUser?.assigned_class ||
+        "";
+
+
+    const teacherId =
+        localStorage.getItem("teacherId") ||
+        savedStaffUser?.id ||
+        "";
+
+
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
 
     const sidebar =
         document.getElementById("teacherSidebar");
@@ -26,36 +50,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay =
         document.getElementById("teacherOverlay");
 
-    const navLinks =
-        document.querySelectorAll(".teacher-nav-link");
+    const menuButton =
+        document.getElementById("teacherMenuButton");
 
-    const sections =
-        document.querySelectorAll(".teacher-section");
+    const logoutButton =
+        document.getElementById("teacherLogoutButton");
 
-
-    // =====================================================
-    // TEACHER INFORMATION
-    // =====================================================
-
-    const teacherName =
-        localStorage.getItem("teacherName") ||
-        "Class Teacher";
-
-    const teacherClass =
-        localStorage.getItem("teacherClass") ||
-        "";
-
-    const teacherId =
-        localStorage.getItem("teacherId") ||
-        "";
-
-
-    // =====================================================
-    // DISPLAY TEACHER INFORMATION
-    // =====================================================
 
     const teacherDisplayName =
         document.getElementById("teacherDisplayName");
+
+    const teacherDisplayClass =
+        document.getElementById("teacherDisplayClass");
+
+    const teacherWelcomeName =
+        document.getElementById("teacherWelcomeName");
+
+    const teacherClassElement =
+        document.getElementById("teacherClass");
+
+
+    const profileTeacherName =
+        document.getElementById("profileTeacherName");
+
+    const profileTeacherClass =
+        document.getElementById("profileTeacherClass");
+
+    const profileTeacherUsername =
+        document.getElementById("profileTeacherUsername");
+
+
+    /* =========================================================
+       DISPLAY TEACHER INFORMATION
+       ========================================================= */
 
     if (teacherDisplayName) {
         teacherDisplayName.textContent =
@@ -63,8 +90,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    const profileTeacherName =
-        document.getElementById("profileTeacherName");
+    if (teacherDisplayClass) {
+        teacherDisplayClass.textContent =
+            teacherClass || "Not assigned";
+    }
+
+
+    if (teacherWelcomeName) {
+        teacherWelcomeName.textContent =
+            teacherName;
+    }
+
+
+    if (teacherClassElement) {
+        teacherClassElement.textContent =
+            teacherClass || "Your Class";
+    }
+
 
     if (profileTeacherName) {
         profileTeacherName.textContent =
@@ -72,339 +114,660 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    const teacherDisplayClass =
-        document.getElementById("teacherDisplayClass");
-
-    if (teacherDisplayClass) {
-        teacherDisplayClass.textContent =
-            teacherClass || "Class";
-    }
-
-
-    const teacherClassElement =
-        document.getElementById("teacherClass");
-
-    if (teacherClassElement) {
-        teacherClassElement.textContent =
-            teacherClass || "—";
-    }
-
-
-    const profileTeacherClass =
-        document.getElementById("profileTeacherClass");
-
     if (profileTeacherClass) {
         profileTeacherClass.textContent =
-            teacherClass || "Class";
+            teacherClass || "Not assigned";
     }
 
 
-    // =====================================================
-    // MOBILE SIDEBAR
-    // =====================================================
+    if (profileTeacherUsername) {
+        profileTeacherUsername.textContent =
+            savedStaffUser?.username ||
+            localStorage.getItem("teacherUsername") ||
+            "—";
+    }
 
-    if (menuButton && sidebar && overlay) {
+
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
+
+    function openSidebar() {
+
+        if (sidebar) {
+            sidebar.classList.add("open");
+        }
+
+        if (overlay) {
+            overlay.classList.add("active");
+        }
+    }
+
+
+    function closeSidebar() {
+
+        if (sidebar) {
+            sidebar.classList.remove("open");
+        }
+
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
+    }
+
+
+    if (menuButton) {
 
         menuButton.addEventListener(
             "click",
             function () {
 
-                sidebar.classList.add("open");
-
-                overlay.classList.add("active");
+                if (
+                    sidebar &&
+                    sidebar.classList.contains("open")
+                ) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
 
             }
         );
 
+    }
+
+
+    if (overlay) {
 
         overlay.addEventListener(
             "click",
-            function () {
-
-                sidebar.classList.remove("open");
-
-                overlay.classList.remove("active");
-
-            }
+            closeSidebar
         );
 
     }
 
 
-    // =====================================================
-    // SHOW SECTION
-    // =====================================================
+    /* =========================================================
+       SECTION NAVIGATION
+       ========================================================= */
 
-    function showSection(target) {
-
-        navLinks.forEach(function (link) {
-
-            link.classList.remove("active");
-
-        });
+    const navLinks =
+        document.querySelectorAll(
+            ".teacher-nav-link"
+        );
 
 
-        const matchingLink =
-            document.querySelector(
-                `.teacher-nav-link[data-section="${target}"]`
+    const sections =
+        document.querySelectorAll(
+            ".teacher-section"
+        );
+
+
+    function showSection(sectionId) {
+
+        sections.forEach(
+            function (section) {
+
+                section.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        navLinks.forEach(
+            function (link) {
+
+                link.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        const section =
+            document.getElementById(
+                sectionId
             );
 
 
-        if (matchingLink) {
+        if (section) {
 
-            matchingLink.classList.add("active");
+            section.classList.add(
+                "active"
+            );
 
-        }
-
-
-        sections.forEach(function (section) {
-
-            section.classList.remove("active");
-
-        });
-
-
-        const selectedSection =
-            document.getElementById(target);
-
-
-        if (selectedSection) {
-
-            selectedSection.classList.add("active");
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
         }
 
 
-        if (sidebar) {
+        const activeLink =
+            document.querySelector(
+                `.teacher-nav-link[data-section="${sectionId}"]`
+            );
 
-            sidebar.classList.remove("open");
+
+        if (activeLink) {
+
+            activeLink.classList.add(
+                "active"
+            );
 
         }
 
 
-        if (overlay) {
-
-            overlay.classList.remove("active");
-
-        }
+        closeSidebar();
 
 
-        // Load required information
-
-        if (target === "studentManagement") {
-
+        if (sectionId === "studentManagement") {
             loadStudents();
-
         }
 
 
-        if (target === "attendance") {
+        if (sectionId === "resultManagement") {
+            loadTeacherResults();
+        }
 
+
+        if (sectionId === "attendance") {
             setDefaultAttendanceWeek();
 
             loadWeeklyAttendance();
-
         }
 
     }
 
 
-    // =====================================================
-    // NAVIGATION
-    // =====================================================
+    navLinks.forEach(
+        function (link) {
 
-    navLinks.forEach(function (link) {
+            link.addEventListener(
+                "click",
+                function (event) {
 
-        link.addEventListener(
-            "click",
-            function (event) {
+                    event.preventDefault();
 
-                const target =
-                    link.getAttribute("data-section");
+                    const sectionId =
+                        link.dataset.section;
+
+                    if (sectionId) {
+                        showSection(
+                            sectionId
+                        );
+                    }
+
+                }
+            );
+
+        }
+    );
 
 
-                // Normal page link
-                if (!target) {
+    document
+        .querySelectorAll(
+            "[data-section]"
+        )
+        .forEach(
+            function (element) {
 
+                if (
+                    element.classList.contains(
+                        "teacher-nav-link"
+                    )
+                ) {
                     return;
-
                 }
 
 
-                event.preventDefault();
+                element.addEventListener(
+                    "click",
+                    function (event) {
 
-                showSection(target);
+                        if (
+                            element.tagName ===
+                            "A"
+                        ) {
+                            event.preventDefault();
+                        }
+
+
+                        const sectionId =
+                            element.dataset.section;
+
+                        if (sectionId) {
+
+                            showSection(
+                                sectionId
+                            );
+
+                        }
+
+                    }
+                );
 
             }
         );
 
-    });
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    function logoutTeacher() {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to logout?"
+            );
 
 
-    // =====================================================
-    // QUICK ACTIONS
-    // =====================================================
+        if (!confirmed) {
+            return;
+        }
 
-    const quickButtons =
-        document.querySelectorAll(
-            ".teacher-quick-actions [data-section]"
+
+        localStorage.removeItem(
+            "staffUser"
+        );
+
+        localStorage.removeItem(
+            "teacherId"
+        );
+
+        localStorage.removeItem(
+            "teacherName"
+        );
+
+        localStorage.removeItem(
+            "teacherClass"
+        );
+
+        localStorage.removeItem(
+            "teacherUsername"
         );
 
 
-    quickButtons.forEach(function (button) {
+        sessionStorage.clear();
 
-        button.addEventListener(
+
+        window.location.href =
+            "admin-login.html";
+
+    }
+
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener(
             "click",
-            function () {
-
-                const target =
-                    button.getAttribute("data-section");
-
-
-                if (target) {
-
-                    showSection(target);
-
-                }
-
-            }
+            logoutTeacher
         );
 
-    });
+    }
 
 
-    // =====================================================
-    // STUDENT MANAGEMENT ELEMENTS
-    // =====================================================
+    /* =========================================================
+       STUDENT MANAGEMENT
+       ========================================================= */
 
     const addStudentButton =
-        document.getElementById("addStudentButton");
+        document.getElementById(
+            "addStudentButton"
+        );
+
 
     const studentFormContainer =
-        document.getElementById("studentFormContainer");
+        document.getElementById(
+            "studentFormContainer"
+        );
+
 
     const studentForm =
-        document.getElementById("studentForm");
+        document.getElementById(
+            "studentForm"
+        );
+
 
     const cancelStudentButton =
-        document.getElementById("cancelStudentButton");
+        document.getElementById(
+            "cancelStudentButton"
+        );
+
 
     const studentTableBody =
-        document.getElementById("studentTableBody");
+        document.getElementById(
+            "studentTableBody"
+        );
 
 
-    // =====================================================
-    // SHOW ADD STUDENT FORM
-    // =====================================================
+    const studentIdInput =
+        document.getElementById(
+            "studentId"
+        );
+
+
+    const studentNameInput =
+        document.getElementById(
+            "studentName"
+        );
+
+
+    const registrationNumberInput =
+        document.getElementById(
+            "registrationNumber"
+        );
+
+
+    const serialNumberInput =
+        document.getElementById(
+            "serialNumber"
+        );
+
+
+    const studentClassInput =
+        document.getElementById(
+            "studentClass"
+        );
+
+
+    const studentSexInput =
+        document.getElementById(
+            "studentSex"
+        );
+
+
+    const studentDobInput =
+        document.getElementById(
+            "studentDob"
+        );
+
+
+    const guardianNameInput =
+        document.getElementById(
+            "guardianName"
+        );
+
+
+    const parentPhoneInput =
+        document.getElementById(
+            "parentPhone"
+        );
+
+
+    const studentAddressInput =
+        document.getElementById(
+            "studentAddress"
+        );
+
+
+    const saveStudentButton =
+        document.getElementById(
+            "saveStudentButton"
+        );
+
+
+    function openStudentForm(student = null) {
+
+        if (!studentFormContainer) {
+            return;
+        }
+
+
+        studentFormContainer.style.display =
+            "block";
+
+
+        if (studentClassInput) {
+            studentClassInput.value =
+                teacherClass;
+        }
+
+
+        if (!student) {
+
+            studentForm?.reset();
+
+            if (studentClassInput) {
+                studentClassInput.value =
+                    teacherClass;
+            }
+
+            if (studentIdInput) {
+                studentIdInput.value = "";
+            }
+
+            if (saveStudentButton) {
+                saveStudentButton.textContent =
+                    "Save Student";
+            }
+
+        } else {
+
+            if (studentIdInput) {
+                studentIdInput.value =
+                    student.id || "";
+            }
+
+
+            if (studentNameInput) {
+                studentNameInput.value =
+                    student.student_name ||
+                    student.full_name ||
+                    student.name ||
+                    "";
+            }
+
+
+            if (registrationNumberInput) {
+                registrationNumberInput.value =
+                    student.registration_number ||
+                    student.admission_number ||
+                    student.registrationNumber ||
+                    "";
+            }
+
+
+            if (serialNumberInput) {
+                serialNumberInput.value =
+                    student.serial_number ||
+                    student.serialNumber ||
+                    "";
+            }
+
+
+            if (studentClassInput) {
+                studentClassInput.value =
+                    student.student_class ||
+                    student.class ||
+                    teacherClass;
+            }
+
+
+            if (studentSexInput) {
+                studentSexInput.value =
+                    student.sex ||
+                    "";
+            }
+
+
+            if (studentDobInput) {
+                studentDobInput.value =
+                    student.date_of_birth ||
+                    student.dob ||
+                    "";
+            }
+
+
+            if (guardianNameInput) {
+                guardianNameInput.value =
+                    student.guardian_name ||
+                    student.guardianName ||
+                    "";
+            }
+
+
+            if (parentPhoneInput) {
+                parentPhoneInput.value =
+                    student.parent_phone ||
+                    student.parentPhone ||
+                    "";
+            }
+
+
+            if (studentAddressInput) {
+                studentAddressInput.value =
+                    student.address ||
+                    "";
+            }
+
+
+            if (saveStudentButton) {
+                saveStudentButton.textContent =
+                    "Update Student";
+            }
+
+        }
+
+
+        studentFormContainer.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+
+    function closeStudentForm() {
+
+        if (studentFormContainer) {
+            studentFormContainer.style.display =
+                "none";
+        }
+
+
+        if (studentForm) {
+            studentForm.reset();
+        }
+
+
+        if (studentIdInput) {
+            studentIdInput.value = "";
+        }
+
+
+        if (studentClassInput) {
+            studentClassInput.value =
+                teacherClass;
+        }
+
+
+        if (saveStudentButton) {
+            saveStudentButton.textContent =
+                "Save Student";
+        }
+
+    }
+
 
     if (addStudentButton) {
 
         addStudentButton.addEventListener(
             "click",
             function () {
-
-                if (studentForm) {
-
-                    studentForm.reset();
-
-                }
-
-
-                const studentId =
-                    document.getElementById("studentId");
-
-                if (studentId) {
-
-                    studentId.value = "";
-
-                }
-
-
-                const classInput =
-                    document.getElementById("studentClass");
-
-                if (classInput) {
-
-                    classInput.value =
-                        teacherClass;
-
-                }
-
-
-                if (studentFormContainer) {
-
-                    studentFormContainer.style.display =
-                        "block";
-
-                    studentFormContainer.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-                }
-
+                openStudentForm();
             }
         );
 
     }
 
-
-    // =====================================================
-    // CANCEL STUDENT FORM
-    // =====================================================
 
     if (cancelStudentButton) {
 
         cancelStudentButton.addEventListener(
             "click",
-            function () {
-
-                if (studentForm) {
-
-                    studentForm.reset();
-
-                }
-
-
-                const studentId =
-                    document.getElementById("studentId");
-
-                if (studentId) {
-
-                    studentId.value = "";
-
-                }
-
-
-                if (studentFormContainer) {
-
-                    studentFormContainer.style.display =
-                        "none";
-
-                }
-
-            }
+            closeStudentForm
         );
 
     }
 
 
-    // =====================================================
-    // LOAD STUDENTS
-    // =====================================================
+    function normalizeStudent(student) {
+
+        return {
+            ...student,
+
+            id:
+                student.id ??
+                student.student_id ??
+                student.registration_number ??
+                student.admission_number,
+
+            student_name:
+                student.student_name ||
+                student.full_name ||
+                student.name ||
+                "",
+
+            registration_number:
+                student.registration_number ||
+                student.admission_number ||
+                student.registrationNumber ||
+                "",
+
+            student_class:
+                student.student_class ||
+                student.class ||
+                "",
+
+            sex:
+                student.sex ||
+                "",
+
+            date_of_birth:
+                student.date_of_birth ||
+                student.dob ||
+                "",
+
+            guardian_name:
+                student.guardian_name ||
+                student.guardianName ||
+                "",
+
+            parent_phone:
+                student.parent_phone ||
+                student.parentPhone ||
+                "",
+
+            address:
+                student.address ||
+                ""
+        };
+
+    }
+
+
+    let cachedStudents = [];
+
 
     async function loadStudents() {
 
         if (!studentTableBody) {
-
             return;
-
         }
 
 
         studentTableBody.innerHTML = `
             <tr>
-                <td colspan="6" style="text-align:center;">
+                <td
+                    colspan="6"
+                    style="text-align:center;"
+                >
                     Loading students...
                 </td>
             </tr>
@@ -413,27 +776,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            if (!teacherClass) {
+            let url =
+                `${API_URL}/api/students`;
 
-                studentTableBody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align:center;">
-                            No class has been assigned to this teacher.
-                        </td>
-                    </tr>
-                `;
 
-                updateStudentCount(0);
+            if (teacherClass) {
 
-                return;
+                url +=
+                    `?studentClass=${encodeURIComponent(
+                        teacherClass
+                    )}`;
 
             }
 
 
             const response =
-                await fetch(
-                    `${API_URL}/api/students?studentClass=${encodeURIComponent(teacherClass)}`
-                );
+                await fetch(url);
 
 
             const data =
@@ -443,25 +801,64 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
 
                 throw new Error(
-                    data.error ||
                     data.message ||
-                    "Failed to load students."
+                    data.error ||
+                    "Unable to load students."
                 );
 
             }
 
 
-            const students =
-                Array.isArray(data)
-                    ? data
-                    : data.students || [];
+            let students =
+                data.students ||
+                data.data ||
+                [];
 
 
-            displayStudents(students);
+            students =
+                students.map(
+                    normalizeStudent
+                );
 
-        }
 
-        catch (error) {
+            if (teacherClass) {
+
+                students =
+                    students.filter(
+                        function (student) {
+
+                            return (
+                                String(
+                                    student.student_class ||
+                                    ""
+                                ).toLowerCase()
+                                ===
+                                String(
+                                    teacherClass
+                                ).toLowerCase()
+                            );
+
+                        }
+                    );
+
+            }
+
+
+            cachedStudents =
+                students;
+
+
+            displayStudents(
+                students
+            );
+
+
+            updateStudentCount(
+                students.length
+            );
+
+
+        } catch (error) {
 
             console.error(
                 "Load students error:",
@@ -471,181 +868,260 @@ document.addEventListener("DOMContentLoaded", function () {
 
             studentTableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" style="text-align:center;">
+                    <td
+                        colspan="6"
+                        style="
+                            text-align:center;
+                            color:#b91c1c;
+                            padding:20px;
+                        "
+                    >
                         Unable to load students.
+                        Please refresh and try again.
                     </td>
                 </tr>
             `;
-
-
-            updateStudentCount(0);
 
         }
 
     }
 
 
-    // =====================================================
-    // DISPLAY STUDENTS
-    // =====================================================
+    function updateStudentCount(count) {
+
+        const totalStudents =
+            document.getElementById(
+                "totalStudents"
+            );
+
+
+        if (totalStudents) {
+            totalStudents.textContent =
+                count;
+        }
+
+    }
+
 
     function displayStudents(students) {
 
-        if (
-            !students ||
-            students.length === 0
-        ) {
+        if (!studentTableBody) {
+            return;
+        }
+
+
+        if (!students.length) {
 
             studentTableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" style="text-align:center;">
-                        No students added yet.
+                    <td
+                        colspan="6"
+                        style="
+                            text-align:center;
+                            padding:25px;
+                            color:#6b7280;
+                        "
+                    >
+                        No students found in
+                        ${escapeHtml(
+                            teacherClass ||
+                            "your class"
+                        )}.
                     </td>
                 </tr>
             `;
 
-
-            updateStudentCount(0);
-
             return;
-
         }
 
 
-        updateStudentCount(
-            students.length
-        );
+        studentTableBody.innerHTML =
+            students
+                .map(
+                    function (student, index) {
+
+                        const studentId =
+                            student.id ?? "";
 
 
-        studentTableBody.innerHTML = "";
+                        return `
+                            <tr
+                                data-student-id="${escapeHtml(
+                                    String(studentId)
+                                )}"
+                            >
+
+                                <td>
+                                    ${index + 1}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        ${escapeHtml(
+                                            student.student_name
+                                        )}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        student.registration_number
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        student.sex ||
+                                        "—"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        formatDate(
+                                            student.date_of_birth
+                                        )
+                                    )}
+                                </td>
+
+                                <td>
+
+                                    <div
+                                        class="table-actions"
+                                    >
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-action="edit"
+                                        >
+                                            ✏️ Edit
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger"
+                                            data-action="delete"
+                                        >
+                                            🗑 Delete
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            data-action="upload-result"
+                                        >
+                                            📤 Upload Result
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
 
 
-        students.forEach(
-            function (student, index) {
+    if (studentTableBody) {
+
+        studentTableBody.addEventListener(
+            "click",
+            async function (event) {
+
+                const button =
+                    event.target.closest(
+                        "button[data-action]"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
 
                 const row =
-                    document.createElement("tr");
+                    button.closest("tr");
+
+
+                if (!row) {
+                    return;
+                }
 
 
                 const studentId =
-                    String(student.id || "");
+                    row.dataset.studentId;
 
 
-                row.innerHTML = `
+                const student =
+                    cachedStudents.find(
+                        function (item) {
 
-                    <td>
-                        ${escapeHTML(
-                            student.serial_number ||
-                            index + 1
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHTML(
-                            student.student_name || ""
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHTML(
-                            student.registration_number || ""
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHTML(
-                            student.sex || ""
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${formatDate(
-                            student.date_of_birth
-                        )}
-                    </td>
-
-
-                    <td>
-
-                        <button
-                            type="button"
-                            class="btn"
-                            data-action="edit"
-                            data-id="${escapeHTML(studentId)}"
-                        >
-                            Edit
-                        </button>
-
-
-                        <button
-                            type="button"
-                            class="btn"
-                            data-action="delete"
-                            data-id="${escapeHTML(studentId)}"
-                        >
-                            Delete
-                        </button>
-
-                    </td>
-
-                `;
-
-
-                const editButton =
-                    row.querySelector(
-                        '[data-action="edit"]'
-                    );
-
-
-                const deleteButton =
-                    row.querySelector(
-                        '[data-action="delete"]'
-                    );
-
-
-                if (editButton) {
-
-                    editButton.addEventListener(
-                        "click",
-                        function () {
-
-                            editStudent(studentId);
+                            return String(
+                                item.id
+                            ) ===
+                            String(
+                                studentId
+                            );
 
                         }
+                    );
+
+
+                if (!student) {
+
+                    alert(
+                        "Unable to find this student."
+                    );
+
+                    return;
+                }
+
+
+                const action =
+                    button.dataset.action;
+
+
+                if (action === "edit") {
+
+                    openStudentForm(
+                        student
                     );
 
                 }
 
 
-                if (deleteButton) {
+                if (
+                    action === "delete"
+                ) {
 
-                    deleteButton.addEventListener(
-                        "click",
-                        function () {
-
-                            deleteStudent(studentId);
-
-                        }
+                    await deleteStudent(
+                        student
                     );
 
                 }
 
 
-                studentTableBody.appendChild(row);
+                if (
+                    action === "upload-result"
+                ) {
+
+                    uploadResultForStudent(
+                        student
+                    );
+
+                }
 
             }
         );
 
     }
 
-
-    // =====================================================
-    // SAVE STUDENT
-    // =====================================================
 
     if (studentForm) {
 
@@ -656,164 +1132,135 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.preventDefault();
 
 
-                const studentId =
-                    document.getElementById(
-                        "studentId"
-                    ).value.trim();
-
-
-                const studentData = {
+                const payload = {
 
                     studentName:
-                        document.getElementById(
-                            "studentName"
-                        ).value.trim(),
-
+                        studentNameInput?.value.trim() ||
+                        "",
 
                     registrationNumber:
-                        document.getElementById(
-                            "registrationNumber"
-                        ).value.trim(),
-
+                        registrationNumberInput?.value.trim() ||
+                        "",
 
                     serialNumber:
-                        document.getElementById(
-                            "serialNumber"
-                        ).value ||
+                        serialNumberInput?.value ||
                         null,
-
 
                     studentClass:
                         teacherClass,
 
-
-                    address:
-                        document.getElementById(
-                            "studentAddress"
-                        ).value.trim(),
-
-
-                    guardian:
-                        document.getElementById(
-                            "guardianName"
-                        ).value.trim(),
-
-
-                    phone:
-                        document.getElementById(
-                            "parentPhone"
-                        ).value.trim(),
-
-
                     sex:
-                        document.getElementById(
-                            "studentSex"
-                        ).value,
+                        studentSexInput?.value ||
+                        "",
 
-
-                    dob:
-                        document.getElementById(
-                            "studentDob"
-                        ).value ||
+                    dateOfBirth:
+                        studentDobInput?.value ||
                         null,
 
+                    guardianName:
+                        guardianNameInput?.value.trim() ||
+                        "",
+
+                    parentPhone:
+                        parentPhoneInput?.value.trim() ||
+                        "",
+
+                    address:
+                        studentAddressInput?.value.trim() ||
+                        "",
+
+                    teacherId:
+                        teacherId || null,
 
                     teacherName:
-                        teacherName
+                        teacherName || null
 
                 };
 
 
                 if (
-                    !studentData.studentName ||
-                    !studentData.registrationNumber ||
-                    !studentData.studentClass
+                    !payload.studentName ||
+                    !payload.registrationNumber
                 ) {
 
                     alert(
-                        "Please enter the student name, registration number and class."
+                        "Please enter the student name and registration number."
                     );
 
                     return;
-
                 }
 
 
-                const saveButton =
-                    document.getElementById(
-                        "saveStudentButton"
-                    );
+                const id =
+                    studentIdInput?.value;
 
 
-                if (saveButton) {
+                const isEditing =
+                    Boolean(id);
 
-                    saveButton.disabled = true;
 
-                    saveButton.textContent =
-                        "Saving...";
+                if (saveStudentButton) {
+
+                    saveStudentButton.disabled =
+                        true;
+
+                    saveStudentButton.textContent =
+                        isEditing
+                            ? "Updating..."
+                            : "Saving...";
 
                 }
 
 
                 try {
 
-                    let response;
+                    let url =
+                        `${API_URL}/api/students`;
 
 
-                    if (studentId) {
+                    let method =
+                        "POST";
 
-                        response =
-                            await fetch(
-                                `${API_URL}/api/students/${encodeURIComponent(studentId)}`,
-                                {
-                                    method: "PUT",
 
-                                    headers: {
-                                        "Content-Type":
-                                            "application/json"
-                                    },
+                    if (isEditing) {
 
-                                    body:
-                                        JSON.stringify(
-                                            studentData
-                                        )
-                                }
-                            );
+                        url +=
+                            `/${encodeURIComponent(
+                                id
+                            )}`;
 
-                    }
-
-                    else {
-
-                        response =
-                            await fetch(
-                                `${API_URL}/api/students`,
-                                {
-                                    method: "POST",
-
-                                    headers: {
-                                        "Content-Type":
-                                            "application/json"
-                                    },
-
-                                    body:
-                                        JSON.stringify(
-                                            studentData
-                                        )
-                                }
-                            );
+                        method =
+                            "PUT";
 
                     }
 
 
-                    const result =
+                    const response =
+                        await fetch(
+                            url,
+                            {
+                                method,
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+                            }
+                        );
+
+
+                    const data =
                         await response.json();
 
 
                     if (!response.ok) {
 
                         throw new Error(
-                            result.error ||
-                            result.message ||
+                            data.message ||
+                            data.error ||
                             "Unable to save student."
                         );
 
@@ -821,43 +1268,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                     alert(
-                        studentId
+                        isEditing
                             ? "Student updated successfully!"
                             : "Student added successfully!"
                     );
 
 
-                    studentForm.reset();
-
-
-                    document.getElementById(
-                        "studentId"
-                    ).value = "";
-
-
-                    document.getElementById(
-                        "studentClass"
-                    ).value =
-                        teacherClass;
-
-
-                    if (studentFormContainer) {
-
-                        studentFormContainer.style.display =
-                            "none";
-
-                    }
-
+                    closeStudentForm();
 
                     await loadStudents();
 
-
-                    // Refresh attendance if it is already open
-                    await loadWeeklyAttendance();
-
-                }
-
-                catch (error) {
+                } catch (error) {
 
                     console.error(
                         "Save student error:",
@@ -870,16 +1291,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         "Unable to save student."
                     );
 
-                }
+                } finally {
 
-                finally {
+                    if (saveStudentButton) {
 
-                    if (saveButton) {
+                        saveStudentButton.disabled =
+                            false;
 
-                        saveButton.disabled = false;
-
-                        saveButton.textContent =
-                            "Save Student";
+                        saveStudentButton.textContent =
+                            isEditing
+                                ? "Update Student"
+                                : "Save Student";
 
                     }
 
@@ -891,17 +1313,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================================
-    // EDIT STUDENT
-    // =====================================================
+    async function deleteStudent(student) {
 
-    async function editStudent(id) {
+        const confirmed =
+            confirm(
+                `Delete ${student.student_name}?`
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
 
         try {
 
             const response =
                 await fetch(
-                    `${API_URL}/api/students?studentClass=${encodeURIComponent(teacherClass)}`
+                    `${API_URL}/api/students/${encodeURIComponent(
+                        student.id
+                    )}`,
+                    {
+                        method:
+                            "DELETE"
+                    }
                 );
 
 
@@ -912,174 +1347,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
 
                 throw new Error(
-                    data.error ||
                     data.message ||
-                    "Unable to load students."
-                );
-
-            }
-
-
-            const students =
-                Array.isArray(data)
-                    ? data
-                    : data.students || [];
-
-
-            // UUID-safe comparison
-            const student =
-                students.find(
-                    item =>
-                        String(item.id) ===
-                        String(id)
-                );
-
-
-            if (!student) {
-
-                alert(
-                    "Student could not be found."
-                );
-
-                return;
-
-            }
-
-
-            document.getElementById(
-                "studentId"
-            ).value =
-                student.id || "";
-
-
-            document.getElementById(
-                "studentName"
-            ).value =
-                student.student_name || "";
-
-
-            document.getElementById(
-                "registrationNumber"
-            ).value =
-                student.registration_number || "";
-
-
-            document.getElementById(
-                "serialNumber"
-            ).value =
-                student.serial_number || "";
-
-
-            document.getElementById(
-                "studentSex"
-            ).value =
-                student.sex || "";
-
-
-            document.getElementById(
-                "studentDob"
-            ).value =
-                student.date_of_birth
-                    ? String(
-                        student.date_of_birth
-                    ).substring(0, 10)
-                    : "";
-
-
-            document.getElementById(
-                "studentAddress"
-            ).value =
-                student.address || "";
-
-
-            document.getElementById(
-                "guardianName"
-            ).value =
-                student.guardian || "";
-
-
-            document.getElementById(
-                "parentPhone"
-            ).value =
-                student.phone || "";
-
-
-            document.getElementById(
-                "studentClass"
-            ).value =
-                teacherClass;
-
-
-            if (studentFormContainer) {
-
-                studentFormContainer.style.display =
-                    "block";
-
-
-                studentFormContainer.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Edit student error:",
-                error
-            );
-
-
-            alert(
-                error.message ||
-                "Unable to load student information."
-            );
-
-        }
-
-    }
-
-
-    // =====================================================
-    // DELETE STUDENT
-    // =====================================================
-
-    async function deleteStudent(id) {
-
-        if (
-            !confirm(
-                "Are you sure you want to delete this student?"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/students/${encodeURIComponent(id)}`,
-                    {
-                        method: "DELETE"
-                    }
-                );
-
-
-            const result =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    result.error ||
-                    result.message ||
+                    data.error ||
                     "Unable to delete student."
                 );
 
@@ -1093,11 +1362,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             await loadStudents();
 
-            await loadWeeklyAttendance();
-
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(
                 "Delete student error:",
@@ -1115,56 +1380,1651 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================================
-    // MAKE FUNCTIONS AVAILABLE IF NEEDED
-    // =====================================================
+    /* =========================================================
+       RESULT MANAGEMENT
+       ========================================================= */
 
-    window.editStudent =
-        editStudent;
-
-    window.deleteStudent =
-        deleteStudent;
-
-
-    // =====================================================
-    // STUDENT COUNT
-    // =====================================================
-
-    function updateStudentCount(count) {
-
-        const totalStudents =
-            document.getElementById(
-                "totalStudents"
-            );
+    const teacherResultForm =
+        document.getElementById(
+            "teacherResultForm"
+        );
 
 
-        const attendanceStudentCount =
-            document.getElementById(
-                "attendanceStudentCount"
-            );
+    const teacherResultStudentId =
+        document.getElementById(
+            "teacherResultStudentId"
+        );
 
 
-        if (totalStudents) {
+    const teacherResultStudentName =
+        document.getElementById(
+            "teacherResultStudentName"
+        );
 
-            totalStudents.textContent =
-                count;
+
+    const teacherResultRegistrationNumber =
+        document.getElementById(
+            "teacherResultRegistrationNumber"
+        );
+
+
+    const teacherResultClass =
+        document.getElementById(
+            "teacherResultClass"
+        );
+
+
+    const teacherResultTerm =
+        document.getElementById(
+            "teacherResultTerm"
+        );
+
+
+    const teacherResultFile =
+        document.getElementById(
+            "teacherResultFile"
+        );
+
+
+    const teacherUploadResultButton =
+        document.getElementById(
+            "teacherUploadResultButton"
+        );
+
+
+    const cancelTeacherResultButton =
+        document.getElementById(
+            "cancelTeacherResultButton"
+        );
+
+
+    const refreshTeacherResultsButton =
+        document.getElementById(
+            "refreshTeacherResultsButton"
+        );
+
+
+    const teacherResultsTableBody =
+        document.getElementById(
+            "teacherResultsTableBody"
+        );
+
+
+    const deletedTeacherResultsTableBody =
+        document.getElementById(
+            "deletedTeacherResultsTableBody"
+        );
+
+
+    let editingResultId = null;
+
+
+    function openResultManagement() {
+
+        showSection(
+            "resultManagement"
+        );
+
+    }
+
+
+    function uploadResultForStudent(student) {
+
+        if (!student) {
+            return;
+        }
+
+
+        editingResultId =
+            null;
+
+
+        if (teacherResultStudentId) {
+
+            teacherResultStudentId.value =
+                student.id || "";
 
         }
 
 
-        if (attendanceStudentCount) {
+        if (teacherResultStudentName) {
 
-            attendanceStudentCount.textContent =
-                count;
+            teacherResultStudentName.value =
+                student.student_name ||
+                "";
+
+        }
+
+
+        if (
+            teacherResultRegistrationNumber
+        ) {
+
+            teacherResultRegistrationNumber.value =
+                student.registration_number ||
+                "";
+
+        }
+
+
+        if (teacherResultClass) {
+
+            teacherResultClass.value =
+                student.student_class ||
+                teacherClass ||
+                "";
+
+        }
+
+
+        if (teacherResultTerm) {
+
+            teacherResultTerm.value =
+                "";
+
+        }
+
+
+        if (teacherResultFile) {
+
+            teacherResultFile.value =
+                "";
+
+        }
+
+
+        if (teacherUploadResultButton) {
+
+            teacherUploadResultButton.textContent =
+                "📤 Upload Result";
+
+        }
+
+
+        openResultManagement();
+
+
+        setTimeout(
+            function () {
+
+                const form =
+                    document.getElementById(
+                        "teacherResultForm"
+                    );
+
+
+                if (form) {
+
+                    form.scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "start"
+                    });
+
+                }
+
+            },
+            100
+        );
+
+    }
+
+
+    function cancelResultUpload() {
+
+        editingResultId =
+            null;
+
+
+        if (teacherResultForm) {
+            teacherResultForm.reset();
+        }
+
+
+        if (teacherResultStudentId) {
+            teacherResultStudentId.value = "";
+        }
+
+
+        if (teacherResultStudentName) {
+            teacherResultStudentName.value = "";
+        }
+
+
+        if (
+            teacherResultRegistrationNumber
+        ) {
+            teacherResultRegistrationNumber.value =
+                "";
+        }
+
+
+        if (teacherResultClass) {
+            teacherResultClass.value =
+                "";
+        }
+
+
+        if (teacherUploadResultButton) {
+
+            teacherUploadResultButton.textContent =
+                "📤 Upload Result";
 
         }
 
     }
 
 
-    // =====================================================
-    // ATTENDANCE ELEMENTS
-    // =====================================================
+    if (cancelTeacherResultButton) {
+
+        cancelTeacherResultButton.addEventListener(
+            "click",
+            cancelResultUpload
+        );
+
+    }
+
+
+    if (refreshTeacherResultsButton) {
+
+        refreshTeacherResultsButton.addEventListener(
+            "click",
+            loadTeacherResults
+        );
+
+    }
+
+
+    if (teacherResultForm) {
+
+        teacherResultForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const studentName =
+                    teacherResultStudentName?.value.trim() ||
+                    "";
+
+
+                const admissionNumber =
+                    teacherResultRegistrationNumber?.value.trim() ||
+                    "";
+
+
+                const studentClassValue =
+                    teacherResultClass?.value.trim() ||
+                    teacherClass ||
+                    "";
+
+
+                const term =
+                    teacherResultTerm?.value ||
+                    "";
+
+
+                const file =
+                    teacherResultFile?.files?.[0];
+
+
+                if (
+                    !studentName ||
+                    !admissionNumber ||
+                    !studentClassValue
+                ) {
+
+                    alert(
+                        "Please select a student from Student Management first."
+                    );
+
+                    return;
+                }
+
+
+                if (!term) {
+
+                    alert(
+                        "Please select the term."
+                    );
+
+                    return;
+                }
+
+
+                if (!file) {
+
+                    alert(
+                        "Please select the student's result file."
+                    );
+
+                    return;
+                }
+
+
+                const maximumSize =
+                    10 * 1024 * 1024;
+
+
+                if (
+                    file.size >
+                    maximumSize
+                ) {
+
+                    alert(
+                        "The result file is too large. Maximum size is 10MB."
+                    );
+
+                    return;
+                }
+
+
+                if (teacherUploadResultButton) {
+
+                    teacherUploadResultButton.disabled =
+                        true;
+
+                    teacherUploadResultButton.textContent =
+                        editingResultId
+                            ? "Replacing Result..."
+                            : "Uploading Result...";
+
+                }
+
+
+                try {
+
+                    const fileData =
+                        await readFileAsDataURL(
+                            file
+                        );
+
+
+                    const payload = {
+
+                        studentName:
+                            studentName,
+
+                        admissionNumber:
+                            admissionNumber,
+
+                        studentClass:
+                            studentClassValue,
+
+                        term:
+                            term,
+
+                        fileName:
+                            file.name,
+
+                        fileType:
+                            file.type,
+
+                        fileData:
+                            fileData,
+
+                        teacherId:
+                            teacherId || null,
+
+                        teacherName:
+                            teacherName || "Teacher"
+
+                    };
+
+
+                    const response =
+                        await fetch(
+                            `${API_URL}/api/results`,
+                            {
+                                method:
+                                    "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            data.error ||
+                            "Unable to upload result."
+                        );
+
+                    }
+
+
+                    alert(
+                        editingResultId
+                            ? "Result replaced successfully!"
+                            : "Result uploaded successfully!"
+                    );
+
+
+                    cancelResultUpload();
+
+
+                    await loadTeacherResults();
+
+
+                    updateResultCount();
+
+                } catch (error) {
+
+                    console.error(
+                        "Upload result error:",
+                        error
+                    );
+
+
+                    alert(
+                        error.message ||
+                        "Unable to upload result."
+                    );
+
+                } finally {
+
+                    if (teacherUploadResultButton) {
+
+                        teacherUploadResultButton.disabled =
+                            false;
+
+                        teacherUploadResultButton.textContent =
+                            "📤 Upload Result";
+
+                    }
+
+                }
+
+            }
+        );
+
+    }
+
+
+    function readFileAsDataURL(file) {
+
+        return new Promise(
+            function (resolve, reject) {
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function () {
+
+                        resolve(
+                            reader.result
+                        );
+
+                    };
+
+
+                reader.onerror =
+                    function () {
+
+                        reject(
+                            new Error(
+                                "Unable to read the selected file."
+                            )
+                        );
+
+                    };
+
+
+                reader.readAsDataURL(
+                    file
+                );
+
+            }
+        );
+
+    }
+
+
+    async function loadTeacherResults() {
+
+        if (!teacherResultsTableBody) {
+            return;
+        }
+
+
+        teacherResultsTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    style="text-align:center;"
+                >
+                    Loading results...
+                </td>
+            </tr>
+        `;
+
+
+        if (deletedTeacherResultsTableBody) {
+
+            deletedTeacherResultsTableBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="7"
+                        style="text-align:center;"
+                    >
+                        Loading...
+                    </td>
+                </tr>
+            `;
+
+        }
+
+
+        try {
+
+            const params =
+                new URLSearchParams();
+
+
+            if (teacherClass) {
+
+                params.set(
+                    "studentClass",
+                    teacherClass
+                );
+
+            }
+
+
+            if (teacherId) {
+
+                params.set(
+                    "teacherId",
+                    teacherId
+                );
+
+            }
+
+
+            params.set(
+                "includeDeleted",
+                "true"
+            );
+
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/results?${params.toString()}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    data.error ||
+                    "Unable to load results."
+                );
+
+            }
+
+
+            const allResults =
+                data.results ||
+                data.data ||
+                [];
+
+
+            const activeResults =
+                allResults.filter(
+                    function (result) {
+
+                        return !result.deleted_at;
+
+                    }
+                );
+
+
+            const deletedResults =
+                allResults.filter(
+                    function (result) {
+
+                        return Boolean(
+                            result.deleted_at
+                        );
+
+                    }
+                );
+
+
+            displayTeacherResults(
+                activeResults
+            );
+
+
+            displayDeletedTeacherResults(
+                deletedResults
+            );
+
+
+            updateResultCount(
+                activeResults.length
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Load teacher results error:",
+                error
+            );
+
+
+            teacherResultsTableBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="8"
+                        style="
+                            text-align:center;
+                            color:#b91c1c;
+                            padding:20px;
+                        "
+                    >
+                        Unable to load results.
+                    </td>
+                </tr>
+            `;
+
+
+            if (deletedTeacherResultsTableBody) {
+
+                deletedTeacherResultsTableBody.innerHTML = `
+                    <tr>
+                        <td
+                            colspan="7"
+                            style="
+                                text-align:center;
+                                color:#b91c1c;
+                                padding:20px;
+                            "
+                        >
+                            Unable to load deleted results.
+                        </td>
+                    </tr>
+                `;
+
+            }
+
+        }
+
+    }
+
+
+    function displayTeacherResults(results) {
+
+        if (!teacherResultsTableBody) {
+            return;
+        }
+
+
+        if (!results.length) {
+
+            teacherResultsTableBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="8"
+                        style="text-align:center;padding:25px;color:#6b7280;"
+                    >
+                        No uploaded results found.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        teacherResultsTableBody.innerHTML =
+            results
+                .map(
+                    function (result, index) {
+
+                        return `
+                            <tr>
+
+                                <td>
+                                    ${index + 1}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        ${escapeHtml(
+                                            result.student_name ||
+                                            result.studentName ||
+                                            ""
+                                        )}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.admission_number ||
+                                        result.registration_number ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.student_class ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.term ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.file_name ||
+                                        result.fileName ||
+                                        "Result"
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        formatResultDate(
+                                            result.created_at
+                                        )
+                                    )}
+                                </td>
+
+                                <td>
+
+                                    <div
+                                        class="table-actions"
+                                    >
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary"
+                                            data-result-action="view"
+                                            data-result-id="${escapeHtml(
+                                                String(
+                                                    result.id
+                                                )
+                                            )}"
+                                        >
+                                            👁 View
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-warning"
+                                            data-result-action="replace"
+                                            data-result-id="${escapeHtml(
+                                                String(
+                                                    result.id
+                                                )
+                                            )}"
+                                        >
+                                            🔄 Replace
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger"
+                                            data-result-action="delete"
+                                            data-result-id="${escapeHtml(
+                                                String(
+                                                    result.id
+                                                )
+                                            )}"
+                                        >
+                                            🗑 Delete
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    function displayDeletedTeacherResults(
+        results
+    ) {
+
+        if (!deletedTeacherResultsTableBody) {
+            return;
+        }
+
+
+        if (!results.length) {
+
+            deletedTeacherResultsTableBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="7"
+                        style="text-align:center;padding:25px;color:#6b7280;"
+                    >
+                        No deleted results.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        deletedTeacherResultsTableBody.innerHTML =
+            results
+                .map(
+                    function (result, index) {
+
+                        return `
+                            <tr>
+
+                                <td>
+                                    ${index + 1}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.student_name ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.admission_number ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.student_class ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        result.term ||
+                                        ""
+                                    )}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        formatResultDate(
+                                            result.deleted_at
+                                        )
+                                    )}
+                                </td>
+
+                                <td>
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-success"
+                                        data-result-action="restore"
+                                        data-result-id="${escapeHtml(
+                                            String(
+                                                result.id
+                                            )
+                                        )}"
+                                    >
+                                        ♻️ Restore
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    function findResultById(id) {
+
+        const rows =
+            document.querySelectorAll(
+                "[data-result-id]"
+            );
+
+
+        return Array.from(
+            rows
+        ).find(
+            function (row) {
+
+                return String(
+                    row.dataset.resultId
+                ) ===
+                String(id);
+
+            }
+        );
+
+    }
+
+
+    async function getResultById(id) {
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/results`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                    "Unable to load result."
+                );
+            }
+
+
+            const results =
+                data.results ||
+                [];
+
+
+            return results.find(
+                function (result) {
+
+                    return String(
+                        result.id
+                    ) ===
+                    String(id);
+
+                }
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Get result error:",
+                error
+            );
+
+            return null;
+
+        }
+
+    }
+
+
+    async function viewTeacherResult(
+        result
+    ) {
+
+        if (!result) {
+            return;
+        }
+
+
+        const fileData =
+            result.file_data ||
+            result.fileData ||
+            "";
+
+
+        if (!fileData) {
+
+            alert(
+                "This result file is unavailable."
+            );
+
+            return;
+        }
+
+
+        const fileType =
+            result.file_type ||
+            result.fileType ||
+            "";
+
+
+        const fileName =
+            result.file_name ||
+            result.fileName ||
+            "Student Result";
+
+
+        const newWindow =
+            window.open(
+                "",
+                "_blank"
+            );
+
+
+        if (!newWindow) {
+
+            alert(
+                "Please allow pop-ups in your browser to view the result."
+            );
+
+            return;
+        }
+
+
+        if (
+            fileType ===
+            "application/pdf" ||
+            fileName.toLowerCase().endsWith(
+                ".pdf"
+            )
+        ) {
+
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${escapeHtml(
+                        fileName
+                    )}</title>
+                    <style>
+                        html,body{
+                            margin:0;
+                            width:100%;
+                            height:100%;
+                            overflow:hidden;
+                        }
+                        iframe{
+                            width:100%;
+                            height:100%;
+                            border:0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe
+                        src="${fileData}"
+                        title="Student Result"
+                    ></iframe>
+                </body>
+                </html>
+            `);
+
+        } else {
+
+            newWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${escapeHtml(
+                        fileName
+                    )}</title>
+                    <style>
+                        body{
+                            margin:0;
+                            padding:20px;
+                            background:#f4f7f5;
+                            display:flex;
+                            justify-content:center;
+                            align-items:flex-start;
+                        }
+                        img{
+                            max-width:100%;
+                            height:auto;
+                            box-shadow:0 5px 25px rgba(0,0,0,.15);
+                            background:white;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <img
+                        src="${fileData}"
+                        alt="Student Result"
+                    >
+                </body>
+                </html>
+            `);
+
+        }
+
+
+        newWindow.document.close();
+
+    }
+
+
+    async function replaceTeacherResult(
+        result
+    ) {
+
+        if (!result) {
+            return;
+        }
+
+
+        editingResultId =
+            result.id;
+
+
+        if (
+            teacherResultStudentId
+        ) {
+
+            teacherResultStudentId.value =
+                result.student_id ||
+                "";
+
+        }
+
+
+        if (
+            teacherResultStudentName
+        ) {
+
+            teacherResultStudentName.value =
+                result.student_name ||
+                "";
+
+        }
+
+
+        if (
+            teacherResultRegistrationNumber
+        ) {
+
+            teacherResultRegistrationNumber.value =
+                result.admission_number ||
+                "";
+
+        }
+
+
+        if (teacherResultClass) {
+
+            teacherResultClass.value =
+                result.student_class ||
+                teacherClass ||
+                "";
+
+        }
+
+
+        if (teacherResultTerm) {
+
+            teacherResultTerm.value =
+                result.term ||
+                "";
+
+        }
+
+
+        if (teacherResultFile) {
+
+            teacherResultFile.value =
+                "";
+
+        }
+
+
+        if (
+            teacherUploadResultButton
+        ) {
+
+            teacherUploadResultButton.textContent =
+                "🔄 Replace Result";
+
+        }
+
+
+        showSection(
+            "resultManagement"
+        );
+
+
+        setTimeout(
+            function () {
+
+                if (teacherResultFile) {
+
+                    teacherResultFile.focus();
+
+                    teacherResultFile.scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "center"
+                    });
+
+                }
+
+            },
+            150
+        );
+
+
+        alert(
+            "Select the corrected result file, then click Replace Result."
+        );
+
+    }
+
+
+    async function deleteTeacherResult(
+        id
+    ) {
+
+        const confirmed =
+            confirm(
+                "Delete this result? You can restore it later from Deleted Results."
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/results/${encodeURIComponent(
+                        id
+                    )}`,
+                    {
+                        method:
+                            "DELETE"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    data.error ||
+                    "Unable to delete result."
+                );
+
+            }
+
+
+            alert(
+                "Result moved to Deleted Results."
+            );
+
+
+            await loadTeacherResults();
+
+        } catch (error) {
+
+            console.error(
+                "Delete result error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to delete result."
+            );
+
+        }
+
+    }
+
+
+    async function restoreTeacherResult(
+        id
+    ) {
+
+        const confirmed =
+            confirm(
+                "Restore this result?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/results/${encodeURIComponent(
+                        id
+                    )}/restore`,
+                    {
+                        method:
+                            "PATCH"
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    data.error ||
+                    "Unable to restore result."
+                );
+
+            }
+
+
+            alert(
+                "Result restored successfully."
+            );
+
+
+            await loadTeacherResults();
+
+        } catch (error) {
+
+            console.error(
+                "Restore result error:",
+                error
+            );
+
+
+            alert(
+                error.message ||
+                "Unable to restore result."
+            );
+
+        }
+
+    }
+
+
+    if (teacherResultsTableBody) {
+
+        teacherResultsTableBody.addEventListener(
+            "click",
+            async function (event) {
+
+                const button =
+                    event.target.closest(
+                        "button[data-result-action]"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                const action =
+                    button.dataset.resultAction;
+
+
+                const id =
+                    button.dataset.resultId;
+
+
+                if (!id) {
+                    return;
+                }
+
+
+                const result =
+                    await getResultById(
+                        id
+                    );
+
+
+                if (!result) {
+
+                    alert(
+                        "Unable to find this result."
+                    );
+
+                    return;
+                }
+
+
+                if (
+                    action === "view"
+                ) {
+
+                    await viewTeacherResult(
+                        result
+                    );
+
+                }
+
+
+                if (
+                    action === "replace"
+                ) {
+
+                    await replaceTeacherResult(
+                        result
+                    );
+
+                }
+
+
+                if (
+                    action === "delete"
+                ) {
+
+                    await deleteTeacherResult(
+                        id
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    if (
+        deletedTeacherResultsTableBody
+    ) {
+
+        deletedTeacherResultsTableBody.addEventListener(
+            "click",
+            async function (event) {
+
+                const button =
+                    event.target.closest(
+                        "button[data-result-action]"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                const action =
+                    button.dataset.resultAction;
+
+
+                const id =
+                    button.dataset.resultId;
+
+
+                if (
+                    action === "restore" &&
+                    id
+                ) {
+
+                    await restoreTeacherResult(
+                        id
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    function updateResultCount(
+        count = null
+    ) {
+
+        const counter =
+            document.getElementById(
+                "totalTeacherResults"
+            );
+
+
+        if (!counter) {
+            return;
+        }
+
+
+        if (count !== null) {
+
+            counter.textContent =
+                count;
+
+            return;
+        }
+
+
+        fetchTeacherResultCount();
+
+    }
+
+
+    async function fetchTeacherResultCount() {
+
+        try {
+
+            const params =
+                new URLSearchParams();
+
+
+            if (teacherClass) {
+
+                params.set(
+                    "studentClass",
+                    teacherClass
+                );
+
+            }
+
+
+            if (teacherId) {
+
+                params.set(
+                    "teacherId",
+                    teacherId
+                );
+
+            }
+
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/results?${params.toString()}`
+                );
+
+
+            if (!response.ok) {
+                return;
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const results =
+                data.results ||
+                [];
+
+
+            const counter =
+                document.getElementById(
+                    "totalTeacherResults"
+                );
+
+
+            if (counter) {
+
+                counter.textContent =
+                    results.filter(
+                        function (result) {
+
+                            return !result.deleted_at;
+
+                        }
+                    ).length;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Result count error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       ATTENDANCE
+       ========================================================= */
 
     const attendanceWeek =
         document.getElementById(
@@ -1196,299 +3056,249 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    // =====================================================
-    // ATTENDANCE DAYS
-    // =====================================================
+    function getMonday(
+        date
+    ) {
 
-    const attendanceDays = [
-        {
-            name: "Monday",
-            offset: 0
-        },
-        {
-            name: "Tuesday",
-            offset: 1
-        },
-        {
-            name: "Wednesday",
-            offset: 2
-        },
-        {
-            name: "Thursday",
-            offset: 3
-        },
-        {
-            name: "Friday",
-            offset: 4
-        }
-    ];
+        const result =
+            new Date(date);
 
 
-    // =====================================================
-    // DEFAULT ATTENDANCE WEEK
-    // =====================================================
+        const day =
+            result.getDay();
+
+
+        const difference =
+            day === 0
+                ? -6
+                : 1 - day;
+
+
+        result.setDate(
+            result.getDate() +
+            difference
+        );
+
+
+        result.setHours(
+            0,
+            0,
+            0,
+            0
+        );
+
+
+        return result;
+
+    }
+
+
+    function formatInputDate(
+        date
+    ) {
+
+        const year =
+            date.getFullYear();
+
+
+        const month =
+            String(
+                date.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day =
+            String(
+                date.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return `${year}-${month}-${day}`;
+
+    }
+
 
     function setDefaultAttendanceWeek() {
 
         if (!attendanceWeek) {
-
             return;
-
         }
 
 
-        if (attendanceWeek.value) {
+        if (!attendanceWeek.value) {
 
-            return;
+            attendanceWeek.value =
+                formatInputDate(
+                    getMonday(
+                        new Date()
+                    )
+                );
 
         }
 
-
-        const today =
-            new Date();
+    }
 
 
-        const day =
-            today.getDay();
-
-
-        // Sunday = 0
-        // Monday = 1
-
-        const difference =
-            day === 0
-                ? -6
-                : 1 - day;
-
+    function getAttendanceDates(
+        mondayString
+    ) {
 
         const monday =
-            new Date(today);
+            new Date(
+                `${mondayString}T00:00:00`
+            );
 
 
-        monday.setDate(
-            today.getDate() +
-            difference
-        );
+        const dates = [];
 
 
-        attendanceWeek.value =
-            toInputDate(monday);
+        for (
+            let index = 0;
+            index < 5;
+            index++
+        ) {
 
-    }
-
-
-    // =====================================================
-    // GET MONDAY FROM SELECTED DATE
-    // =====================================================
-
-    function getMonday(dateString) {
-
-        const date =
-            parseInputDate(dateString);
+            const date =
+                new Date(
+                    monday
+                );
 
 
-        if (!date) {
+            date.setDate(
+                monday.getDate() +
+                index
+            );
 
-            return null;
+
+            dates.push(
+                formatInputDate(
+                    date
+                )
+            );
 
         }
 
 
-        const day =
-            date.getDay();
-
-
-        const difference =
-            day === 0
-                ? -6
-                : 1 - day;
-
-
-        date.setDate(
-            date.getDate() +
-            difference
-        );
-
-
-        return date;
+        return dates;
 
     }
 
-
-    // =====================================================
-    // LOAD WEEKLY ATTENDANCE
-    // =====================================================
 
     async function loadWeeklyAttendance() {
 
-        if (!attendanceTableBody) {
-
+        if (
+            !attendanceTableBody ||
+            !attendanceWeek
+        ) {
             return;
-
-        }
-
-
-        if (!teacherClass) {
-
-            attendanceTableBody.innerHTML = `
-                <tr>
-                    <td colspan="8" style="text-align:center;">
-                        No class has been assigned to this teacher.
-                    </td>
-                </tr>
-            `;
-
-            return;
-
         }
 
 
         setDefaultAttendanceWeek();
 
 
-        const selectedDate =
-            attendanceWeek
-                ? attendanceWeek.value
-                : "";
+        const weekStart =
+            attendanceWeek.value;
 
 
-        if (!selectedDate) {
+        if (!weekStart) {
 
-            attendanceTableBody.innerHTML = `
-                <tr>
-                    <td colspan="8" style="text-align:center;">
-                        Select a week to load attendance.
-                    </td>
-                </tr>
-            `;
+            alert(
+                "Please select a week."
+            );
 
             return;
-
         }
-
-
-        const monday =
-            getMonday(selectedDate);
-
-
-        if (!monday) {
-
-            return;
-
-        }
-
-
-        // Always make the selected week Monday
-
-        const mondayString =
-            toInputDate(monday);
-
-
-        if (attendanceWeek) {
-
-            attendanceWeek.value =
-                mondayString;
-
-        }
-
-
-        updateAttendanceWeekLabel(
-            monday
-        );
 
 
         attendanceTableBody.innerHTML = `
             <tr>
-                <td colspan="8" style="text-align:center;">
+                <td
+                    colspan="8"
+                    style="text-align:center;"
+                >
                     Loading attendance...
                 </td>
             </tr>
         `;
 
 
-        try {
+        if (attendanceWeekLabel) {
 
-            // Load students and existing attendance
-            // at the same time.
-
-            const studentsRequest =
-                fetch(
-                    `${API_URL}/api/students?studentClass=${encodeURIComponent(teacherClass)}`
-                );
-
-
-            const attendanceRequest =
-                fetch(
-                    `${API_URL}/api/attendance?studentClass=${encodeURIComponent(teacherClass)}&weekStart=${encodeURIComponent(mondayString)}`
-                );
-
-
-            const [
-                studentsResponse,
-                attendanceResponse
-            ] =
-                await Promise.all([
-                    studentsRequest,
-                    attendanceRequest
-                ]);
-
-
-            const studentsData =
-                await studentsResponse.json();
-
-
-            const attendanceData =
-                await attendanceResponse.json();
-
-
-            if (!studentsResponse.ok) {
-
-                throw new Error(
-                    studentsData.error ||
-                    studentsData.message ||
-                    "Unable to load students."
-                );
-
-            }
-
-
-            if (!attendanceResponse.ok) {
-
-                throw new Error(
-                    attendanceData.error ||
-                    attendanceData.message ||
-                    "Unable to load attendance."
-                );
-
-            }
-
-
-            const students =
-                Array.isArray(studentsData)
-                    ? studentsData
-                    : studentsData.students || [];
-
-
-            const attendanceRecords =
-                Array.isArray(attendanceData)
-                    ? attendanceData
-                    : attendanceData.attendance || [];
-
-
-            updateStudentCount(
-                students.length
-            );
-
-
-            displayWeeklyAttendance(
-                students,
-                attendanceRecords,
-                monday
-            );
+            attendanceWeekLabel.textContent =
+                `Week starting ${formatDate(
+                    weekStart
+                )}`;
 
         }
 
-        catch (error) {
+
+        try {
+
+            const students =
+                cachedStudents.length
+                    ? cachedStudents
+                    : await getStudentsForAttendance();
+
+
+            let attendanceRecords =
+                [];
+
+
+            const params =
+                new URLSearchParams();
+
+
+            if (teacherClass) {
+
+                params.set(
+                    "studentClass",
+                    teacherClass
+                );
+
+            }
+
+
+            params.set(
+                "weekStart",
+                weekStart
+            );
+
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/attendance?${params.toString()}`
+                );
+
+
+            if (response.ok) {
+
+                const data =
+                    await response.json();
+
+
+                attendanceRecords =
+                    data.attendance ||
+                    data.records ||
+                    [];
+
+            }
+
+
+            renderWeeklyAttendance(
+                students,
+                attendanceRecords,
+                weekStart
+            );
+
+
+        } catch (error) {
 
             console.error(
                 "Load attendance error:",
@@ -1498,9 +3308,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             attendanceTableBody.innerHTML = `
                 <tr>
-                    <td colspan="8" style="text-align:center;">
+                    <td
+                        colspan="8"
+                        style="
+                            text-align:center;
+                            color:#b91c1c;
+                            padding:20px;
+                        "
+                    >
                         Unable to load attendance.
-                        Please try again.
                     </td>
                 </tr>
             `;
@@ -1510,207 +3326,331 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================================
-    // DISPLAY WEEKLY ATTENDANCE
-    // =====================================================
+    async function getStudentsForAttendance() {
 
-    function displayWeeklyAttendance(
-        students,
-        attendanceRecords,
-        monday
+        try {
+
+            const params =
+                new URLSearchParams();
+
+
+            if (teacherClass) {
+
+                params.set(
+                    "studentClass",
+                    teacherClass
+                );
+
+            }
+
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/students?${params.toString()}`
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load students."
+                );
+
+            }
+
+
+            const students =
+                (
+                    data.students ||
+                    []
+                ).map(
+                    normalizeStudent
+                );
+
+
+            return students;
+
+        } catch (error) {
+
+            console.error(
+                "Attendance students error:",
+                error
+            );
+
+
+            return [];
+
+        }
+
+    }
+
+
+    function normalizeAttendanceDate(
+        value
     ) {
 
-        if (
-            !students ||
-            students.length === 0
-        ) {
+        if (!value) {
+            return "";
+        }
+
+
+        return String(
+            value
+        ).substring(
+            0,
+            10
+        );
+
+    }
+
+
+    function renderWeeklyAttendance(
+        students,
+        records,
+        weekStart
+    ) {
+
+        if (!attendanceTableBody) {
+            return;
+        }
+
+
+        if (!students.length) {
 
             attendanceTableBody.innerHTML = `
                 <tr>
-                    <td colspan="8" style="text-align:center;">
-                        No students have been added to ${escapeHTML(teacherClass)} yet.
+                    <td
+                        colspan="8"
+                        style="text-align:center;padding:25px;color:#6b7280;"
+                    >
+                        No students found.
                     </td>
                 </tr>
             `;
 
             return;
-
         }
 
 
-        attendanceTableBody.innerHTML = "";
+        const dates =
+            getAttendanceDates(
+                weekStart
+            );
 
 
-        students.forEach(
-            function (student, index) {
+        const attendanceMap =
+            {};
 
-                const row =
-                    document.createElement("tr");
 
+        records.forEach(
+            function (record) {
 
                 const studentId =
-                    String(student.id || "");
-
-
-                const existingRecords =
-                    attendanceRecords.filter(
-                        record =>
-                            String(
-                                record.student_id
-                            ) === studentId
+                    String(
+                        record.student_id ||
+                        record.studentId ||
+                        ""
                     );
 
 
-                let cells = "";
+                const date =
+                    normalizeAttendanceDate(
+                        record.attendance_date ||
+                        record.attendanceDate
+                    );
 
 
-                attendanceDays.forEach(
-                    function (day) {
-
-                        const date =
-                            new Date(monday);
+                if (!studentId || !date) {
+                    return;
+                }
 
 
-                        date.setDate(
-                            monday.getDate() +
-                            day.offset
-                        );
+                if (
+                    !attendanceMap[
+                        studentId
+                    ]
+                )
+                {
+
+                    attendanceMap[
+                        studentId
+                    ] = {};
+
+                }
 
 
-                        const dateString =
-                            toInputDate(date);
-
-
-                        const record =
-                            existingRecords.find(
-                                item =>
-                                    String(
-                                        item.attendance_date
-                                    ).substring(0, 10) ===
-                                    dateString
-                            );
-
-
-                        const status =
-                            record
-                                ? record.status
-                                : "";
-
-
-                        cells += `
-
-                            <td>
-
-                                <select
-                                    class="attendance-status"
-                                    data-student-id="${escapeHTML(studentId)}"
-                                    data-student-name="${escapeHTML(student.student_name || "")}"
-                                    data-registration-number="${escapeHTML(student.registration_number || "")}"
-                                    data-date="${dateString}"
-                                >
-
-                                    <option value="">
-                                        Select
-                                    </option>
-
-                                    <option
-                                        value="Present"
-                                        ${status === "Present" ? "selected" : ""}
-                                    >
-                                        Present
-                                    </option>
-
-                                    <option
-                                        value="Absent"
-                                        ${status === "Absent" ? "selected" : ""}
-                                    >
-                                        Absent
-                                    </option>
-
-                                    <option
-                                        value="Late"
-                                        ${status === "Late" ? "selected" : ""}
-                                    >
-                                        Late
-                                    </option>
-
-                                    <option
-                                        value="Excused"
-                                        ${status === "Excused" ? "selected" : ""}
-                                    >
-                                        Excused
-                                    </option>
-
-                                </select>
-
-                            </td>
-
-                        `;
-
-                    }
-                );
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${escapeHTML(
-                            student.serial_number ||
-                            index + 1
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHTML(
-                            student.student_name || ""
-                        )}
-                    </td>
-
-
-                    <td>
-                        ${escapeHTML(
-                            student.registration_number || ""
-                        )}
-                    </td>
-
-
-                    ${cells}
-
-                `;
-
-
-                attendanceTableBody.appendChild(
-                    row
-                );
+                attendanceMap[
+                    studentId
+                ][
+                    date
+                ] =
+                    record.status || "";
 
             }
         );
 
+
+        attendanceTableBody.innerHTML =
+            students
+                .map(
+                    function (student, index) {
+
+                        const studentId =
+                            String(
+                                student.id
+                            );
+
+
+                        return `
+                            <tr>
+
+                                <td>
+                                    ${index + 1}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        ${escapeHtml(
+                                            student.student_name
+                                        )}
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        student.registration_number
+                                    )}
+                                </td>
+
+                                ${dates
+                                    .map(
+                                        function (
+                                            date
+                                        ) {
+
+                                            const savedStatus =
+                                                attendanceMap[
+                                                    studentId
+                                                ]?.[
+                                                    date
+                                                ] ||
+                                                "";
+
+
+                                            return `
+                                                <td>
+
+                                                    <select
+                                                        class="attendance-status"
+                                                        data-student-id="${escapeHtml(
+                                                            studentId
+                                                        )}"
+                                                        data-student-name="${escapeHtml(
+                                                            student.student_name
+                                                        )}"
+                                                        data-registration-number="${escapeHtml(
+                                                            student.registration_number
+                                                        )}"
+                                                        data-date="${escapeHtml(
+                                                            date
+                                                        )}"
+                                                    >
+
+                                                        <option value="">
+                                                            —
+                                                        </option>
+
+                                                        <option
+                                                            value="Present"
+                                                            ${
+                                                                savedStatus ===
+                                                                "Present"
+                                                                    ? "selected"
+                                                                    : ""
+                                                            }
+                                                        >
+                                                            Present
+                                                        </option>
+
+                                                        <option
+                                                            value="Absent"
+                                                            ${
+                                                                savedStatus ===
+                                                                "Absent"
+                                                                    ? "selected"
+                                                                    : ""
+                                                            }
+                                                        >
+                                                            Absent
+                                                        </option>
+
+                                                        <option
+                                                            value="Late"
+                                                            ${
+                                                                savedStatus ===
+                                                                "Late"
+                                                                    ? "selected"
+                                                                    : ""
+                                                            }
+                                                        >
+                                                            Late
+                                                        </option>
+
+                                                        <option
+                                                            value="Excused"
+                                                            ${
+                                                                savedStatus ===
+                                                                "Excused"
+                                                                    ? "selected"
+                                                                    : ""
+                                                            }
+                                                        >
+                                                            Excused
+                                                        </option>
+
+                                                    </select>
+
+                                                </td>
+                                            `;
+
+                                        }
+                                    )
+                                    .join("")}
+
+                            </tr>
+                        `;
+
+                    }
+                )
+                .join("");
+
     }
 
-
-    // =====================================================
-    // LOAD ATTENDANCE BUTTON
-    // =====================================================
 
     if (loadAttendanceButton) {
 
         loadAttendanceButton.addEventListener(
             "click",
-            function () {
-
-                loadWeeklyAttendance();
-
-            }
+            loadWeeklyAttendance
         );
 
     }
 
 
-    // =====================================================
-    // SAVE WEEKLY ATTENDANCE
-    // =====================================================
+    if (attendanceWeek) {
+
+        attendanceWeek.addEventListener(
+            "change",
+            loadWeeklyAttendance
+        );
+
+    }
+
 
     if (saveAttendanceButton) {
 
@@ -1731,11 +3671,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
                     return;
-
                 }
 
 
-                const records = [];
+                const records =
+                    [];
 
 
                 selects.forEach(
@@ -1745,13 +3685,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             select.value;
 
 
-                        // Empty means teacher has not
-                        // entered attendance for that day.
-
                         if (!status) {
-
                             return;
-
                         }
 
 
@@ -1787,14 +3722,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-                if (records.length === 0) {
+                if (!records.length) {
 
                     alert(
                         "Please enter at least one attendance status."
                     );
 
                     return;
-
                 }
 
 
@@ -1816,7 +3750,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         await fetch(
                             `${API_URL}/api/attendance`,
                             {
-                                method: "POST",
+                                method:
+                                    "POST",
 
                                 headers: {
                                     "Content-Type":
@@ -1852,14 +3787,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     );
 
 
-                    // Reload from database so the teacher
-                    // sees exactly what was saved.
-
                     await loadWeeklyAttendance();
 
-                }
 
-                catch (error) {
+                    await loadAttendanceStats();
+
+                } catch (error) {
 
                     console.error(
                         "Save attendance error:",
@@ -1872,13 +3805,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         "Unable to save attendance."
                     );
 
-                }
-
-                finally {
+                } finally {
 
                     saveAttendanceButton.disabled =
                         false;
-
 
                     saveAttendanceButton.textContent =
                         originalText;
@@ -1891,128 +3821,170 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================================
-    // UPDATE ATTENDANCE WEEK LABEL
-    // =====================================================
+    async function loadAttendanceStats() {
 
-    function updateAttendanceWeekLabel(
-        monday
-    ) {
+        try {
 
-        const label =
-            document.getElementById(
-                "attendanceWeekLabel"
+            const weekStart =
+                attendanceWeek?.value;
+
+
+            if (!weekStart) {
+                return;
+            }
+
+
+            const params =
+                new URLSearchParams();
+
+
+            if (teacherClass) {
+
+                params.set(
+                    "studentClass",
+                    teacherClass
+                );
+
+            }
+
+
+            params.set(
+                "weekStart",
+                weekStart
             );
 
 
-        if (!label) {
+            const response =
+                await fetch(
+                    `${API_URL}/api/attendance?${params.toString()}`
+                );
 
-            return;
+
+            if (!response.ok) {
+                return;
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const records =
+                data.attendance ||
+                data.records ||
+                [];
+
+
+            let present =
+                0;
+
+            let absent =
+                0;
+
+            let late =
+                0;
+
+
+            records.forEach(
+                function (record) {
+
+                    const status =
+                        String(
+                            record.status ||
+                            ""
+                        ).toLowerCase();
+
+
+                    if (
+                        status ===
+                        "present"
+                    ) {
+                        present++;
+                    }
+
+
+                    if (
+                        status ===
+                        "absent"
+                    ) {
+                        absent++;
+                    }
+
+
+                    if (
+                        status ===
+                        "late"
+                    ) {
+                        late++;
+                    }
+
+                }
+            );
+
+
+            const presentElement =
+                document.getElementById(
+                    "totalPresent"
+                );
+
+
+            const absentElement =
+                document.getElementById(
+                    "totalAbsent"
+                );
+
+
+            const lateElement =
+                document.getElementById(
+                    "totalLate"
+                );
+
+
+            if (presentElement) {
+                presentElement.textContent =
+                    present;
+            }
+
+
+            if (absentElement) {
+                absentElement.textContent =
+                    absent;
+            }
+
+
+            if (lateElement) {
+                lateElement.textContent =
+                    late;
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Attendance stats error:",
+                error
+            );
 
         }
 
-
-        const friday =
-            new Date(monday);
-
-
-        friday.setDate(
-            monday.getDate() + 4
-        );
-
-
-        label.textContent =
-            `${formatShortDate(monday)} - ${formatShortDate(friday)}`;
-
     }
 
 
-    // =====================================================
-    // FORMAT SHORT DATE
-    // =====================================================
+    /* =========================================================
+       HELPERS
+       ========================================================= */
 
-    function formatShortDate(date) {
-
-        return date.toLocaleDateString(
-            "en-GB",
-            {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
-            }
-        );
-
-    }
-
-
-    // =====================================================
-    // DATE TO YYYY-MM-DD
-    // =====================================================
-
-    function toInputDate(date) {
-
-        const year =
-            date.getFullYear();
-
-
-        const month =
-            String(
-                date.getMonth() + 1
-            ).padStart(2, "0");
-
-
-        const day =
-            String(
-                date.getDate()
-            ).padStart(2, "0");
-
-
-        return `${year}-${month}-${day}`;
-
-    }
-
-
-    // =====================================================
-    // PARSE DATE WITHOUT TIMEZONE PROBLEMS
-    // =====================================================
-
-    function parseInputDate(value) {
+    function formatDate(
+        value
+    ) {
 
         if (!value) {
-
-            return null;
-
+            return "—";
         }
-
-
-        const parts =
-            value.split("-");
-
-
-        if (parts.length !== 3) {
-
-            return null;
-
-        }
-
-
-        const year =
-            Number(parts[0]);
-
-
-        const month =
-            Number(parts[1]) - 1;
-
-
-        const day =
-            Number(parts[2]);
 
 
         const date =
             new Date(
-                year,
-                month,
-                day
+                value
             );
 
 
@@ -2022,54 +3994,94 @@ document.addEventListener("DOMContentLoaded", function () {
             )
         ) {
 
-            return null;
+            return String(
+                value
+            );
 
         }
 
 
-        return date;
+        return date.toLocaleDateString(
+            "en-GB",
+            {
+                day:
+                    "2-digit",
+                month:
+                    "short",
+                year:
+                    "numeric"
+            }
+        );
 
     }
 
 
-    // =====================================================
-    // FORMAT DATE
-    // =====================================================
+    function formatResultDate(
+        value
+    ) {
 
-    function formatDate(date) {
-
-        if (!date) {
-
+        if (!value) {
             return "—";
+        }
+
+
+        const date =
+            new Date(
+                value
+            );
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return String(
+                value
+            );
 
         }
 
 
-        const parts =
-            String(date)
-                .split("T")[0]
-                .split("-");
+        return date.toLocaleDateString(
+            "en-GB",
+            {
+                day:
+                    "2-digit",
+                month:
+                    "short",
+                year:
+                    "numeric",
 
+                hour:
+                    "2-digit",
 
-        if (parts.length === 3) {
-
-            return `${parts[2]}/${parts[1]}/${parts[0]}`;
-
-        }
-
-
-        return date;
+                minute:
+                    "2-digit"
+            }
+        );
 
     }
 
 
-    // =====================================================
-    // SECURITY: ESCAPE HTML
-    // =====================================================
+    function escapeHtml(
+        value
+    ) {
 
-    function escapeHTML(value) {
+        if (
+            value === null ||
+            value === undefined
+        ) {
 
-        return String(value ?? "")
+            return "";
+
+        }
+
+
+        return String(
+            value
+        )
             .replace(
                 /&/g,
                 "&amp;"
@@ -2094,13 +4106,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================================
-    // INITIAL LOAD
-    // =====================================================
+    /* =========================================================
+       INITIAL LOAD
+       ========================================================= */
+
+    setDefaultAttendanceWeek();
+
 
     loadStudents();
 
 
-    setDefaultAttendanceWeek();
+    fetchTeacherResultCount();
+
+
+    loadAttendanceStats();
 
 });

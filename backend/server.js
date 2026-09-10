@@ -930,6 +930,19 @@ app.post(
 
             }
 
+            const admission =
+                admissionNumber
+                    .trim();
+
+            const name =
+                studentName
+                    .trim();
+
+
+            // ==========================================
+            // FIND STUDENT
+            // ==========================================
+
             const result =
                 await pool.query(
                     `
@@ -943,23 +956,38 @@ app.post(
                         guardian,
                         phone,
                         sex,
-                        date_of_birth
+                        date_of_birth,
+                        teacher_name
                     FROM students
                     WHERE
-                        LOWER(TRIM(registration_number))
+                        LOWER(
+                            REGEXP_REPLACE(
+                                TRIM(registration_number),
+                                '\\s+',
+                                '',
+                                'g'
+                            )
+                        )
                         =
-                        LOWER(TRIM($1))
-                    AND
-                        LOWER(TRIM(student_name))
-                        =
-                        LOWER(TRIM($2))
+                        LOWER(
+                            REGEXP_REPLACE(
+                                TRIM($1),
+                                '\\s+',
+                                '',
+                                'g'
+                            )
+                        )
                     LIMIT 1
                     `,
                     [
-                        admissionNumber,
-                        studentName
+                        admission
                     ]
                 );
+
+
+            // ==========================================
+            // ADMISSION NUMBER NOT FOUND
+            // ==========================================
 
             if (
                 result.rows.length === 0
@@ -968,19 +996,72 @@ app.post(
                 return res.status(401).json({
                     success: false,
                     message:
-                        "Student information not found. Please check your admission number and name."
+                        "Admission number not found. Please check your admission number."
                 });
 
             }
 
+
             const student =
                 result.rows[0];
 
+
+            // ==========================================
+            // NORMALIZE STUDENT NAMES
+            // ==========================================
+
+            function normalizeName(value) {
+
+                return String(value || "")
+                    .trim()
+                    .toLowerCase()
+                    .replace(/\s+/g, " ");
+
+            }
+
+
+            const databaseName =
+                normalizeName(
+                    student.student_name
+                );
+
+            const enteredName =
+                normalizeName(
+                    name
+                );
+
+
+            // ==========================================
+            // CHECK STUDENT NAME
+            // ==========================================
+
+            if (
+                databaseName !==
+                enteredName
+            ) {
+
+                return res.status(401).json({
+                    success: false,
+                    message:
+                        "The admission number was found, but the student name does not match the school record."
+                });
+
+            }
+
+
+            // ==========================================
+            // SUCCESS
+            // ==========================================
+
             return res.status(200).json({
+
                 success: true,
+
                 message:
                     "Student login successful.",
+
                 student: {
+
                     id:
                         student.id,
 
@@ -1009,8 +1090,13 @@ app.post(
                         student.sex,
 
                     dateOfBirth:
-                        student.date_of_birth
+                        student.date_of_birth,
+
+                    teacherName:
+                        student.teacher_name
+
                 }
+
             });
 
         }

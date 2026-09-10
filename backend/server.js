@@ -902,6 +902,136 @@ app.get(
         }
     }
 );
+// =====================================================
+// STUDENT PORTAL LOGIN
+// =====================================================
+
+app.post(
+    "/api/student/login",
+    async function (req, res) {
+
+        try {
+
+            const {
+                admissionNumber,
+                studentName
+            } = req.body;
+
+            if (
+                !admissionNumber ||
+                !studentName
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Admission number and student name are required."
+                });
+
+            }
+
+            const result =
+                await pool.query(
+                    `
+                    SELECT
+                        id,
+                        student_name,
+                        registration_number,
+                        serial_number,
+                        student_class,
+                        address,
+                        guardian,
+                        phone,
+                        sex,
+                        date_of_birth
+                    FROM students
+                    WHERE
+                        LOWER(TRIM(registration_number))
+                        =
+                        LOWER(TRIM($1))
+                    AND
+                        LOWER(TRIM(student_name))
+                        =
+                        LOWER(TRIM($2))
+                    LIMIT 1
+                    `,
+                    [
+                        admissionNumber,
+                        studentName
+                    ]
+                );
+
+            if (
+                result.rows.length === 0
+            ) {
+
+                return res.status(401).json({
+                    success: false,
+                    message:
+                        "Student information not found. Please check your admission number and name."
+                });
+
+            }
+
+            const student =
+                result.rows[0];
+
+            return res.status(200).json({
+                success: true,
+                message:
+                    "Student login successful.",
+                student: {
+                    id:
+                        student.id,
+
+                    name:
+                        student.student_name,
+
+                    admissionNumber:
+                        student.registration_number,
+
+                    serialNumber:
+                        student.serial_number,
+
+                    studentClass:
+                        student.student_class,
+
+                    address:
+                        student.address,
+
+                    guardian:
+                        student.guardian,
+
+                    phone:
+                        student.phone,
+
+                    sex:
+                        student.sex,
+
+                    dateOfBirth:
+                        student.date_of_birth
+                }
+            });
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Student portal login error:",
+                error
+            );
+
+            return res.status(500).json({
+                success: false,
+                message:
+                    "Unable to login to student portal."
+            });
+
+        }
+
+    }
+);
 
 
 // =====================================================

@@ -1,100 +1,214 @@
 // ========================================
-// STUDENT LOGIN
+// STUDENT PORTAL LOGIN
 // ========================================
 
-const loginForm = document.getElementById("studentLoginForm");
+const loginForm =
+    document.getElementById(
+        "studentLoginForm"
+    );
+
+const STUDENT_API_URL =
+    "https://lagos-state-model-college-backend.onrender.com";
+
 
 if (loginForm) {
 
-    loginForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const admissionNumber =
-            document.getElementById("admission-number").value.trim();
+            const admissionNumber =
+                document
+                    .getElementById(
+                        "admission-number"
+                    )
+                    .value
+                    .trim();
 
-        const studentName =
-            document.getElementById("student-name").value.trim();
+            const studentName =
+                document
+                    .getElementById(
+                        "student-name"
+                    )
+                    .value
+                    .trim();
 
 
-        if (admissionNumber === "" || studentName === "") {
+            if (
+                !admissionNumber ||
+                !studentName
+            ) {
 
-            alert("Please enter your admission number and name.");
+                alert(
+                    "Please enter your admission number and name."
+                );
 
-            return;
+                return;
+            }
+
+
+            const loginButton =
+                loginForm.querySelector(
+                    "button[type='submit']"
+                );
+
+
+            if (loginButton) {
+
+                loginButton.disabled =
+                    true;
+
+                loginButton.textContent =
+                    "Checking...";
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${STUDENT_API_URL}/api/student/login`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    admissionNumber:
+                                        admissionNumber,
+
+                                    studentName:
+                                        studentName
+                                })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    alert(
+                        data.message ||
+                        "Student information was not found."
+                    );
+
+                    return;
+                }
+
+
+                // =====================================
+                // SAVE VERIFIED STUDENT INFORMATION
+                // =====================================
+
+                const student =
+                    data.student;
+
+
+                localStorage.setItem(
+                    "loggedInStudent",
+                    JSON.stringify({
+                        id:
+                            student.id,
+
+                        name:
+                            student.name,
+
+                        admissionNumber:
+                            student.admissionNumber,
+
+                        serialNumber:
+                            student.serialNumber,
+
+                        studentClass:
+                            student.studentClass,
+
+                        address:
+                            student.address,
+
+                        guardian:
+                            student.guardian,
+
+                        phone:
+                            student.phone,
+
+                        sex:
+                            student.sex,
+
+                        dateOfBirth:
+                            student.dateOfBirth
+                    })
+                );
+
+
+                sessionStorage.setItem(
+                    "admissionNumber",
+                    student.admissionNumber
+                );
+
+
+                sessionStorage.setItem(
+                    "studentName",
+                    student.name
+                );
+
+
+                sessionStorage.setItem(
+                    "studentClass",
+                    student.studentClass
+                );
+
+
+                // =====================================
+                // OPEN STUDENT RESULT PORTAL
+                // =====================================
+
+                window.location.href =
+                    "results.html";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Student login error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to the school server. Please try again."
+                );
+
+            }
+
+            finally {
+
+                if (loginButton) {
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Login";
+                }
+
+            }
+
         }
-
-
-        // Save student information
-        sessionStorage.setItem(
-            "admissionNumber",
-            admissionNumber
-        );
-
-        sessionStorage.setItem(
-            "studentName",
-            studentName
-        );
-
-
-        // Also save it for the result system
-        localStorage.setItem(
-            "loggedInStudent",
-            JSON.stringify({
-                name: studentName,
-                admissionNumber: admissionNumber
-            })
-        );
-
-
-        // Go to the result page
-        window.location.href = "results.html";
-
-    });
+    );
 
 }
-
-
-// ========================================
-// DISPLAY STUDENT INFORMATION ON RESULT
-// ========================================
-
-const resultStudentName =
-    document.getElementById("studentName");
-
-const resultAdmissionNumber =
-    document.getElementById("admissionNumber");
-
-const resultStudentClass =
-    document.getElementById("studentClass");
-
-const resultStudentTerm =
-    document.getElementById("studentTerm");
-
-
-if (
-    resultStudentName &&
-    resultAdmissionNumber
-) {
-
-    const loggedInStudent =
-        JSON.parse(
-            localStorage.getItem("loggedInStudent")
-        );
-
-
-    if (loggedInStudent) {
-
-        resultStudentName.textContent =
-            loggedInStudent.name;
-
-        resultAdmissionNumber.textContent =
-            loggedInStudent.admissionNumber;
-
-    }
-
-}
-
 
 // ========================================
 // STAFF LOGIN

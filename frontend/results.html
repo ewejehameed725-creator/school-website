@@ -351,14 +351,15 @@
 
                     try {
 
-                        const response =
-                            await fetch(
-                                `${API_URL}/api/results/${encodeURIComponent(
-                                    loggedInStudent.admissionNumber
-                                )}/${encodeURIComponent(
-                                    term
-                                )}`
-                            );
+                        const API_URL =
+    "https://lagos-state-model-college-backend.onrender.com";
+
+const response =
+    await fetch(
+        `${API_URL}/api/results/${encodeURIComponent(
+            loggedInStudent.admissionNumber
+        )}/${encodeURIComponent(term)}`
+    );
 
 
                         const data =

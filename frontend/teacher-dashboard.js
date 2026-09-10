@@ -1904,35 +1904,36 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     
-        teacherResultsTableBody.innerHTML = `
-            <tr>
+        teacherResultsTableBody.innerHTML =
+            `<tr>
                 <td colspan="8" style="text-align:center;">
                     Loading results...
                 </td>
-            </tr>
-        `;
+            </tr>`;
     
         if (deletedTeacherResultsTableBody) {
-            deletedTeacherResultsTableBody.innerHTML = `
-                <tr>
+    
+            deletedTeacherResultsTableBody.innerHTML =
+                `<tr>
                     <td colspan="8" style="text-align:center;">
-                        Loading deleted results...
+                        Loading...
                     </td>
-                </tr>
-            `;
+                </tr>`;
+    
         }
+    
     
         try {
     
-            // =============================================
-            // LOAD ALL RESULTS FROM BACKEND
-            // =============================================
+            const response =
+                await fetch(
+                    `${API_URL}/api/results/manage`
+                );
     
-            const response = await fetch(
-                `${API_URL}/api/results/manage`
-            );
     
-            const data = await response.json();
+            const data =
+                await response.json();
+    
     
             if (!response.ok) {
     
@@ -1944,65 +1945,72 @@ document.addEventListener("DOMContentLoaded", function () {
     
             }
     
-            let results = Array.isArray(data.results)
-                ? data.results
-                : [];
     
-            // =============================================
+            let results =
+                Array.isArray(data.results)
+                    ? data.results
+                    : [];
+    
+    
+            // ==========================================
             // SHOW ONLY THIS TEACHER'S CLASS
-            // =============================================
+            // ==========================================
     
             if (teacherClass) {
     
-                const currentClass =
+                const normalizedClass =
                     teacherClass
                         .trim()
                         .toLowerCase();
     
-                results = results.filter(function (result) {
     
-                    const resultClass =
-                        String(
-                            result.student_class || ""
-                        )
-                        .trim()
-                        .toLowerCase();
+                results =
+                    results.filter(
+                        function (result) {
     
-                    return resultClass === currentClass;
+                            return String(
+                                result.student_class || ""
+                            )
+                                .trim()
+                                .toLowerCase()
+                                ===
+                                normalizedClass;
     
-                });
+                        }
+                    );
     
             }
     
-            // =============================================
-            // ACTIVE / DELETED RESULTS
-            // =============================================
     
             const activeResults =
-                results.filter(function (result) {
+                results.filter(
+                    function (result) {
     
-                    return !result.deleted_at;
+                        return !result.deleted_at;
     
-                });
+                    }
+                );
+    
     
             const deletedResults =
-                results.filter(function (result) {
+                results.filter(
+                    function (result) {
     
-                    return !!result.deleted_at;
+                        return !!result.deleted_at;
     
-                });
+                    }
+                );
     
-            // =============================================
-            // DISPLAY
-            // =============================================
     
             displayTeacherResults(
                 activeResults
             );
     
+    
             displayDeletedTeacherResults(
                 deletedResults
             );
+    
     
         }
     
@@ -2013,38 +2021,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 error
             );
     
-            teacherResultsTableBody.innerHTML = `
-                <tr>
-                    <td
-                        colspan="8"
-                        style="
-                            text-align:center;
-                            color:#dc2626;
-                            padding:20px;
-                        "
-                    >
+    
+            teacherResultsTableBody.innerHTML =
+                `<tr>
+                    <td colspan="8" style="text-align:center;">
                         Unable to load results.
-                        Please try again.
                     </td>
-                </tr>
-            `;
+                </tr>`;
+    
     
             if (deletedTeacherResultsTableBody) {
     
-                deletedTeacherResultsTableBody.innerHTML = `
-                    <tr>
-                        <td
-                            colspan="8"
-                            style="
-                                text-align:center;
-                                color:#dc2626;
-                                padding:20px;
-                            "
-                        >
+                deletedTeacherResultsTableBody.innerHTML =
+                    `<tr>
+                        <td colspan="8" style="text-align:center;">
                             Unable to load deleted results.
                         </td>
-                    </tr>
-                `;
+                    </tr>`;
     
             }
     

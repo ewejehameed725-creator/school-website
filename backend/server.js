@@ -2458,7 +2458,7 @@ app.get(
 
 
 // =====================================================
-// GET ONE STUDENT RESULT
+// GET STUDENT RESULT
 // =====================================================
 
 app.get(
@@ -2467,20 +2467,58 @@ app.get(
 
         try {
 
-            const {
-                admissionNumber,
-                term
-            } = req.params;
+            await ensureResultColumns();
+
+
+            const admissionNumber =
+                String(
+                    req.params.admissionNumber || ""
+                ).trim();
+
+            const term =
+                String(
+                    req.params.term || ""
+                ).trim();
+
+
+            if (
+                !admissionNumber ||
+                !term
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Admission number and term are required."
+                });
+
+            }
+
 
             const result =
                 await pool.query(
                     `
                     SELECT *
                     FROM results
-                    WHERE LOWER(admission_number)
-                        = LOWER($1)
-                    AND term = $2
-                    AND deleted_at IS NULL
+                    WHERE
+                        LOWER(
+                            TRIM(admission_number)
+                        )
+                        =
+                        LOWER(
+                            TRIM($1)
+                        )
+                    AND
+                        LOWER(
+                            TRIM(term)
+                        )
+                        =
+                        LOWER(
+                            TRIM($2)
+                        )
+                    AND
+                        deleted_at IS NULL
+                    ORDER BY uploaded_at DESC
                     LIMIT 1
                     `,
                     [
@@ -2489,6 +2527,7 @@ app.get(
                     ]
                 );
 
+
             if (
                 result.rows.length === 0
             ) {
@@ -2496,35 +2535,49 @@ app.get(
                 return res.status(404).json({
                     success: false,
                     message:
-                        "Result not found."
+                        "No result has been published for this admission number and term."
                 });
+
             }
 
-            res.json({
+
+            return res.json({
+
                 success: true,
+
                 result:
                     result.rows[0]
+
             });
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.error(
                 "Get student result error:",
-                error.message
+                error
             );
 
-            res.status(500).json({
+            return res.status(500).json({
+
                 success: false,
+
                 message:
-                    "Unable to get student result."
+                    "Unable to get student result.",
+
+                error:
+                    error.message
+
             });
+
         }
+
     }
 );
 
-
 // =====================================================
-// UPLOAD / REPLACE RESULT
+// UPLOAD / REPLACE STUDENT RESULT
 // =====================================================
 
 app.post(
@@ -2532,6 +2585,10 @@ app.post(
     async function (req, res) {
 
         try {
+
+            // Make absolutely sure the result columns exist
+            await ensureResultColumns();
+
 
             const {
                 studentName,
@@ -2545,6 +2602,10 @@ app.post(
                 teacherName
             } = req.body;
 
+
+            // ==========================================
+            // VALIDATION
+            // ==========================================
 
             if (
                 !studentName ||
@@ -2560,12 +2621,29 @@ app.post(
                     message:
                         "Please provide all result information."
                 });
+
             }
 
 
-            // ---------------------------------------------
-            // NORMALIZE TEACHER ID
-            // ---------------------------------------------
+            const cleanStudentName =
+                String(studentName).trim();
+
+            const cleanAdmissionNumber =
+                String(admissionNumber).trim();
+
+            const cleanStudentClass =
+                String(studentClass).trim();
+
+            const cleanTerm =
+                String(term).trim();
+
+            const cleanFileName =
+                String(fileName).trim();
+
+
+            // ==========================================
+            // TEACHER ID
+            // ==========================================
 
             let validTeacherId = null;
 
@@ -2579,35 +2657,49 @@ app.post(
                     Number(teacherId);
 
                 if (
-                    Number.isInteger(
-                        parsedTeacherId
-                    ) &&
+                    Number.isInteger(parsedTeacherId) &&
                     parsedTeacherId > 0
                 ) {
 
                     validTeacherId =
                         parsedTeacherId;
+
                 }
+
             }
 
 
-            // ---------------------------------------------
-            // CHECK EXISTING RESULT
-            // ---------------------------------------------
+            // ==========================================
+            // CHECK IF RESULT ALREADY EXISTS
+            // Same student + same term = replace
+            // ==========================================
 
             const existing =
                 await pool.query(
                     `
                     SELECT id
                     FROM results
-                    WHERE LOWER(admission_number)
-                        = LOWER($1)
-                    AND term = $2
+                    WHERE
+                        LOWER(
+                            TRIM(admission_number)
+                        )
+                        =
+                        LOWER(
+                            TRIM($1)
+                        )
+                    AND
+                        LOWER(
+                            TRIM(term)
+                        )
+                        =
+                        LOWER(
+                            TRIM($2)
+                        )
                     LIMIT 1
                     `,
                     [
-                        admissionNumber.trim(),
-                        term
+                        cleanAdmissionNumber,
+                        cleanTerm
                     ]
                 );
 
@@ -2615,9 +2707,9 @@ app.post(
             let result;
 
 
-            // ---------------------------------------------
+            // ==========================================
             // REPLACE EXISTING RESULT
-            // ---------------------------------------------
+            // ==========================================
 
             if (
                 existing.rows.length > 0
@@ -2643,11 +2735,11 @@ app.post(
                         RETURNING *
                         `,
                         [
-                            studentName.trim(),
-                            admissionNumber.trim(),
-                            studentClass.trim(),
-                            term,
-                            fileName,
+                            cleanStudentName,
+                            cleanAdmissionNumber,
+                            cleanStudentClass,
+                            cleanTerm,
+                            cleanFileName,
                             fileType || null,
                             fileData,
                             validTeacherId,
@@ -2658,9 +2750,10 @@ app.post(
 
             }
 
-            // ---------------------------------------------
+
+            // ==========================================
             // CREATE NEW RESULT
-            // ---------------------------------------------
+            // ==========================================
 
             else {
 
@@ -2698,21 +2791,26 @@ app.post(
                         RETURNING *
                         `,
                         [
-                            studentName.trim(),
-                            admissionNumber.trim(),
-                            studentClass.trim(),
-                            term,
-                            fileName,
+                            cleanStudentName,
+                            cleanAdmissionNumber,
+                            cleanStudentClass,
+                            cleanTerm,
+                            cleanFileName,
                             fileType || null,
                             fileData,
                             validTeacherId,
                             teacherName || null
                         ]
                     );
+
             }
 
 
-            res.status(201).json({
+            // ==========================================
+            // SUCCESS
+            // ==========================================
+
+            return res.status(201).json({
 
                 success: true,
 
@@ -2723,17 +2821,31 @@ app.post(
 
                 result:
                     result.rows[0]
+
             });
 
+        }
 
-        } catch (error) {
+        catch (error) {
 
             console.error(
-                "Upload result error:",
-                error.message
+                "================================="
             );
 
-            res.status(500).json({
+            console.error(
+                "RESULT UPLOAD ERROR"
+            );
+
+            console.error(
+                error
+            );
+
+            console.error(
+                "================================="
+            );
+
+
+            return res.status(500).json({
 
                 success: false,
 
@@ -2742,11 +2854,13 @@ app.post(
 
                 error:
                     error.message
+
             });
+
         }
+
     }
 );
-
 
 // =====================================================
 // DELETE RESULT / MOVE TO TRASH

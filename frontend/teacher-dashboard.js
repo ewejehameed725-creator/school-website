@@ -1903,165 +1903,141 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!teacherResultsTableBody) {
             return;
         }
-
-
+    
         teacherResultsTableBody.innerHTML = `
             <tr>
-                <td
-                    colspan="8"
-                    style="text-align:center;"
-                >
+                <td colspan="8" style="text-align:center;">
                     Loading results...
                 </td>
             </tr>
         `;
-
-
+    
         if (deletedTeacherResultsTableBody) {
-
             deletedTeacherResultsTableBody.innerHTML = `
                 <tr>
-                    <td
-                        colspan="7"
-                        style="text-align:center;"
-                    >
-                        Loading...
+                    <td colspan="8" style="text-align:center;">
+                        Loading deleted results...
                     </td>
                 </tr>
             `;
-
         }
-
-
+    
         try {
-
-            const params =
-                new URLSearchParams();
-
-
-            if (teacherClass) {
-
-                params.set(
-                    "studentClass",
-                    teacherClass
-                );
-
-            }
-
-
-            if (teacherId) {
-
-                params.set(
-                    "teacherId",
-                    teacherId
-                );
-
-            }
-
-
-            params.set(
-                "includeDeleted",
-                "true"
+    
+            // =============================================
+            // LOAD ALL RESULTS FROM BACKEND
+            // =============================================
+    
+            const response = await fetch(
+                `${API_URL}/api/results/manage`
             );
-
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/results?${params.toString()}`
-                );
-
-
-            const data =
-                await response.json();
-
-
+    
+            const data = await response.json();
+    
             if (!response.ok) {
-
+    
                 throw new Error(
-                    data.message ||
                     data.error ||
+                    data.message ||
                     "Unable to load results."
                 );
-
+    
             }
-
-
-            const allResults =
-                data.results ||
-                data.data ||
-                [];
-
-
+    
+            let results = Array.isArray(data.results)
+                ? data.results
+                : [];
+    
+            // =============================================
+            // SHOW ONLY THIS TEACHER'S CLASS
+            // =============================================
+    
+            if (teacherClass) {
+    
+                const currentClass =
+                    teacherClass
+                        .trim()
+                        .toLowerCase();
+    
+                results = results.filter(function (result) {
+    
+                    const resultClass =
+                        String(
+                            result.student_class || ""
+                        )
+                        .trim()
+                        .toLowerCase();
+    
+                    return resultClass === currentClass;
+    
+                });
+    
+            }
+    
+            // =============================================
+            // ACTIVE / DELETED RESULTS
+            // =============================================
+    
             const activeResults =
-                allResults.filter(
-                    function (result) {
-
-                        return !result.deleted_at;
-
-                    }
-                );
-
-
+                results.filter(function (result) {
+    
+                    return !result.deleted_at;
+    
+                });
+    
             const deletedResults =
-                allResults.filter(
-                    function (result) {
-
-                        return Boolean(
-                            result.deleted_at
-                        );
-
-                    }
-                );
-
-
+                results.filter(function (result) {
+    
+                    return !!result.deleted_at;
+    
+                });
+    
+            // =============================================
+            // DISPLAY
+            // =============================================
+    
             displayTeacherResults(
                 activeResults
             );
-
-
+    
             displayDeletedTeacherResults(
                 deletedResults
             );
-
-
-            updateResultCount(
-                activeResults.length
-            );
-
-
-        } catch (error) {
-
+    
+        }
+    
+        catch (error) {
+    
             console.error(
                 "Load teacher results error:",
                 error
             );
-
-
+    
             teacherResultsTableBody.innerHTML = `
                 <tr>
                     <td
                         colspan="8"
                         style="
                             text-align:center;
-                            color:#b91c1c;
+                            color:#dc2626;
                             padding:20px;
                         "
                     >
                         Unable to load results.
+                        Please try again.
                     </td>
                 </tr>
             `;
-
-
+    
             if (deletedTeacherResultsTableBody) {
-
+    
                 deletedTeacherResultsTableBody.innerHTML = `
                     <tr>
                         <td
-                            colspan="7"
+                            colspan="8"
                             style="
                                 text-align:center;
-                                color:#b91c1c;
+                                color:#dc2626;
                                 padding:20px;
                             "
                         >
@@ -2069,13 +2045,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         </td>
                     </tr>
                 `;
-
+    
             }
-
+    
         }
-
+    
     }
-
 
     function displayTeacherResults(results) {
 

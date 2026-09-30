@@ -795,6 +795,152 @@ async function ensureStudentColumns() {
     }
 
 }
+// =====================================================
+// TEACHER FORGOT PASSWORD
+// =====================================================
+
+app.post(
+    "/api/staff/forgot-password",
+    async function (req, res) {
+
+        try {
+
+            const {
+                username,
+                phone,
+                newPassword
+            } = req.body;
+
+
+            // -----------------------------------------
+            // VALIDATION
+            // -----------------------------------------
+
+            if (
+                !username ||
+                !phone ||
+                !newPassword
+            ) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Username, phone number and new password are required."
+                });
+
+            }
+
+
+            if (newPassword.length < 6) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Password must be at least 6 characters."
+                });
+
+            }
+
+
+            // -----------------------------------------
+            // FIND TEACHER
+            // -----------------------------------------
+
+            const result = await pool.query(
+                `
+                SELECT
+                    id,
+                    full_name,
+                    username,
+                    phone,
+                    role
+                FROM staff
+                WHERE LOWER(username) = LOWER($1)
+                  AND phone = $2
+                  AND role = 'teacher'
+                LIMIT 1
+                `,
+                [
+                    username.trim(),
+                    phone.trim()
+                ]
+            );
+
+
+            // -----------------------------------------
+            // TEACHER NOT FOUND
+            // -----------------------------------------
+
+            if (result.rows.length === 0) {
+
+                return res.status(404).json({
+                    success: false,
+                    message:
+                        "Username and phone number do not match our records."
+                });
+
+            }
+
+
+            const teacher = result.rows[0];
+
+
+            // -----------------------------------------
+            // HASH NEW PASSWORD
+            // -----------------------------------------
+
+            const newPasswordHash =
+                await hashPassword(
+                    newPassword
+                );
+
+
+            // -----------------------------------------
+            // UPDATE PASSWORD
+            // -----------------------------------------
+
+            await pool.query(
+                `
+                UPDATE staff
+                SET password_hash = $1
+                WHERE id = $2
+                `,
+                [
+                    newPasswordHash,
+                    teacher.id
+                ]
+            );
+
+
+            // -----------------------------------------
+            // SUCCESS
+            // -----------------------------------------
+
+            return res.json({
+                success: true,
+                message:
+                    "Password reset successfully."
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Forgot password error:",
+                error
+            );
+
+
+            return res.status(500).json({
+                success: false,
+                message:
+                    "Unable to reset password."
+            });
+
+        }
+
+    }
+);
 
 
 // =====================================================

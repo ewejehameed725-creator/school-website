@@ -2685,72 +2685,75 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    async function restoreTeacherResult(
-        id
-    ) {
-
-        const confirmed =
-            confirm(
-                "Restore this result?"
-            );
-
-
+    async function restoreTeacherResult(resultId) {
+        if (!resultId) {
+            alert("Result ID is missing.");
+            return;
+        }
+    
+        const confirmed = confirm(
+            "Are you sure you want to restore this result?"
+        );
+    
         if (!confirmed) {
             return;
         }
-
-
+    
         try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/api/results/${encodeURIComponent(
-                        id
-                    )}/restore`,
-                    {
-                        method:
-                            "PATCH"
+            const response = await fetch(
+                `${API_URL}/api/results/${encodeURIComponent(resultId)}/restore`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
                     }
+                }
+            );
+    
+            const responseText = await response.text();
+    
+            let data;
+    
+            try {
+                data = JSON.parse(responseText);
+            } catch (jsonError) {
+                console.error(
+                    "Restore returned non-JSON response:",
+                    responseText
                 );
-
-
-            const data =
-                await response.json();
-
-
-            if (!response.ok) {
-
+    
                 throw new Error(
-                    data.message ||
+                    `Server returned an invalid response (${response.status}).`
+                );
+            }
+    
+            if (!response.ok || !data.success) {
+                throw new Error(
                     data.error ||
+                    data.message ||
                     "Unable to restore result."
                 );
-
             }
-
-
+    
             alert(
-                "Result restored successfully."
+                data.message ||
+                "Result restored successfully!"
             );
-
-
+    
             await loadTeacherResults();
-
+    
         } catch (error) {
-
+    
             console.error(
                 "Restore result error:",
                 error
             );
-
-
+    
             alert(
                 error.message ||
                 "Unable to restore result."
             );
-
         }
-
     }
 
 

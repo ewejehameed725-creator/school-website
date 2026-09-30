@@ -4,10 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = document.getElementById("forgotPasswordMessage");
     const button = document.getElementById("resetPasswordButton");
 
+    const API_URL =
+        "https://lagos-state-model-college-backend.onrender.com";
+
     if (!form) return;
 
-    // CHANGE THIS ONLY IF YOUR RENDER BACKEND URL IS DIFFERENT
-    const API_URL = "https://YOUR-RENDER-BACKEND.onrender.com";
 
     function showMessage(text, type = "error") {
 
@@ -23,9 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+
     form.addEventListener("submit", async (event) => {
 
         event.preventDefault();
+
 
         const username =
             document.getElementById("forgotUsername").value.trim();
@@ -39,23 +42,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const confirmPassword =
             document.getElementById("confirmPassword").value;
 
+
         if (!username || !phone || !newPassword || !confirmPassword) {
+
             showMessage("Please fill in all fields.");
+
             return;
         }
+
 
         if (newPassword !== confirmPassword) {
+
             showMessage("The passwords do not match.");
+
             return;
         }
 
+
         if (newPassword.length < 6) {
-            showMessage("Password must be at least 6 characters.");
+
+            showMessage(
+                "Password must be at least 6 characters."
+            );
+
             return;
         }
+
 
         button.disabled = true;
         button.textContent = "Resetting Password...";
+
 
         try {
 
@@ -69,14 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     },
 
                     body: JSON.stringify({
-                        username,
-                        phone,
-                        newPassword
+                        username: username,
+                        phone: phone,
+                        newPassword: newPassword
                     })
                 }
             );
 
+
             const data = await response.json();
+
 
             if (!response.ok || !data.success) {
 
@@ -88,16 +106,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+
             showMessage(
                 "Password reset successfully. You can now log in.",
                 "success"
             );
 
+
             form.reset();
 
+
             setTimeout(() => {
-                window.location.href = "admin-login.html";
+
+                window.location.href =
+                    "admin-login.html";
+
             }, 2000);
+
 
         } catch (error) {
 
